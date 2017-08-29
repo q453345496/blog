@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="120">
+	<Properties>
+		<Property name="log_path">${sys:user.dir}/blog/log</Property>
+		<Property name="patternLayout">%d{DEFAULT} [%-5level] %t %l - %msg%n</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{DEFAULT} [%-5level] %l - %msg%n" />
+		</Console>
+		<File name="AllLog" fileName="${log_path}/all.log">
+			<PatternLayout pattern="${patternLayout}" />
+		</File>
+
+		<RollingFile name="InfoLog" fileName="${log_path}/info.log"
+			filePattern="${log_path}/info/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="WARN" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="INFO" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout pattern="${patternLayout}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="WarnLog" fileName="${log_path}/warn.log"
+			filePattern="${log_path}/warn/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="WARN" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout pattern="${patternLayout}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="ErrorLog" fileName="${log_path}/error.log"
+			filePattern="${log_path}/error/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<PatternLayout pattern="${patternLayout}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="org.springframework" level="info"></Logger>
+		<Root level="debug">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="AllLog" />
+<!-- 			<AppenderRef ref="InfoLog" /> -->
+<!-- 			<AppenderRef ref="WarnLog" /> -->
+<!-- 			<AppenderRef ref="ErrorLog" /> -->
+			<!-- <AppenderRef ref="Console" level="DEBUG" /> -->
+			<!-- <AppenderRef ref="AllLog" level="DEBUG" /> -->
+			<!-- <AppenderRef ref="InfoLog" level="INFO" /> -->
+			<!-- <AppenderRef ref="WarnLog" level="WARN" /> -->
+			<!-- <AppenderRef ref="ErrorLog" level="ERROR" /> -->
+		</Root>
+	</Loggers>
+
+</Configuration>

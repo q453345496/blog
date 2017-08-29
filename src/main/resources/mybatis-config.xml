@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="useGeneratedKeys" value="true" />
+		<!-- 使用列标签代替列名,默认true -->
+		<setting name="useColumnLabel" value="true" />
+		<!-- 是否开启自动驼峰命名规则映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的映射 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<!-- 指定 MyBatis 应如何自动映射列到字段或属性。 NONE 表示取消自动映射；PARTIAL 只会自动映射没有定义嵌套结果集映射的结果集。 
+			FULL 会自动映射任意复杂的结果集（无论是否嵌套）,默认诶PARTIAL -->
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+	</settings>
+</configuration>

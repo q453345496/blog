@@ -15,11 +15,12 @@ import org.apache.commons.net.ftp.FTPReply;
  * 
  */
 public class FtpAdapter {
-	private static final String HOSTNAME = "127.0.0.1";
-	private static final int PORT = 2121;
+	private static final boolean AT_HOME = false;
+	private static final String HOSTNAME = AT_HOME ? "127.0.0.1" : "192.168.15.165";
+	private static final int PORT = AT_HOME ? 2121 : 21;
 	private static final String USER_NAME = "ftper";
 	private static final String PASSWORD = "ftper";
-
+	private static final String ROOT_PATH = "xian_test";
 	private FTPClient ftpClient = null;
 
 	public FtpAdapter() {
@@ -38,6 +39,13 @@ public class FtpAdapter {
 			if (!FTPReply.isPositiveCompletion(reply)) {
 				ftpClient.disconnect();
 				throw new IOException(String.format("FTP server refused connection:[%d]", reply));
+			}
+			if (!ftpClient.changeWorkingDirectory(ROOT_PATH)) {
+				if (ftpClient.makeDirectory(ROOT_PATH)) {
+					ftpClient.changeWorkingDirectory(ROOT_PATH);
+				} else {
+					throw new IOException("makeDirectory fail");
+				}
 			}
 		} catch (Exception e) {
 			closeFtpClient(ftpClient);

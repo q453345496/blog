@@ -1,6 +1,10 @@
 UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
 UE.Editor.prototype.getActionUrl = function(action) {
+	var test = true;
 	if (action == 'config') {
+		if(test){
+			return '/blog/resources/config2.json';
+		}
 		return '/blog/resources/config.json';
 	} else if (action == 'uploadImage') {
 		return '/blog/ueditor/uploadImage';

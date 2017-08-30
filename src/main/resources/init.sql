@@ -10,8 +10,8 @@ CREATE TABLE `t_blog` (
 `right_type` int(11) DEFAULT 0,
 `click` int(11) DEFAULT 0,
 `reply` int(11) DEFAULT 0,
-`create_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-`last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`create_time` datetime NOT NULL,
+`last_update_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -24,8 +24,8 @@ CREATE TABLE `t_blog_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `name`  varchar(255) NOT NULL ,
 `rank` int(11),
-`create_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-`last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`create_time` datetime NOT NULL,
+`last_update_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -40,8 +40,8 @@ CREATE TABLE `t_journal_category` (
 `rank` int(11),
 `parent_id` int(11) NOT NULL,
 `type` int(11) NOT NULL,
-`create_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-`last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`create_time` datetime NOT NULL,
+`last_update_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB

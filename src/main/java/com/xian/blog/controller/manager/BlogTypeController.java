@@ -54,10 +54,10 @@ public class BlogTypeController {
 	public CommonResult save(BlogType blogType) {
 		try {
 			blogTypeService.save(blogType);
-			return CommonResult.success();
+			return CommonResult.success(blogType.getId());
 		} catch (Exception e) {
 			LOG.error("BlogTypeController save Error", e);
-			return CommonResult.bulid(500, e.getMessage(), null);
+			return CommonResult.fail(e);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class BlogTypeController {
 			return CommonResult.success();
 		} catch (Exception e) {
 			LOG.error("BlogTypeController update Error", e);
-			return CommonResult.bulid(500, e.getMessage(), null);
+			return CommonResult.fail(e);
 		}
 	}
 
@@ -81,7 +81,7 @@ public class BlogTypeController {
 			return CommonResult.success();
 		} catch (Exception e) {
 			LOG.error("BlogTypeController delete Error", e);
-			return CommonResult.bulid(500, e.getMessage(), null);
+			return CommonResult.fail(e);
 		}
 	}
 }

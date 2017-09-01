@@ -58,7 +58,7 @@ public class JournalCategoryController {
 			return CommonResult.success();
 		} catch (Exception e) {
 			LOG.error("BlogTypeController save Error", e);
-			return CommonResult.bulid(500, e.getMessage(), null);
+			return CommonResult.fail(e);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class JournalCategoryController {
 			return CommonResult.success();
 		} catch (Exception e) {
 			LOG.error("BlogTypeController update Error", e);
-			return CommonResult.bulid(500, e.getMessage(), null);
+			return CommonResult.fail(e);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class JournalCategoryController {
 			return CommonResult.success();
 		} catch (Exception e) {
 			LOG.error("BlogTypeController delete Error", e);
-			return CommonResult.bulid(500, e.getMessage(), null);
+			return CommonResult.fail(e);
 		}
 	}
 }

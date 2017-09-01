@@ -108,7 +108,7 @@ function saveBlog(){
 					'keyWord' : keyWord
 				},
 				function(result){
-					if(result.status==200){
+					if(result.status == 0){
 						alert("博客发布成功！");
 						closeBlog();
 					}else{

@@ -100,7 +100,7 @@ function saveBlogType(){
         },
         success: function(result){
             var result = eval('('+result+')');
-            if (result.status == 200){
+            if (result.status == 0){
                 $('#dlg').dialog('close');
                 $('#type_dg').datagrid('reload');
             } else {
@@ -118,7 +118,7 @@ function deleteBlogType(){
         $.messager.confirm('提示','真的要删除这个分类吗?',function(r){
             if (r){
                 $.post('<%=path%>/admin/blogType/delete',{id:row.id},function(result){
-                    if (result.status == 200){
+                    if (result.status == 0){
                         $('#type_dg').datagrid('reload');    // reload the user data
                     } else {
                         $.messager.show({    // show error message

@@ -1,21 +1,30 @@
 package com.xian.blog.common;
 
+import java.io.Serializable;
+
 /**
  * Date:2016年7月29日下午11:20:19
  * 
  */
-public final class CommonResult {
+public final class CommonResult implements Serializable {
+	private static final long serialVersionUID = 1L;
+	public static final int SUCCESS = 0;
+	public static final int FAIL = -1;
 	private int status;
-	private String msg;
+	private String msg = "success";
 	private Object data;
 
 	public CommonResult() {
 	}
 
 	public CommonResult(Object data) {
-		this.status = 200;
-		this.msg = "success";
+		this.status = SUCCESS;
 		this.data = data;
+	}
+	
+	public CommonResult(Throwable e) {
+		this.status = FAIL;
+		this.data = e.toString();
 	}
 
 	public CommonResult(int status, String msg, Object data) {
@@ -24,8 +33,12 @@ public final class CommonResult {
 		this.data = data;
 	}
 
-	public static CommonResult bulid(int status, String msg, Object data) {
+	private static CommonResult bulid(int status, String msg, Object data) {
 		return new CommonResult(status, msg, data);
+	}
+
+	public static CommonResult fail(Throwable e) {
+		return new CommonResult(e);
 	}
 
 	public static CommonResult success(Object data) {

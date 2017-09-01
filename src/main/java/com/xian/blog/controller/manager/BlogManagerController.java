@@ -59,10 +59,10 @@ public class BlogManagerController {
 			} else {
 				blogService.update(blog);
 			}
-			return CommonResult.success();
+			return CommonResult.success(blog.getId());
 		} catch (Exception e) {
 			LOG.error("BlogTypeController save Error", e);
-			return CommonResult.bulid(500, "save fail", e.getMessage());
+			return CommonResult.fail(e);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class BlogManagerController {
 			return CommonResult.success(blog);
 		} catch (Exception e) {
 			LOG.error("get detail Error", e);
-			return CommonResult.bulid(500, "get detail Error", e.getMessage());
+			return CommonResult.fail(e);
 		}
 	}
 

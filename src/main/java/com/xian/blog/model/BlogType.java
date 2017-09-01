@@ -1,10 +1,17 @@
 package com.xian.blog.model;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class BlogType {
 	private Long id;
 	private String name;// 标题
 	private Integer rank;// 序号
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	private Date lastUpdateTime;
+	
 	public Long getId() {
 		return id;
 	}
@@ -27,6 +34,14 @@ public class BlogType {
 
 	public void setRank(Integer rank) {
 		this.rank = rank;
+	}
+
+	public Date getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Date lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 
 }

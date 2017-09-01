@@ -13,8 +13,9 @@ public class Blog {
 	private Integer click;
 	private Integer reply;
 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTF-8")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date lastUpdateTime;
 
 	private String summary;// 摘要,内容的前n个字符

@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +27,14 @@ public class BlogService {
 	}
 
 	public int update(Blog blog) {
+		blog.setLastUpdateTime(new Date());
 		return blogDao.update(blog);
 	}
 
 	public int save(Blog blog) {
+		Date now = new Date();
+		blog.setCreateTime(now);
+		blog.setLastUpdateTime(now);
 		return blogDao.save(blog);
 	}
 

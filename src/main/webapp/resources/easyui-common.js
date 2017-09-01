@@ -41,6 +41,16 @@ function closeTab(title) {
 	}
 }
 
+function parentOpenTab(subtitle, url, icon){
+	window.parent.openTab(subtitle, url, icon);
+}
+function parentRefreshTab(subtitle, url, icon){
+	window.parent.refreshTab(subtitle, url, icon);
+}
+function parentCloseTab(subtitle, url, icon){
+	window.parent.closeTab(subtitle, url, icon);
+}
+
 function tabClose() {
 	/* 双击关闭TAB选项卡 */
 	$(".tabs-inner").dblclick(function() {

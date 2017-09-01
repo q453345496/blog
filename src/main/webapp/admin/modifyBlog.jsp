@@ -1,7 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
-	String id = request.getParameter("id");
 %>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -24,7 +23,7 @@
 <body>
 <div id="blogDetail" class="easyui-panel" title="文章内容" data-options="fit:true" style="padding: 20px;">
 	<div>
-		<input id="blogId" name="id" type="hidden" />
+		<input id="blogId" name="id" type="hidden" value="${id}"/>
 		<span class="blog">文章标题：</span>
 		<input id="title" name="title" type="text" class="easyui-textbox" data-options="prompt:'文章标题'" />
 		<span class="blog">关键字：</span>
@@ -62,21 +61,21 @@ $(function() {
             editable : false
         });
     });
-    
-    <%if(id!=null){%>
-   		ue.ready(function(){
-	    	var id = <%=id%>
-	    	$("#blogId").val(id)
+  	ue.ready(function(){
+    	var id = $("#blogId").val();
+    	if(id){
 	        $.getJSON("<%=path%>/admin/blog/"+id,function(result){
 	        	var blog = result.data;
-	        	$("#title").textbox('setValue',blog.title);
-	        	$("#keyWord").textbox('setValue',blog.keyWord);
-	        	$("#blogTypeId").combobox("setValue",blog.blogType.id);
-	        	$("#rightType").combobox("setValue",blog.rightType);
-	        	ue.setContent(blog.content);
+	        	if(blog){
+		        	$("#title").textbox('setValue',blog.title);
+		        	$("#keyWord").textbox('setValue',blog.keyWord);
+		        	$("#blogTypeId").combobox("setValue",blog.blogType.id);
+		        	$("#rightType").combobox("setValue",blog.rightType);
+		        	ue.setContent(blog.content);
+	        	}
 	        });
-	    });
-    <%}%>
+    	}
+    });
 });
 
 var ue = UE.getEditor('content',{});
@@ -119,8 +118,8 @@ function saveBlog(){
 }
 	
 function closeBlog(){
-	window.parent.refreshTab("文章列表");
-	window.parent.closeTab("写博客");
+	parentRefreshTab("文章列表");
+	parentCloseTab("写博客")
 }
 
 </script>

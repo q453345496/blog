@@ -6,8 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap type="BlogType" id="BlogTypeResult">
 		<id property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="rank" column="rank" />
+<!-- 		<result property="name" column="name" /> -->
+<!-- 		<result property="rank" column="rank" /> -->
+<!-- 		<result property="lastUpdateTime" column="lastUpdateTime" /> -->
 	</resultMap>
 
 	<select id="list" parameterType="Map" resultMap="BlogTypeResult">
@@ -35,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="save" parameterType="BlogType" useGeneratedKeys="true"
 		keyProperty="id">
-		INSERT INTO t_blog_type (name, rank) VALUES(#{name}, #{rank})
+		INSERT INTO t_blog_type (name, rank, last_update_time) VALUES(#{name}, #{rank}, #{lastUpdateTime})
 	</insert>
 
 	<update id="update" parameterType="BlogType">
@@ -47,6 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="rank != null">
 				rank = #{rank},
 			</if>
+			<if test="lastUpdateTime != null">
+				last_update_time = #{lastUpdateTime},
+			</if>
+			
 		</set>
 		WHERE id = #{id}
 	</update>

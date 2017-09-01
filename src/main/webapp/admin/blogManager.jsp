@@ -67,7 +67,7 @@ function searchBlogType(){
 }
 
 function openBlogCreateTab(){
-	window.parent.openTab('写博客','<%=path%>/admin/modifyBlog.jsp','fa fa-edit');
+	parentOpenTab('写博客','<%=path%>/admin/blog/toAdd','fa fa-edit');
 }
 function openBlogModifyTab(){
 	var selectedRows=$("#blog_dg").datagrid("getSelections");
@@ -76,7 +76,7 @@ function openBlogModifyTab(){
 		return;
 	}
 	var row=selectedRows[0];
-	window.parent.openTab('写博客','<%=path%>/admin/modifyBlog.jsp?id='+row.id,'fa fa-edit');
+	parentOpenTab('写博客','<%=path%>/admin/blog/toEdit/'+row.id,'fa fa-edit');
 }
 </script>
 

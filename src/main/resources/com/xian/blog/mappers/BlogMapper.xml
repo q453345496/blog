@@ -68,9 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_blog (title, type_id, key_word, summary, content, right_type)
+		INSERT INTO t_blog (title, type_id, key_word, summary, content, right_type, create_time, last_update_time)
 		VALUES
-		(#{title}, #{blogType.id}, #{keyWord}, #{summary}, #{content}, #{rightType})
+		(#{title}, #{blogType.id}, #{keyWord}, #{summary}, #{content}, #{rightType}, #{createTime}, #{lastUpdateTime})
 	</insert>
 
 	<update id="update" parameterType="Blog">
@@ -99,6 +99,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="reply != null ">
 				reply = #{reply},
+			</if>
+			<if test="lastUpdateTime != null ">
+				last_update_time = #{lastUpdateTime},
 			</if>
 		</set>
 		WHERE id = #{id}

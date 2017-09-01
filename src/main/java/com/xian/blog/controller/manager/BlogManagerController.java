@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.xian.blog.common.CommonResult;
 import com.xian.blog.common.DataGridResult;
@@ -78,4 +79,18 @@ public class BlogManagerController {
 		}
 	}
 
+	@RequestMapping(value="/toAdd")
+	public ModelAndView toAddPage() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/admin/modifyBlog");
+		return mv;
+	}
+
+	@RequestMapping(value = "/toEdit/{id}")
+	public ModelAndView toEditPage(@PathVariable("id") Long id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/admin/modifyBlog");
+		mv.addObject("id", id);
+		return mv;
+	}
 }

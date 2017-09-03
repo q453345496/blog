@@ -1,0 +1,44 @@
+package ${packageName}.service;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import ${packageName}.dao.${ModelDao};
+import ${packageName}.model.${Model};
+
+@Service
+@Transactional
+public class ${ModelService} {
+
+	@Resource
+	private ${Model}Dao ${modelDao};
+
+	public List<${Model}> list(Map<String, Object> map) {
+		return ${modelDao}.list(map);
+	}
+
+	public Integer getTotal(Map<String, Object> map) {
+		return ${modelDao}.getTotal(map);
+	}
+
+	public int update(${Model} ${model}) {
+		return ${modelDao}.update(${model});
+	}
+
+	public int save(${Model} ${model}) {
+		return ${modelDao}.save(${model});
+	}
+
+	public int delete(Long id) {
+		return ${modelDao}.delete(id);
+	}
+
+	public ${Model} get(Long id) {
+		return ${modelDao}.get(id);
+	}
+}

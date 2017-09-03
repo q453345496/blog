@@ -1,0 +1,21 @@
+package ${packageName}.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import ${packageName}.model.${Model};
+
+public interface ${ModelDao} {
+
+	public List<${Model}> list(Map<String, Object> map);
+
+	public Integer getTotal(Map<String, Object> map);
+
+	public int update(${Model} ${model});
+
+	public int save(${Model} ${model});
+
+	public int delete(Long id);
+
+	public ${Model} get(Long id);
+}

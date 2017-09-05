@@ -82,14 +82,14 @@ public class BlogManagerController {
 	@RequestMapping(value="/toAdd")
 	public ModelAndView toAddPage() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/admin/modifyBlog");
+		mv.setViewName("/admin/blog/modifyBlog");
 		return mv;
 	}
 
 	@RequestMapping(value = "/toEdit/{id}")
 	public ModelAndView toEditPage(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/admin/modifyBlog");
+		mv.setViewName("/admin/blog/modifyBlog");
 		mv.addObject("id", id);
 		return mv;
 	}

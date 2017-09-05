@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<jsp:include page="../common/link.jsp"></jsp:include>
+<jsp:include page="/common/link.jsp"></jsp:include>
 <title>时间就是金钱的地盘</title>
 <style type="text/css">
 .l-btn {
@@ -27,8 +27,8 @@
 				<a href="#" onclick="openTab('收入分类','<%=path%>/admin/incomeCategoryManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">收入分类</a>
 			</div>
 	        <div title="博客管理" style="padding:10px">
-				<a href="#" onclick="openTab('文章列表','<%=path%>/admin/blogManager.jsp','fa fa-file-word-o')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-word-o'" style="width: 120px;">文章列表</a>
-				<a href="#" onclick="openTab('文章分类管理','<%=path%>/admin/blogTypeManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">文章分类管理</a>
+				<a href="#" onclick="openTab('文章列表','<%=path%>/admin/blog/blogManager.jsp','fa fa-file-word-o')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-word-o'" style="width: 120px;">文章列表</a>
+				<a href="#" onclick="openTab('文章分类管理','<%=path%>/admin/blogType/blogTypeManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">文章分类管理</a>
 			</div>
 			
 	        <div title="帮助" style="padding:10px">

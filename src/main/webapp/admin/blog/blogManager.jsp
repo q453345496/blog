@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<jsp:include page="../common/link.jsp"></jsp:include>
+<jsp:include page="/common/link.jsp"></jsp:include>
 <title>文章列表</title>
 </head>
 <body>

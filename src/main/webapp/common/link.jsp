@@ -11,3 +11,6 @@
 <script src="<%=path%>/resources/jquery-easyui/jquery.easyui.min.js"></script>
 <script src="<%=path%>/resources/jquery-easyui/easyui-lang-zh_CN.js"></script>
 <script src="<%=path%>/resources/easyui-common.js"></script>
+<script type="text/javascript">
+	var basePath = "<%=path%>";
+</script>

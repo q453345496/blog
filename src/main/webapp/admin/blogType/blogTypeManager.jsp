@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<jsp:include page="../common/link.jsp"></jsp:include>
+<jsp:include page="/common/link.jsp"></jsp:include>
 <title>文章类型</title>
 <style>
     #blogTypeForm{
@@ -26,44 +26,62 @@
 </style>
 </head>
 <body>
-	<table id="blogTypeTable" style="padding:10px"></table>
-	<div id="blogTypeTableToolbar">
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="openBlogTypeDialog()">添加</a>
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="deleteBlogType()">删除</a>
-			分类名称:<input id="s_name" type="text" class="easyui-textbox"/>
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="searchBlogType()">查询</a>
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#blogTypeTableToolbar')">清空</a>
+	<table id="blogTypeDataGrid" style="padding:10px"></table>
+	<div id="blogTypeDataGridToolbar">
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="blogTypeOpenDialogFunc()">添加</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="blogTypeDeleteFunc()">删除</a>
+			名称:<input id="s_name" type="text" class="easyui-textbox"/>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="blogTypeSearchFunc()">查询</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#blogTypeDataGridToolbar')">清空</a>
 	</div>
 	<div id="blogTypeDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px"
             data-options="closed:'true', buttons:'#blogTypeDialog-buttons'">
         <form id="blogTypeForm" method="post" novalidate>
             	<input name="id" type="hidden"/>
             <div class="fitem">
-                <label>分类名称:</label>
+                <label>名称:</label>
                 <input name="name" class="easyui-textbox" data-options="required:true"/>
             </div>
             <div class="fitem">
-                <label>排序序号:</label>
+                <label>排序:</label>
                 <input name="rank" class="easyui-numberbox" value="100" data-options="required:true,min:0"/>
             </div>
         </form>
     </div>
     <div id="blogTypeDialog-buttons">
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-save'" onclick="saveBlogType()" style="width:90px">保存</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-save'" onclick="blogTypeSaveFunc()" style="width:90px">保存</a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-times'" onclick="javascript:$('#blogTypeDialog').dialog('close')" style="width:90px">关闭</a>
     </div>
 <script>
 $(function() {
-	$('#blogTypeTable').datagrid({
+	$('#blogTypeDataGrid').datagrid({
 		title : '分类列表',
-		url : '<%=path%>/admin/blogType/list',
+		url : basePath + '/admin/blogType/list',
 		columns : [[ 
 //              {field : 'ck',	checkbox : true}, 
-             {field : 'id',		title : '编号',	width:50,	align:'center'}, 
-             {field : 'name',	title : '分类名称',	width:100,	align:'center',	formatter: nameFormatter},
-             {field : 'rank',	title : '排序',	width:100,	align:'center'}
-        ]],
-        toolbar : '#blogTypeTableToolbar',
+			{
+				field : 'id',
+				title : '编号',
+				width : 50,
+				align:'center'
+			}, 
+			{
+	            field : 'name',
+	            title : '分类名称',
+	            width:100,
+	            align:'center',
+	            formatter: function(value,row,index){
+	            	return '<a href="#" onclick="blogTypeEditFunc('+index+')">'+value+'</a>';
+	            }
+			}, 
+			{
+				field : 'rank',
+				title : '排序',
+				width:100,
+				align:'center'
+			}
+		]],
+        toolbar : '#blogTypeDataGridToolbar',
         method : 'GET',
         singleSelect : true,
         pagination : true,
@@ -73,29 +91,26 @@ $(function() {
 	});
 });
 
-function nameFormatter(value,row,index){
-	return '<a href="#" onclick="editBlogType('+index+')">'+value+'</a>';
-}
+var blogTypeSubmitUrl;
 
-var url;
-function openBlogTypeDialog(){
+function blogTypeOpenDialogFunc(){
     $('#blogTypeDialog').dialog('open').dialog('center').dialog('setTitle','添加文章分类信息');
     $('#blogTypeForm').form('clear');
-    url="blogType/save";
+    blogTypeSubmitUrl = basePath + "/admin/blogType/save";
 }
 
-function editBlogType(index){
-	$('#blogTypeTable').datagrid('selectRow', index);
-    var row = $('#blogTypeTable').datagrid('getSelected');
+function blogTypeEditFunc(index){
+	$('#blogTypeDataGrid').datagrid('selectRow', index);
+    var row = $('#blogTypeDataGrid').datagrid('getSelected');
     if (row){
         $('#blogTypeDialog').dialog('open').dialog('center').dialog('setTitle','修改文章分类信息');
         $('#blogTypeForm').form('load',row);
-        url="<%=path%>/admin/blogType/update";
+        blogTypeSubmitUrl = basePath + "/admin/blogType/update";
     }
 }
-function saveBlogType(){
+function blogTypeSaveFunc(){
     $('#blogTypeForm').form('submit',{
-        url: url,
+        url: blogTypeSubmitUrl,
         onSubmit: function(){
             return $(this).form('validate');
         },
@@ -103,7 +118,7 @@ function saveBlogType(){
             var result = eval('('+result+')');
             if (result.status == 0){
                 $('#blogTypeDialog').dialog('close');
-                $('#blogTypeTable').datagrid('reload');
+                $('#blogTypeDataGrid').datagrid('reload');
             } else {
                 $.messager.show({
                     title: '错误',
@@ -113,14 +128,14 @@ function saveBlogType(){
         }
     });
 }
-function deleteBlogType(){
-    var row = $('#blogTypeTable').datagrid('getSelected');
+function blogTypeDeleteFunc(){
+    var row = $('#blogTypeDataGrid').datagrid('getSelected');
     if (row){
         $.messager.confirm('提示','真的要删除这个分类吗?',function(r){
             if (r){
-                $.post('<%=path%>/admin/blogType/delete',{id:row.id},function(result){
+                $.post(basePath + '/admin/blogType/delete',{id:row.id},function(result){
                     if (result.status == 0){
-                        $('#blogTypeTable').datagrid('reload');
+                        $('#blogTypeDataGrid').datagrid('reload');
                     } else {
                         $.messager.show({
                             title: '错误',
@@ -133,8 +148,8 @@ function deleteBlogType(){
     }
 }
 
-function searchBlogType(){
-	$('#blogTypeTable').datagrid({
+function blogTypeSearchFunc(){
+	$('#blogTypeDataGrid').datagrid({
 		queryParams: {
 			name: $("#s_name").val(),
 		}

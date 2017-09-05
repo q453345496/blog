@@ -10,7 +10,8 @@ public final class CommonResult implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final int SUCCESS = 0;
 	public static final int FAIL = -1;
-	private int status;
+	
+	private int status = SUCCESS;
 	private String msg = "success";
 	private Object data;
 
@@ -21,7 +22,7 @@ public final class CommonResult implements Serializable {
 		this.status = SUCCESS;
 		this.data = data;
 	}
-	
+
 	public CommonResult(Throwable e) {
 		this.status = FAIL;
 		this.data = e.toString();
@@ -33,10 +34,6 @@ public final class CommonResult implements Serializable {
 		this.data = data;
 	}
 
-	private static CommonResult bulid(int status, String msg, Object data) {
-		return new CommonResult(status, msg, data);
-	}
-
 	public static CommonResult fail(Throwable e) {
 		return new CommonResult(e);
 	}
@@ -46,7 +43,7 @@ public final class CommonResult implements Serializable {
 	}
 
 	public static CommonResult success() {
-		return new CommonResult(null);
+		return new CommonResult();
 	}
 
 	public int getStatus() {

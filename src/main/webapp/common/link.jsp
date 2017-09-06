@@ -14,3 +14,8 @@
 <script type="text/javascript">
 	var basePath = "<%=path%>";
 </script>
+<style>
+table.input tr td:nth-child(1){
+	text-align: right;
+}
+</style>

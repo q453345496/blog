@@ -1,0 +1,149 @@
+\<%@ page language="java" pageEncoding="UTF-8"%>
+\<%
+	String path = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<jsp:include page="/common/link.jsp"></jsp:include>
+<title>文章类型</title>
+</head>
+<body>
+	<table id="${model}DataGrid" style="padding:10px"></table>
+	<div id="${model}DataGridToolbar">
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="${model}OpenDialogFunc()">添加</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="${model}DeleteFunc()">删除</a>
+			名称:<input id="s_name" type="text" class="easyui-textbox"/>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="${model}SearchFunc()">查询</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#${model}DataGridToolbar')">清空</a>
+	</div>
+	<div id="${model}Dialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#${model}Dialog-buttons'">
+		<form id="${model}Form" method="post" novalidate>
+			<table class="input">
+				<tr>
+					<td width="30%">名称:</td>
+					<td>
+						<input name="id" type="hidden"/>
+						<input name="name" class="easyui-textbox" data-options="required:true"/>
+					</td>
+				</tr>
+				<tr>
+					<td>排序:</td>
+					<td>
+						<input name="rank" class="easyui-numberbox" value="100" data-options="required:true,min:0"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div id="${model}Dialog-buttons">
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-save'" onclick="${model}SaveFunc()" style="width:90px">保存</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-times'" onclick="javascript:$('#${model}Dialog').dialog('close')" style="width:90px">关闭</a>
+	</div>
+<script>
+$(function() {
+	$('#${model}DataGrid').datagrid({
+		title : '分类列表',
+		url : basePath + '${listUrl}',
+		columns : [[ 
+//			{field : 'ck',	checkbox : true}, 
+			{
+				field : 'id',
+				title : '编号',
+				width : 50,
+				align:'center'
+			}, 
+			{
+				field : 'name',
+				title : '分类名称',
+				width:100,
+				align:'center',
+				formatter: function(value,row,index){
+					return '<a href="#" onclick="${model}EditFunc('+index+')">'+value+'</a>';
+					}
+			}, 
+			{
+				field : 'rank',
+				title : '排序',
+				width:100,
+				align:'center'
+			}
+		]],
+		toolbar : '#${model}DataGridToolbar',
+		method : 'GET',
+		singleSelect : true,
+		pagination : true,
+		rownumbers : true,
+		fitColumns : true,
+		fit : true
+	});
+});
+
+var ${model}SubmitUrl;
+
+function ${model}OpenDialogFunc(){
+	$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','添加文章分类信息');
+	$('#${model}Form').form('clear');
+	${model}SubmitUrl = basePath + "${saveUrl}";
+}
+
+function ${model}EditFunc(index){
+	$('#${model}DataGrid').datagrid('selectRow', index);
+	var row = $('#${model}DataGrid').datagrid('getSelected');
+	if (row){
+		$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','修改文章分类信息');
+		$('#${model}Form').form('load',row);
+		${model}SubmitUrl = basePath + "${updateUrl}";
+	}
+}
+function ${model}SaveFunc(){
+	$('#${model}Form').form('submit',{
+		url: ${model}SubmitUrl,
+		onSubmit: function(){
+			return $(this).form('validate');
+		},
+		success: function(result){
+			var result = eval('('+result+')');
+			if (result.status == 0){
+				$('#${model}Dialog').dialog('close');
+				$('#${model}DataGrid').datagrid('reload');
+			} else {
+				$.messager.show({
+					title: '错误',
+					msg: result.msg
+				});
+			}
+		}
+	});
+}
+function ${model}DeleteFunc(){
+	var row = $('#${model}DataGrid').datagrid('getSelected');
+	if (row){
+		$.messager.confirm('提示','真的要删除这个分类吗?',function(r){
+			if (r){
+				$.post(basePath + '${deleteUrl}',{id:row.id},function(result){
+					if (result.status == 0){
+						$('#${model}DataGrid').datagrid('reload');
+					} else {
+						$.messager.show({
+							title: '错误',
+							msg: result.msg
+						});
+					}
+				},'json');
+			}
+		});
+	}
+}
+
+function ${model}SearchFunc(){
+	$('#${model}DataGrid').datagrid({
+		queryParams: {
+			name: $("#s_name").val(),
+		}
+	});
+}
+</script>
+
+</body>
+</html>

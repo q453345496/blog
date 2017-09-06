@@ -6,7 +6,7 @@
 <html lang="zh-CN">
 <head>
 <jsp:include page="/common/link.jsp"></jsp:include>
-<title>文章类型</title>
+<title>${modelCN}</title>
 </head>
 <body>
 	<table id="${model}DataGrid" style="padding:10px"></table>
@@ -43,7 +43,7 @@
 <script>
 $(function() {
 	$('#${model}DataGrid').datagrid({
-		title : '分类列表',
+		title : '${modelCN}列表',
 		url : basePath + '${listUrl}',
 		columns : [[ 
 //			{field : 'ck',	checkbox : true}, 
@@ -55,7 +55,7 @@ $(function() {
 			}, 
 			{
 				field : 'name',
-				title : '分类名称',
+				title : '名称',
 				width:100,
 				align:'center',
 				formatter: function(value,row,index){
@@ -82,7 +82,7 @@ $(function() {
 var ${model}SubmitUrl;
 
 function ${model}OpenDialogFunc(){
-	$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','添加文章分类信息');
+	$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','添加${modelCN}');
 	$('#${model}Form').form('clear');
 	${model}SubmitUrl = basePath + "${saveUrl}";
 }
@@ -91,7 +91,7 @@ function ${model}EditFunc(index){
 	$('#${model}DataGrid').datagrid('selectRow', index);
 	var row = $('#${model}DataGrid').datagrid('getSelected');
 	if (row){
-		$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','修改文章分类信息');
+		$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','修改${modelCN}');
 		$('#${model}Form').form('load',row);
 		${model}SubmitUrl = basePath + "${updateUrl}";
 	}
@@ -119,7 +119,7 @@ function ${model}SaveFunc(){
 function ${model}DeleteFunc(){
 	var row = $('#${model}DataGrid').datagrid('getSelected');
 	if (row){
-		$.messager.confirm('提示','真的要删除这个分类吗?',function(r){
+		$.messager.confirm('提示','真的要删除这个${modelCN}吗?',function(r){
 			if (r){
 				$.post(basePath + '${deleteUrl}',{id:row.id},function(result){
 					if (result.status == 0){

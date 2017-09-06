@@ -27,10 +27,12 @@ public class CrudCreator {
 	static String packPath = "com/xian/blog";
 
 	static String packageName = "com.xian.blog";
-	static String Model = "Param";
+	
+	static String table = "t_role";// table name
+	static String Model = "Role";
+	static String model = StringUtils.uncapitalize(Model);
 	static boolean manager = true;
-	static String table = "t_param";// table name
-	static String requestMapping = "/admin/param";
+	static String requestMapping = (manager ? "/admin" : "") + "/" + model;
 
 	// Model
 	static String modelPath = "model";
@@ -76,7 +78,7 @@ public class CrudCreator {
 		map.put("table", table);
 
 		map.put("Model", Model);
-		map.put("model", StringUtils.uncapitalize(Model));
+		map.put("model", model);
 
 		map.put("ModelDao", daoClass);
 		map.put("modelDao", StringUtils.uncapitalize(daoClass));

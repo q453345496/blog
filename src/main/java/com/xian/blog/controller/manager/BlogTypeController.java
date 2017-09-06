@@ -73,11 +73,11 @@ public class BlogTypeController {
 		}
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult delete(BlogType blogType) {
+	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {
 		try {
-			blogTypeService.delete(blogType.getId());
+			blogTypeService.delete(id);
 			return CommonResult.success();
 		} catch (Exception e) {
 			LOG.error("BlogTypeController delete Error", e);

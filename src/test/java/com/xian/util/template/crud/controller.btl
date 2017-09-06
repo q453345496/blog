@@ -81,5 +81,16 @@ public class ${ModelController} {
 			return CommonResult.fail(e);
 		}
 	}
-
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {
+		try {
+			${modelService}.delete(id);
+			return CommonResult.success();
+		} catch (Exception e) {
+			LOG.error("delete Error", e);
+			return CommonResult.fail(e);
+		}
+	}
 }

@@ -3,6 +3,7 @@ package com.xian.util;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
@@ -22,9 +23,10 @@ public class DataGridCreator {
 	static String webPath = "src/main/webapp";
 	static String jspPath = "/admin";
 
-	static String Model = "BlogType";
+	static String Model = "Role";
+	static String modelCN = "角色";
 	static String model = StringUtils.uncapitalize(Model);
-	static String modelFileName = model + jsp_suffix;
+	static String modelFileName = model + "/" + model + jsp_suffix;
 
 	static GroupTemplate gt;
 	static String templateRoot = "D:/workspace/blog/src/test/java/com/xian/util/template/jsp";
@@ -39,6 +41,7 @@ public class DataGridCreator {
 
 		map.put("Model", Model);
 		map.put("model", model);
+		map.put("modelCN", modelCN);
 
 		map.put("listUrl", "/admin" + ("/" + model + "/list"));
 		map.put("saveUrl", "/admin" + ("/" + model + "/save"));
@@ -47,8 +50,12 @@ public class DataGridCreator {
 
 		Template t = gt.getTemplate(jspTemplatePath);
 		t.binding(map);
-		t.renderTo(Files.newBufferedWriter(Paths.get(root, webPath, jspPath, modelFileName), chartSet,
-				StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
+		
+		Path path = Paths.get(root, webPath, jspPath, modelFileName);
+		path.toFile().getParentFile().mkdirs();
+		
+		t.renderTo(Files.newBufferedWriter(path, chartSet, StandardOpenOption.CREATE,
+				StandardOpenOption.TRUNCATE_EXISTING));
 		System.out.println(t.render());
 	}
 

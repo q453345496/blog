@@ -58,9 +58,9 @@ $(function() {
 				title : '分类名称',
 				width:100,
 				align:'center',
-				formatter: function(value,row,index){
+				formatter: function(value,row,index) {
 					return '<a href="#" onclick="blogTypeEditFunc('+index+')">'+value+'</a>';
-					}
+				}
 			}, 
 			{
 				field : 'rank',

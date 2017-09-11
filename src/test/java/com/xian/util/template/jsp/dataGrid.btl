@@ -60,7 +60,7 @@ $(function() {
 				align:'center',
 				formatter: function(value,row,index){
 					return '<a href="#" onclick="${model}EditFunc('+index+')">'+value+'</a>';
-					}
+				}
 			}, 
 			{
 				field : 'rank',

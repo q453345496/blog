@@ -25,7 +25,7 @@ public final class CommonResult implements Serializable {
 
 	public CommonResult(Throwable e) {
 		this.status = FAIL;
-		this.data = e.toString();
+		this.msg = e.getMessage();
 	}
 
 	public CommonResult(int status, String msg, Object data) {

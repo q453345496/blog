@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="name != null and name != '' ">
 				name = #{name},
 			</if>
-			<if test="lastUpdateTime != null">
+			<if test="createTime != null">
 				create_time = #{createTime},
 			</if>
 			

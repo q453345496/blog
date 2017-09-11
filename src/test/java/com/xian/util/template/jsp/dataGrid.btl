@@ -13,7 +13,7 @@
 	<div id="${model}DataGridToolbar">
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="${model}OpenDialogFunc()">添加</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="${model}DeleteFunc()">删除</a>
-			名称:<input id="s_name" type="text" class="easyui-textbox"/>
+			名称:<input id="${model}NameQ" type="text" class="easyui-textbox"/>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="${model}SearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#${model}DataGridToolbar')">清空</a>
 	</div>
@@ -139,7 +139,7 @@ function ${model}DeleteFunc(){
 function ${model}SearchFunc(){
 	$('#${model}DataGrid').datagrid({
 		queryParams: {
-			name: $("#s_name").val(),
+			name: $("#${model}NameQ").val(),
 		}
 	});
 }

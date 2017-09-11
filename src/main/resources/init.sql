@@ -46,3 +46,15 @@ PRIMARY KEY (`id`)
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+
+/*参数类型*/
+DROP TABLE IF EXISTS `t_param_type`;
+CREATE TABLE `t_param_type` (
+`id`  int(11) NOT NULL AUTO_INCREMENT ,
+`name`  varchar(255) NOT NULL ,
+`code` varchar(255) ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;

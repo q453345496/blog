@@ -22,6 +22,12 @@
 	
 	<div data-options="region:'west',split:true,title:'菜单导航'" style="width: 150px;">
 	 	<div class="easyui-accordion" data-options="fit:true,border:false">
+	 		<div title="系统管理" style="padding:10px">
+				<a href="#" onclick="openTab('参数类型管理','<%=path%>/admin/param/paramType.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">参数类型管理</a>
+			</div>
+	        <div title="权限管理" style="padding:10px">
+				<a href="#" onclick="openTab('角色管理','<%=path%>/admin/role/role.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">角色管理</a>
+			</div>
 	        <div title="理财管理" style="padding:10px">
 				<a href="#" onclick="openTab('支出分类','<%=path%>/admin/outcomeCategoryManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">支出分类</a>
 				<a href="#" onclick="openTab('收入分类','<%=path%>/admin/incomeCategoryManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">收入分类</a>

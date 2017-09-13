@@ -77,12 +77,10 @@
 				fitColumns : true,
 				fit : true,
 				onLoadSuccess: function(data){
-					if(data.total > 0){
-						$(this).datagrid("selectRow",0);
-					}
+					$(this).datagrid("selectRow",0);
 				},
 				onSelect: function(rowIndex, rowData) {
-					paramTypeCode = rowData.code;
+					paramTypeCode = rowData ? rowData.code : '';
 					$("#paramDataGrid").datagrid({
 						url : basePath + '/admin/param/list',
 						queryParams : {
@@ -125,7 +123,7 @@
 		var paramSubmitUrl;
 
 		function paramOpenDialogFunc(){
-			$('#paramDialog').dialog('open').dialog('center').dialog('setTitle','添加参数类型');
+			$('#paramDialog').dialog('open').dialog('center').dialog('setTitle','添加参数');
 			$('#paramForm').form('clear');
 			paramSubmitUrl = basePath + "/admin/param/save";
 		}
@@ -134,7 +132,7 @@
 			$('#paramDataGrid').datagrid('selectRow', index);
 			var row = $('#paramDataGrid').datagrid('getSelected');
 			if (row){
-				$('#paramDialog').dialog('open').dialog('center').dialog('setTitle','修改参数类型');
+				$('#paramDialog').dialog('open').dialog('center').dialog('setTitle','修改参数');
 				$('#paramForm').form('load',row);
 				paramSubmitUrl = basePath + "/admin/param/update";
 			}
@@ -165,7 +163,7 @@
 		function paramDeleteFunc(){
 			var row = $('#paramDataGrid').datagrid('getSelected');
 			if (row){
-				$.messager.confirm('提示','真的要删除这个参数类型吗?',function(r){
+				$.messager.confirm('提示','真的要删除这个参数吗?',function(r){
 					if (r){
 						$.post(basePath + '/admin/param/delete',{id:row.id},function(result){
 							if (result.status == 0){

@@ -18,4 +18,13 @@
 table.input tr td:nth-child(1){
 	text-align: right;
 }
+[class*="fa-"] {
+/* 	color: #0088cc; */
+	font-size: 16px;
+	background-image:none!important;
+	overflow: visible!important;
+}
+.l-btn {
+	text-align: left /*按钮样式默认是居中*/
+}
 </style>

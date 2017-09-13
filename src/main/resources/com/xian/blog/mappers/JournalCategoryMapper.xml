@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xian.blog.dao.JournalCategoryDao">
 
 	<resultMap type="JournalCategory" id="JournalCategoryResult">
 		<id property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="rank" column="rank" />
-		<result property="parentId" column="parent_id" />
-		<result property="type" column="type" />
 	</resultMap>
+	
 	<sql id="sql_where">
 		<where>
 			<if test="name != null and name != '' ">
@@ -20,12 +19,12 @@
 			<if test="parentId != null">
 				AND parent_id = #{parentId}
 			</if>
-			<if test="type != null">
-				AND type = #{type}
+			<if test="isParent != null">
+				AND is_parent = #{isParent}
 			</if>
 		</where>
 	</sql>
-
+	
 	<select id="list" parameterType="Map" resultMap="JournalCategoryResult">
 		SELECT * FROM t_journal_category
 		<include refid="sql_where"></include>
@@ -41,9 +40,8 @@
 		<include refid="sql_where"></include>
 	</select>
 
-	<insert id="save" parameterType="JournalCategory" useGeneratedKeys="true"
-		keyProperty="id">
-		INSERT INTO t_journal_category (name, parent_id, rank, type) VALUES(#{name}, #{parentId}, #{rank}, #{type})
+	<insert id="save" parameterType="JournalCategory" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_journal_category (name, parent_id, is_parent, rank) VALUES(#{name}, #{parentId}, #{isParent}, #{rank})
 	</insert>
 
 	<update id="update" parameterType="JournalCategory">
@@ -52,14 +50,14 @@
 			<if test="name != null and name != '' ">
 				name = #{name},
 			</if>
-			<if test="rank != null">
-				rank = #{rank},
-			</if>
 			<if test="parentId != null">
 				parent_id = #{parentId},
 			</if>
-			<if test="type != null">
-				type = #{type},
+			<if test="isParent != null">
+				is_parent = #{isParent},
+			</if>
+			<if test="rank != null">
+				rank = #{rank},
 			</if>
 		</set>
 		WHERE id = #{id}

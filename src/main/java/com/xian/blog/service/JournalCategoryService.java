@@ -14,26 +14,31 @@ import com.xian.blog.model.JournalCategory;
 @Service
 @Transactional
 public class JournalCategoryService {
+
 	@Resource
-	private JournalCategoryDao categoryDao;
+	private JournalCategoryDao journalCategoryDao;
 
 	public List<JournalCategory> list(Map<String, Object> map) {
-		return categoryDao.list(map);
+		return journalCategoryDao.list(map);
 	}
 
 	public Integer getTotal(Map<String, Object> map) {
-		return categoryDao.getTotal(map);
+		return journalCategoryDao.getTotal(map);
 	}
 
-	public int update(JournalCategory category) {
-		return categoryDao.update(category);
+	public int update(JournalCategory journalCategory) {
+		return journalCategoryDao.update(journalCategory);
 	}
 
-	public int save(JournalCategory category) {
-		return categoryDao.save(category);
+	public int save(JournalCategory journalCategory) {
+		return journalCategoryDao.save(journalCategory);
 	}
 
 	public int delete(Long id) {
-		return categoryDao.delete(id);
+		return journalCategoryDao.delete(id);
+	}
+
+	public JournalCategory get(Long id) {
+		return journalCategoryDao.get(id);
 	}
 }

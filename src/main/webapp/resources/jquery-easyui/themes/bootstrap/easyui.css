@@ -2918,12 +2918,13 @@
 .tabs-panels {
   border-color: transparent;
 }
-.tabs li a.tabs-inner {
-  border-color: transparent;
-  background: transparent;
-  filter: none;
-  color: #0088CC;
-}
+/* tab不显示边框*/
+/* .tabs li a.tabs-inner { */
+/*   border-color: transparent; */
+/*   background: transparent; */
+/*   filter: none; */
+/*   color: #0088CC; */
+/* } */
 .menu-active {
   background-color: #0081C2;
   border-color: #0081C2;

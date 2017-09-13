@@ -7,11 +7,6 @@
 <head>
 <jsp:include page="/common/link.jsp"></jsp:include>
 <title>时间就是金钱的地盘</title>
-<style type="text/css">
-.l-btn {
-	text-align: left /*按钮样式默认是居中*/
-}
-</style>
 </head>
 <body>
 <div class="easyui-layout" data-options="fit:true">
@@ -30,7 +25,7 @@
 				<a href="#" onclick="openTab('角色管理','<%=path%>/admin/role/role.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">角色管理</a>
 			</div>
 			<div title="理财管理" style="padding:10px">
-				<a href="#" onclick="openTab('支出分类','<%=path%>/admin/outcomeCategoryManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">支出分类</a>
+				<a href="#" onclick="openTab('支出分类','<%=path%>/admin/journalCategory/journalCategory.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">支出分类</a>
 				<a href="#" onclick="openTab('收入分类','<%=path%>/admin/incomeCategoryManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'" style="width: 120px;">收入分类</a>
 			</div>
 			<div title="博客管理" style="padding:10px">

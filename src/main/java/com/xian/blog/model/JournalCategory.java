@@ -1,23 +1,11 @@
 package com.xian.blog.model;
 
-/**
- * 类别
- * Date:2016年8月18日下午9:29:01
- * 
- */
 public class JournalCategory {
 	private Long id;
 	private String name;
 	private Integer rank;
 	private Long parentId;
-	private Integer type;
-
-	/**
-	 * easyui的Tree显示使用,只有两级分类
-	 */
-	public String getState() {
-		return 0 == parentId ? "closed" : "open";
-	}
+	private Boolean isParent;
 
 	public Long getId() {
 		return id;
@@ -51,12 +39,15 @@ public class JournalCategory {
 		this.parentId = parentId;
 	}
 
-	public Integer getType() {
-		return type;
+	public boolean isParent() {
+		return isParent;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setParent(boolean isParent) {
+		this.isParent = isParent;
 	}
 
+	public String getState() {
+		return isParent ? "closed" : "open";
+	}
 }

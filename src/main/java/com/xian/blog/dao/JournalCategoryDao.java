@@ -11,9 +11,11 @@ public interface JournalCategoryDao {
 
 	public Integer getTotal(Map<String, Object> map);
 
-	public int update(JournalCategory category);
+	public int update(JournalCategory journalCategory);
 
-	public int save(JournalCategory category);
+	public int save(JournalCategory journalCategory);
 
 	public int delete(Long id);
+
+	public JournalCategory get(Long id);
 }

@@ -39,8 +39,7 @@ CREATE TABLE `t_journal_category` (
 `name`  varchar(255) NOT NULL ,
 `rank` int(11),
 `parent_id` int(11) NOT NULL,
-`type` int(11) NOT NULL,
-`create_time` datetime NOT NULL
+`is_parent` tinyint(1) DEFAULT 0,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB

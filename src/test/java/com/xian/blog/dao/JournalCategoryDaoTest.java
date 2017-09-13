@@ -32,7 +32,6 @@ public class JournalCategoryDaoTest {
 			journalCategory.setName("呵呵" + i);
 			journalCategory.setRank(i);
 			journalCategory.setParentId(0l);
-			journalCategory.setType(0);
 			categoryDao.save(journalCategory);
 		}
 	}
@@ -55,7 +54,6 @@ public class JournalCategoryDaoTest {
 		journalCategory.setName("呵呵");
 		journalCategory.setRank(99);
 		journalCategory.setParentId(0l);
-		journalCategory.setType(0);
 		categoryDao.save(journalCategory);
 		System.out.println(journalCategory.getId());
 	}
@@ -66,7 +64,6 @@ public class JournalCategoryDaoTest {
 		journalCategory.setId(1l);
 		journalCategory.setName("改了啊");
 		journalCategory.setParentId(99l);
-		journalCategory.setType(2);
 		categoryDao.update(journalCategory);
 	}
 

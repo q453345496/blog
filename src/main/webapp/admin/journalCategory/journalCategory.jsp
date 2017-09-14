@@ -52,10 +52,7 @@ $(function() {
 				field : 'name',
 				title : '名称',
 				width:50,
-				align:'center',
-				formatter: function(value,row,index){
-					return '<a href="#" onclick="journalCategoryEditFunc('+index+')">'+value+'</a>';
-				}
+				align:'center'
 			}, 
 			{
 				field : 'rank',
@@ -69,7 +66,8 @@ $(function() {
 				width:100,
 				align:'center',
 				formatter: function(value, row, index){
-					return '<a href="javascript:void(0)" class="journalCategory-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'fa fa-pencil-square-o\'" onclick="journalCategoryEditFunc(\''+ row.id +'\');" >编辑</a>'
+					var html = '<a href="javascript:void(0)" class="journalCategory-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'fa fa-pencil-square-o\'" onclick="journalCategoryEditFunc(\'1'+ row.id +'\');">编辑</a>'
+					return html
 				}
 			}
 		]],
@@ -95,8 +93,7 @@ function journalCategoryOpenDialogFunc(){
 }
 
 function journalCategoryEditFunc(index){
-	$('#journalCategoryTreeGrid').treegrid('selectRow', index);
-	var row = $('#journalCategoryTreeGrid').treegrid('getSelected');
+	var row = $('#journalCategoryTreeGrid').treegrid('find', index);
 	if (row){
 		$('#journalCategoryDialog').dialog('open').dialog('center').dialog('setTitle','修改流水类型');
 		$('#journalCategoryForm').form('load',row);

@@ -17,6 +17,11 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="journalCategorySearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#journalCategoryTreeGridToolbar')">清空</a>
 	</div>
+	<div id="menu" class="easyui-menu" style="width:120px;">
+		<div onclick="journalCategoryOpenDialogFunc()" data-options="iconCls:'icon-add'">添加</div>
+		<div onclick="addEditWidget('edit')" data-options="iconCls:'icon-edit'">编辑</div>
+		<div onclick="delWidget()" data-options="iconCls:'icon-remove'">删除</div>
+	</div>
 	<div id="journalCategoryDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#journalCategoryDialog-buttons'">
 		<form id="journalCategoryForm" method="post" novalidate>
 			<table class="input">
@@ -66,8 +71,8 @@ $(function() {
 				width:100,
 				align:'center',
 				formatter: function(value, row, index){
-					var html = '<a href="javascript:void(0)" class="journalCategory-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'fa fa-pencil-square-o\'" onclick="journalCategoryEditFunc(\'1'+ row.id +'\');">编辑</a>'
-					return html
+					var html = '<a href="javascript:void(0)" class="journalCategory-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'fa fa-pencil-square-o\'" onclick="journalCategoryEditFunc(\''+ row.id +'\');">编辑</a>'
+					return html;
 				}
 			}
 		]],
@@ -76,6 +81,17 @@ $(function() {
 		},
 		toolbar : '#journalCategoryTreeGridToolbar',
 		method : 'GET',
+		onContextMenu: function(e, row){
+			e.preventDefault();
+			if(!row){
+				return;
+			}
+			$(this).treegrid('select', row.id);
+			$('#menu').menu('show',{
+				left: e.pageX,
+				top: e.pageY
+			});
+		},
 		singleSelect : true,
 		pagination : false,
 		rownumbers : true,

@@ -18,4 +18,6 @@ public interface JournalCategoryDao {
 	public int delete(Long id);
 
 	public JournalCategory get(Long id);
+	
+	public int getSubCount(Long id);
 }

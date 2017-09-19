@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xian.blog.dao.ParamDao">
 
 	<resultMap type="Param" id="ParamResult">
@@ -60,4 +58,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Long">
 		DELETE FROM t_param WHERE id = #{id}
 	</delete>
-</mapper> 
+	
+	<select id="get" parameterType="Long" resultMap="ParamResult">
+		SELECT * FROM t_param
+		WHERE id = #{id}
+	</select>
+</mapper>

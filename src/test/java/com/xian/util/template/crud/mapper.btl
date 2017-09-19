@@ -52,4 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Long">
 		DELETE FROM ${table} WHERE id = #{id}
 	</delete>
-</mapper> 
+	
+	<select id="get" parameterType="Long" resultMap="${Model}Result">
+		SELECT * FROM ${table}
+		WHERE id = #{id}
+	</select>
+</mapper>

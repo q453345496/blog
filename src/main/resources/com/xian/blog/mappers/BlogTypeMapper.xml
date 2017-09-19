@@ -57,4 +57,9 @@
 	<delete id="delete" parameterType="Long">
 		DELETE FROM t_blog_type WHERE id = #{id}
 	</delete>
+	
+	<select id="get" parameterType="Long" resultMap="BlogTypeResult">
+		SELECT * FROM t_blog_type
+		WHERE id = #{id}
+	</select>
 </mapper> 

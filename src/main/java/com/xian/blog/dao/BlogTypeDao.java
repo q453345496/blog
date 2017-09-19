@@ -16,4 +16,6 @@ public interface BlogTypeDao {
 	public int save(BlogType blogType);
 
 	public int delete(Long id);
+
+	public BlogType get(Long id);
 }

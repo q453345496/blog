@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +73,19 @@ public class BlogTypeController {
 			return CommonResult.fail(e);
 		}
 	}
-
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult detail(@PathVariable("id") Long id) {
+		try {
+			BlogType blogType = blogTypeService.get(id);
+			return CommonResult.success(blogType);
+		} catch (Exception e) {
+			LOG.error("get detail Error", e);
+			return CommonResult.fail(e);
+		}
+	}
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {

@@ -11,7 +11,7 @@
 <body>
 	<table id="journalCategoryTreeGrid" style="padding:10px"></table>
 	<div id="journalCategoryTreeGridToolbar">
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="journalCategoryOpenDialogFunc()">添加</a>
+<!-- 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="journalCategoryOpenDialogFunc()">添加</a> -->
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="journalCategoryDeleteFunc()">删除</a>
 			名称:<input id="journalCategoryNameQ" type="text" class="easyui-textbox"/>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="journalCategorySearchFunc()">查询</a>
@@ -28,7 +28,8 @@
 				<tr>
 					<td width="30%">名称:</td>
 					<td>
-						<input name="id" type="hidden"/>
+						<input id="journalCategoryId" name="id" type="hidden"/>
+						<input id="journalCategoryParentId" name="parentId" type="hidden"/>
 						<input name="name" class="easyui-textbox" data-options="required:true"/>
 					</td>
 				</tr>
@@ -105,6 +106,8 @@ var journalCategorySubmitUrl;
 function journalCategoryOpenDialogFunc(){
 	$('#journalCategoryDialog').dialog('open').dialog('center').dialog('setTitle','添加流水类型');
 	$('#journalCategoryForm').form('clear');
+	var row = $('#journalCategoryTreeGrid').treegrid('getSelected');
+	$('#journalCategoryParentId').val(row.id)
 	journalCategorySubmitUrl = basePath + "/admin/journalCategory/save";
 }
 
@@ -126,7 +129,9 @@ function journalCategorySaveFunc(){
 			var result = eval('('+result+')');
 			if (result.status == 0){
 				$('#journalCategoryDialog').dialog('close');
-				$('#journalCategoryTreeGrid').treegrid('reload');
+				var row = $('#journalCategoryTreeGrid').treegrid('getSelected');
+				row.state = "closed";
+				$('#journalCategoryTreeGrid').treegrid('refresh', $("#journalCategoryParentId").val());
 			} else {
 				$.messager.show({
 					title: '错误',

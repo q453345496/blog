@@ -31,11 +31,27 @@ public class JournalCategoryService {
 	}
 
 	public int save(JournalCategory journalCategory) {
+		JournalCategory parent = journalCategoryDao.get(journalCategory.getParentId());
+		if (!parent.getIsParent()) {
+			parent.setIsParent(true);
+			journalCategoryDao.update(parent);
+		}
+		journalCategory.setIsParent(false);
 		return journalCategoryDao.save(journalCategory);
 	}
 
-	public int delete(Long id) {
-		return journalCategoryDao.delete(id);
+	public void delete(Long id) {
+		JournalCategory journalCategory = journalCategoryDao.get(id);
+		if (journalCategory != null) {
+			journalCategoryDao.delete(id);
+			int subCount = journalCategoryDao.getSubCount(journalCategory.getParentId());
+			if (subCount == 0) {
+				JournalCategory parent = new JournalCategory();
+				parent.setId(journalCategory.getId());
+				parent.setIsParent(false);
+				journalCategoryDao.update(parent);
+			}
+		}
 	}
 
 	public JournalCategory get(Long id) {

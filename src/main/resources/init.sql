@@ -24,7 +24,6 @@ CREATE TABLE `t_blog_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `name`  varchar(255) NOT NULL ,
 `rank` int(11),
-`create_time` datetime NOT NULL,
 `last_update_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
@@ -39,7 +38,7 @@ CREATE TABLE `t_journal_category` (
 `name`  varchar(255) NOT NULL ,
 `rank` int(11),
 `parent_id` int(11) NOT NULL,
-`is_parent` tinyint(1) DEFAULT 0,
+`is_parent` tinyint(1) DEFAULT false,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB

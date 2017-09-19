@@ -39,4 +39,8 @@ public class BlogTypeService {
 	public int delete(Long id) {
 		return blogTypeDao.delete(id);
 	}
+
+	public BlogType get(Long id) {
+		return blogTypeDao.get(id);
+	}
 }

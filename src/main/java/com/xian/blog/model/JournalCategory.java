@@ -39,15 +39,15 @@ public class JournalCategory {
 		this.parentId = parentId;
 	}
 
-	public boolean isParent() {
-		return isParent;
+	public Boolean getIsParent() {
+		return Boolean.TRUE.equals(isParent);
 	}
 
-	public void setParent(boolean isParent) {
+	public void setIsParent(Boolean isParent) {
 		this.isParent = isParent;
 	}
 
 	public String getState() {
-		return isParent ? "closed" : "open";
+		return Boolean.TRUE.equals(isParent) ? "closed" : "open";
 	}
 }

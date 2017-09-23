@@ -10,17 +10,9 @@
 </head>
 <body>
 	<table id="journalCategoryTreeGrid" style="padding:10px"></table>
-	<div id="journalCategoryTreeGridToolbar">
-<!-- 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="journalCategoryOpenDialogFunc()">添加</a> -->
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="journalCategoryDeleteFunc()">删除</a>
-			名称:<input id="journalCategoryNameQ" type="text" class="easyui-textbox"/>
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="journalCategorySearchFunc()">查询</a>
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#journalCategoryTreeGridToolbar')">清空</a>
-	</div>
 	<div id="menu" class="easyui-menu" style="width:120px;">
 		<div onclick="journalCategoryOpenDialogFunc()" data-options="iconCls:'icon-add'">添加</div>
-		<div onclick="addEditWidget('edit')" data-options="iconCls:'icon-edit'">编辑</div>
-		<div onclick="delWidget()" data-options="iconCls:'icon-remove'">删除</div>
+		<div onclick="journalCategoryDeleteFunc()" data-options="iconCls:'icon-remove'">删除</div>
 	</div>
 	<div id="journalCategoryDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#journalCategoryDialog-buttons'">
 		<form id="journalCategoryForm" method="post" novalidate>
@@ -58,7 +50,6 @@ $(function() {
 				field : 'name',
 				title : '名称',
 				width:50,
-				align:'center'
 			}, 
 			{
 				field : 'rank',
@@ -80,7 +71,6 @@ $(function() {
 		onLoadSuccess:function(data){
 			$('.journalCategory-easyui-linkbutton-edit').linkbutton({text:'编辑'});
 		},
-		toolbar : '#journalCategoryTreeGridToolbar',
 		method : 'GET',
 		onContextMenu: function(e, row){
 			e.preventDefault();
@@ -129,9 +119,7 @@ function journalCategorySaveFunc(){
 			var result = eval('('+result+')');
 			if (result.status == 0){
 				$('#journalCategoryDialog').dialog('close');
-				var row = $('#journalCategoryTreeGrid').treegrid('getSelected');
-				row.state = "closed";
-				$('#journalCategoryTreeGrid').treegrid('refresh', $("#journalCategoryParentId").val());
+				$('#journalCategoryTreeGrid').treegrid('reload');
 			} else {
 				$.messager.show({
 					title: '错误',
@@ -161,13 +149,6 @@ function journalCategoryDeleteFunc(){
 	}
 }
 
-function journalCategorySearchFunc(){
-	$('#journalCategoryTreeGrid').treegrid({
-		queryParams: {
-			name: $("#journalCategoryNameQ").val(),
-		}
-	});
-}
 </script>
 
 </body>

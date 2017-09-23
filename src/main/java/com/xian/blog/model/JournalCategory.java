@@ -40,7 +40,7 @@ public class JournalCategory {
 	}
 
 	public Boolean getIsParent() {
-		return Boolean.TRUE.equals(isParent);
+		return isParent;
 	}
 
 	public void setIsParent(Boolean isParent) {

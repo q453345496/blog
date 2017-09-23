@@ -71,7 +71,7 @@
 	</select>
 	
 	<select id="getSubCount" parameterType="Long" resultType="Integer">
-		SELECT * FROM t_journal_category
+		SELECT COUNT(1) FROM t_journal_category
 		WHERE parent_id = #{id}
 	</select>
 	

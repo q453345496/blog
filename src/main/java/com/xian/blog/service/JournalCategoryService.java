@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xian.blog.dao.JournalCategoryDao;
+import com.xian.blog.exception.CheckException;
 import com.xian.blog.model.JournalCategory;
 
 @Service
@@ -43,11 +44,17 @@ public class JournalCategoryService {
 	public void delete(Long id) {
 		JournalCategory journalCategory = journalCategoryDao.get(id);
 		if (journalCategory != null) {
+			if(journalCategory.getIsParent()){
+				throw new CheckException("该节点存在子节点，无法删除");
+			}
+			if (0 == journalCategory.getParentId()) {
+				throw new CheckException("一级节点无法删除");
+			}
 			journalCategoryDao.delete(id);
 			int subCount = journalCategoryDao.getSubCount(journalCategory.getParentId());
 			if (subCount == 0) {
 				JournalCategory parent = new JournalCategory();
-				parent.setId(journalCategory.getId());
+				parent.setId(journalCategory.getParentId());
 				parent.setIsParent(false);
 				journalCategoryDao.update(parent);
 			}

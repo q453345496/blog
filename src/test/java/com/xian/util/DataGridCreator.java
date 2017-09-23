@@ -30,7 +30,8 @@ public class DataGridCreator {
 
 	static GroupTemplate gt;
 	static String templateRoot = "D:/workspace/blog/src/test/java/com/xian/util/template/jsp";
-	static String jspTemplatePath = "dataGrid.btl";
+	static String dataGridTemplatePath = "dataGrid.btl";
+	static String treeGridTemplatePath = "treeGrid.btl";
 
 	static Map<String, Object> map = new HashMap<>();;
 
@@ -47,8 +48,9 @@ public class DataGridCreator {
 		map.put("saveUrl", "/admin" + ("/" + model + "/save"));
 		map.put("deleteUrl", "/admin" + ("/" + model + "/delete"));
 		map.put("updateUrl", "/admin" + ("/" + model + "/update"));
-
-		Template t = gt.getTemplate(jspTemplatePath);
+		boolean tree = false;
+		
+		Template t = gt.getTemplate(tree ? treeGridTemplatePath : dataGridTemplatePath);
 		t.binding(map);
 		
 		Path path = Paths.get(root, webPath, jspPath, modelFileName);

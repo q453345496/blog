@@ -1,0 +1,155 @@
+\<%@ page language="java" pageEncoding="UTF-8"%>
+\<%
+	String path = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<jsp:include page="/common/link.jsp"></jsp:include>
+<title>${modelCN}</title>
+</head>
+<body>
+	<table id="${model}TreeGrid" style="padding:10px"></table>
+	<div id="menu" class="easyui-menu" style="width:120px;">
+		<div onclick="${model}OpenDialogFunc()" data-options="iconCls:'icon-add'">添加</div>
+		<div onclick="${model}DeleteFunc()" data-options="iconCls:'icon-remove'">删除</div>
+	</div>
+	<div id="${model}Dialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#${model}Dialog-buttons'">
+		<form id="${model}Form" method="post" novalidate>
+			<table class="input">
+				<tr>
+					<td width="30%">名称:</td>
+					<td>
+						<input id="${model}Id" name="id" type="hidden"/>
+						<input id="${model}ParentId" name="parentId" type="hidden"/>
+						<input name="name" class="easyui-textbox" data-options="required:true"/>
+					</td>
+				</tr>
+				<tr>
+					<td>排序:</td>
+					<td>
+						<input name="rank" class="easyui-numberbox" value="100" data-options="required:true,min:0"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div id="${model}Dialog-buttons">
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-save'" onclick="${model}SaveFunc()" style="width:90px">保存</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-times'" onclick="javascript:$('#${model}Dialog').dialog('close')" style="width:90px">关闭</a>
+	</div>
+<script>
+$(function() {
+	$('#${model}TreeGrid').treegrid({
+		title : '${modelCN}列表',
+		url : basePath + '${listUrl}',
+		idField:'id',
+		treeField:'name',
+		columns : [[ 
+			{
+				field : 'name',
+				title : '名称',
+				width:50,
+			}, 
+			{
+				field : 'rank',
+				title : '排序',
+				width:50,
+				align:'center'
+			},
+			{
+				field : 'action',
+				title : '操作',
+				width:100,
+				align:'center',
+				formatter: function(value, row, index){
+					var html = '<a href="javascript:void(0)" class="${model}-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'fa fa-pencil-square-o\'" onclick="${model}EditFunc(\''+ row.id +'\');">编辑</a>'
+					return html;
+				}
+			}
+		]],
+		onLoadSuccess:function(data){
+			$('.${model}-easyui-linkbutton-edit').linkbutton({text:'编辑'});
+		},
+		method : 'GET',
+		onContextMenu: function(e, row){
+			e.preventDefault();
+			if(!row){
+				return;
+			}
+			$(this).treegrid('select', row.id);
+			$('#menu').menu('show',{
+				left: e.pageX,
+				top: e.pageY
+			});
+		},
+		singleSelect : true,
+		pagination : false,
+		rownumbers : true,
+		fitColumns : true,
+		fit : true
+	});
+});
+
+var ${model}SubmitUrl;
+
+function ${model}OpenDialogFunc(){
+	$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','添加${modelCN}');
+	$('#${model}Form').form('clear');
+	var row = $('#${model}TreeGrid').treegrid('getSelected');
+	$('#${model}ParentId').val(row.id)
+	${model}SubmitUrl = basePath + "${saveUrl}";
+}
+
+function ${model}EditFunc(index){
+	var row = $('#${model}TreeGrid').treegrid('find', index);
+	if (row){
+		$('#${model}Dialog').dialog('open').dialog('center').dialog('setTitle','修改${modelCN}');
+		$('#${model}Form').form('load',row);
+		${model}SubmitUrl = basePath + "${updateUrl}";
+	}
+}
+function ${model}SaveFunc(){
+	$('#${model}Form').form('submit',{
+		url: ${model}SubmitUrl,
+		onSubmit: function(){
+			return $(this).form('validate');
+		},
+		success: function(result){
+			var result = eval('('+result+')');
+			if (result.status == 0){
+				$('#${model}Dialog').dialog('close');
+				$('#${model}TreeGrid').treegrid('reload');
+			} else {
+				$.messager.show({
+					title: '错误',
+					msg: result.msg
+				});
+			}
+		}
+	});
+}
+function ${model}DeleteFunc(){
+	var row = $('#${model}TreeGrid').treegrid('getSelected');
+	if (row){
+		$.messager.confirm('提示','真的要删除这个${modelCN}吗?',function(r){
+			if (r){
+				$.post(basePath + '${deleteUrl}',{id:row.id},function(result){
+					if (result.status == 0){
+						$('#${model}TreeGrid').treegrid('reload');
+					} else {
+						$.messager.show({
+							title: '错误',
+							msg: result.msg
+						});
+					}
+				},'json');
+			}
+		});
+	}
+}
+
+</script>
+
+</body>
+</html>

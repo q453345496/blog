@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<jsp:include page="../common/link.jsp"></jsp:include>
+<jsp:include page="../common/adminLink.jsp"></jsp:include>
 <script src="<%=path%>/resources/ueditor/ueditor.config.js"></script>
 <script src="<%=path%>/resources/ueditor/ueditor.all.min.js"> </script>
 <script src="<%=path%>/resources/my-ueditor.js"> </script>

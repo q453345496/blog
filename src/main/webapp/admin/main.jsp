@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<jsp:include page="/common/link.jsp"></jsp:include>
+<jsp:include page="/common/adminLink.jsp"></jsp:include>
 <title>时间就是金钱的地盘</title>
 </head>
 <body>

@@ -39,13 +39,13 @@
 	color: #00F;
 }
 
-#maincontent {
+#main-content {
 	width: 1040px;
 	margin: 0 auto;
 	overflow: hidden;
 }
 
-#bloglist {
+#blog-list {
 	width: 760px;
 	float: left;
 	overflow: hidden;
@@ -59,7 +59,7 @@
 
 footer {
 	width: 100%;
-	background: red;
+	background: gray;
 }
 
 footer #copyright {
@@ -69,6 +69,14 @@ footer #copyright {
 	line-height: 40px;
 	text-align: center;
 	overflow: hidden;
+}
+
+.readmore{
+	margin: 10px;
+}
+
+.readmore a{
+	color: red;
 }
 </style>
 </head>
@@ -84,60 +92,77 @@ footer #copyright {
 			<li><a href="#">资讯</a></li>
 			<li><a href="#">关于我</a></li>
 		</ul>
-	</nav>
-	<div id="maincontent">
-		<div id="bloglist">
-			<h2>
-				<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
-					target="_blank">腾讯“微保WeSure”上线微信 目前仅面向1%用户</a>
-			</h2>
-			<ul>
-				<p>11月2日，腾讯正式上线了旗下保险平台“微保WeSure”，这也是腾讯第一家控股保险平台。......</p>
-				<p class="readmore">
-					<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
-						target="_blank">阅读全文&gt;&gt;</a>
-				</p>
-				<p class="dateview">
-					<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
-						href="/itnews/">IT资讯</a>]
-					</span>
-				</p>
-			</ul>
-			<h2>
-				<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
-					target="_blank">谷歌即将关闭机票搜索软件QPX Express</a>
-			</h2>
-			<ul>
-				<p>北京时间11月3日早间消息，谷歌即将关闭软件工具QPX
-					Express。该工具帮助小企业获取机票搜索信息。这可能会对在线旅行行业的新进入者造成冲击。......</p>
-				<p class="readmore">
-					<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
-						target="_blank">阅读全文&gt;&gt;</a>
-				</p>
-				<p class="dateview">
-					<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
-						href="/itnews/">IT资讯</a>]
-					</span>
-				</p>
-			</ul>
-			<h2>
-				<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
-					target="_blank">瑞银：比特币疯涨是郁金香泡沫破灭前的狂热</a>
-			</h2>
-			<ul>
-				<p>北京时间3日早间CNBC称，全球最大期货交易商芝加哥商品交易所集团（CME）计划年底前推出比特币期货，受此推动，过去两天比特币价格一路暴涨，从不到6400美元狂飙至7000美元以上，一度突破7300美元。......</p>
-				<p class="readmore">
-					<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
-						target="_blank">阅读全文&gt;&gt;</a>
-				</p>
-				<p class="dateview">
-					<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
-						href="/itnews/">IT资讯</a>]
-					</span>
-				</p>
-			</ul>
-
-		</div>
+	</nav><!-- end nav -->
+	<div id="main-content">
+		<div id="blog-list">
+			<div class="list-item">
+				<div class="title">
+					<h2>
+						<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
+							target="_blank">腾讯“微保WeSure”上线微信 目前仅面向1%用户</a>
+					</h2>
+				</div>
+				<div class="info">
+					<p>11月2日，腾讯正式上线了旗下保险平台“微保WeSure”，这也是腾讯第一家控股保险平台。......</p>
+					<p class="readmore">
+						<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
+							target="_blank">阅读全文&gt;&gt;</a>
+					</p>
+				</div>
+				<div class="author">
+					<p class="dateview">
+						<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
+							href="/itnews/">IT资讯</a>]
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="list-item">
+				<div class="title">
+					<h2>
+						<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
+							target="_blank">谷歌即将关闭机票搜索软件QPX Express</a>
+					</h2>
+				</div>
+				<div class="info">
+					<p>北京时间11月3日早间消息，谷歌即将关闭软件工具QPX
+						Express。该工具帮助小企业获取机票搜索信息。这可能会对在线旅行行业的新进入者造成冲击。......</p>
+					<p class="readmore">
+						<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
+							target="_blank">阅读全文&gt;&gt;</a>
+					</p>
+				</div>
+				<div class="author">
+					<p class="dateview">
+						<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
+							href="/itnews/">IT资讯</a>]
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="list-item">
+				<div class="title">
+					<h2>
+						<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
+							target="_blank">瑞银：比特币疯涨是郁金香泡沫破灭前的狂热</a>
+					</h2>
+				</div>
+				<div class="info">
+					<p>北京时间3日早间CNBC称，全球最大期货交易商芝加哥商品交易所集团（CME）计划年底前推出比特币期货，受此推动，过去两天比特币价格一路暴涨，从不到6400美元狂飙至7000美元以上，一度突破7300美元。......</p>
+					<p class="readmore">
+						<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
+							target="_blank">阅读全文&gt;&gt;</a>
+					</p>
+				</div>
+				<div class="author">
+					<p class="dateview">
+						<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
+							href="/itnews/">IT资讯</a>]
+						</span>
+					</p>
+				</div>
+			</div>
+		</div><!-- end blog-list -->
 		<aside id="sidebar">
 			<section>
 				<header>
@@ -165,8 +190,8 @@ footer #copyright {
 					<li><a href="#">June 2009</a></li>
 				</ul>
 			</section>
-		</aside>
-	</div>
+		</aside><!-- end sidebar -->
+	</div><!-- end main-content -->
 	<footer>
 		<div id="copyright">
 			<span>Copyright © 2014-2016 <a href="#" title="test"

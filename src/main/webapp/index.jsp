@@ -5,19 +5,33 @@
 <%@include file="common/link.jsp"%>
 <title>The Flower Blog</title>
 <style>
-ul{
+ul {
 	padding: 0;
 }
+
+body {
+	background: #f5f5f5;
+	min-width: 1200px;
+	width: 100%;
+}
+
+#main-header {
+	width: 100%;
+	max-width: 1200px;
+	margin: auto;
+}
+
 #nav {
 	position: relative;
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
 	background: gray;
+	margin-bottom: 10px;
 }
 
 #nav ul {
-	width: 1040px;
+	width: 1200px;
 	margin: 0 auto;
 	list-style: none;
 }
@@ -43,21 +57,69 @@ ul{
 }
 
 #main-content {
-	width: 1040px;
+	width: 1200px;
 	margin: 0 auto;
 	overflow: hidden;
 }
 
 #blog-list {
-	width: 760px;
+	width: 900px;
 	float: left;
 	overflow: hidden;
 }
 
+.blog-item {
+	background:#fff;
+	width: 100%;
+	padding: 16px;
+	margin-bottom: 12px;
+	display: inline-block;
+}
+
+.blog-item .thumb {
+	float: left;
+	width: 25%;
+}
+
+.blog-item .thumb img {
+	width: 100%;
+	overflow: auto;
+}
+
+
+.blog-item .info {
+	float: right;
+	width: 73%;
+}
+
+.readmore {
+}
+
+.readmore a {
+	color: red;
+	text-decoration: underline;
+}
+
 #sidebar {
-	width: 260px;
+	width: 290px;
 	float: right;
 	overflow: hidden;
+}
+
+#sidebar .widget {
+	background: #FFF;
+	padding: 16px;
+	margin-bottom: 12px;
+}
+
+#sidebar .widget ul {
+	list-style: none;
+}
+
+#sidebar .widget ul li a {
+	display: block;
+	line-height: 28px;
+	height: 28px;
 }
 
 footer {
@@ -66,7 +128,7 @@ footer {
 }
 
 footer #copyright {
-	width: 1040px;
+	width: 1200px;
 	margin: auto;
 	height: 40px;
 	line-height: 40px;
@@ -74,33 +136,11 @@ footer #copyright {
 	overflow: hidden;
 }
 
-.readmore{
-	margin: 10px;
-}
-
-.readmore a{
-	color: red;
-}
-.author .dateview span{
-	margin: 0 10px;
-}
-
-#sidebar .category{
-}
-
-#sidebar .category ul{
-	list-style: none;
-}
-#sidebar .category ul li a{
-	display: block;
-	line-height: 28px;
-	height: 28px;
-}
 </style>
 </head>
 <body>
-	<header>
-		<h1>The Flower Blog</h1>
+	<header id="main-header">
+		<h1>The Blog</h1>
 	</header>
 	<nav id="nav">
 		<ul>
@@ -113,76 +153,98 @@ footer #copyright {
 	</nav><!-- end nav -->
 	<div id="main-content">
 		<div id="blog-list">
-			<div class="list-item">
-				<div class="title">
-					<h2>
-						<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
-							target="_blank">腾讯“微保WeSure”上线微信 目前仅面向1%用户</a>
-					</h2>
+			<div class="blog-item">
+				<div class="thumb">
+					<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户">
+						<img src="<%=path%>/resources/images/koala.jpg" alt="腾讯“微保WeSure”上线微信 目前仅面向1%用户">
+					</a>
 				</div>
 				<div class="info">
-					<p>11月2日，腾讯正式上线了旗下保险平台“微保WeSure”，这也是腾讯第一家控股保险平台。......</p>
-					<p class="readmore">
-						<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
-							target="_blank">阅读全文&gt;&gt;</a>
-					</p>
-				</div>
-				<div class="author">
-					<p class="dateview">
-						<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
-							href="/itnews/">IT资讯</a>]
-						</span>
-					</p>
+					<div class="title">
+						<h3>
+							<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
+								target="_blank">腾讯“微保WeSure”上线微信 目前仅面向1%用户</a>
+						</h3>
+					</div>
+					<div class="summary">
+						<p>11月2日，腾讯正式上线了旗下保险平台“微保WeSure”，这也是腾讯第一家控股保险平台。......
+						</p>
+						<p class="readmore">
+							<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
+								target="_blank">阅读全文&gt;&gt;</a>
+						</p>
+					</div>
+					<div class="author">
+						<p class="dateview">
+							<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
+								href="/itnews/">IT资讯</a>]
+							</span>
+						</p>
+					</div>
 				</div>
 			</div>
-			<div class="list-item">
-				<div class="title">
-					<h2>
-						<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
-							target="_blank">谷歌即将关闭机票搜索软件QPX Express</a>
-					</h2>
+			<div class="blog-item">
+				<div class="thumb">
+					<a title="谷歌即将关闭机票搜索软件QPX Express">
+						<img src="<%=path%>/resources/images/koala.jpg" alt="谷歌即将关闭机票搜索软件QPX Express">
+					</a>
 				</div>
 				<div class="info">
-					<p>北京时间11月3日早间消息，谷歌即将关闭软件工具QPX
-						Express。该工具帮助小企业获取机票搜索信息。这可能会对在线旅行行业的新进入者造成冲击。......</p>
-					<p class="readmore">
-						<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
-							target="_blank">阅读全文&gt;&gt;</a>
-					</p>
-				</div>
-				<div class="author">
-					<p class="dateview">
-						<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
-							href="/itnews/">IT资讯</a>]
-						</span>
-					</p>
+					<div class="title">
+						<h3>
+							<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
+								target="_blank">谷歌即将关闭机票搜索软件QPX Express</a>
+						</h3>
+					</div>
+					<div class="summary">
+						<p>北京时间11月3日早间消息，谷歌即将关闭软件工具QPX
+							Express。该工具帮助小企业获取机票搜索信息。这可能会对在线旅行行业的新进入者造成冲击。......</p>
+						<p class="readmore">
+							<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
+								target="_blank">阅读全文&gt;&gt;</a>
+						</p>
+					</div>
+					<div class="author">
+						<p class="dateview">
+							<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
+								href="/itnews/">IT资讯</a>]
+							</span>
+						</p>
+					</div>
 				</div>
 			</div>
-			<div class="list-item">
-				<div class="title">
-					<h2>
-						<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
-							target="_blank">瑞银：比特币疯涨是郁金香泡沫破灭前的狂热</a>
-					</h2>
+			<div class="blog-item">
+				<div class="thumb">
+					<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热">
+						<img src="<%=path%>/resources/images/koala.jpg" alt="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热">
+					</a>
 				</div>
 				<div class="info">
-					<p>北京时间3日早间CNBC称，全球最大期货交易商芝加哥商品交易所集团（CME）计划年底前推出比特币期货，受此推动，过去两天比特币价格一路暴涨，从不到6400美元狂飙至7000美元以上，一度突破7300美元。......</p>
-					<p class="readmore">
-						<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
-							target="_blank">阅读全文&gt;&gt;</a>
-					</p>
-				</div>
-				<div class="author">
-					<p class="dateview">
-						<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
-							href="/itnews/">IT资讯</a>]
-						</span>
-					</p>
+					<div class="title">
+						<h3>
+							<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
+								target="_blank">瑞银：比特币疯涨是郁金香泡沫破灭前的狂热</a>
+						</h3>
+					</div>
+					<div class="summary">
+						<p>北京时间3日早间CNBC称，全球最大期货交易商芝加哥商品交易所集团（CME）计划年底前推出比特币期货，受此推动，过去两天比特币价格一路暴涨，从不到6400美元狂飙至7000美元以上，一度突破7300美元。......</p>
+						<p class="readmore">
+							<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
+								target="_blank">阅读全文&gt;&gt;</a>
+						</p>
+					</div>
+					<div class="author">
+						<p class="dateview">
+							<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
+								href="/itnews/">IT资讯</a>]
+							</span>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div><!-- end blog-list -->
 		<aside id="sidebar">
-			<section class="my-info">
+			<section class="widget">
 				<header>
 					<h3>个人信息</h3>
 				</header>
@@ -192,7 +254,7 @@ footer #copyright {
 					<p>现居:深圳</p>
 				</div>
 			</section>
-			<section class="category">
+			<section class="widget">
 				<header>
 					<h3>文章分类</h3>
 				</header>

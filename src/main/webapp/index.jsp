@@ -5,6 +5,9 @@
 <%@include file="common/link.jsp"%>
 <title>The Flower Blog</title>
 <style>
+ul{
+	padding: 0;
+}
 #nav {
 	position: relative;
 	width: 100%;
@@ -78,6 +81,21 @@ footer #copyright {
 .readmore a{
 	color: red;
 }
+.author .dateview span{
+	margin: 0 10px;
+}
+
+#sidebar .category{
+}
+
+#sidebar .category ul{
+	list-style: none;
+}
+#sidebar .category ul li a{
+	display: block;
+	line-height: 28px;
+	height: 28px;
+}
 </style>
 </head>
 <body>
@@ -111,7 +129,7 @@ footer #copyright {
 				</div>
 				<div class="author">
 					<p class="dateview">
-						<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
+						<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
 							href="/itnews/">IT资讯</a>]
 						</span>
 					</p>
@@ -134,7 +152,7 @@ footer #copyright {
 				</div>
 				<div class="author">
 					<p class="dateview">
-						<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
+						<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
 							href="/itnews/">IT资讯</a>]
 						</span>
 					</p>
@@ -156,7 +174,7 @@ footer #copyright {
 				</div>
 				<div class="author">
 					<p class="dateview">
-						<span>17-11-03</span><span>编辑：test</span><span> 个人博客：[<a
+						<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
 							href="/itnews/">IT资讯</a>]
 						</span>
 					</p>
@@ -164,30 +182,26 @@ footer #copyright {
 			</div>
 		</div><!-- end blog-list -->
 		<aside id="sidebar">
-			<section>
+			<section class="my-info">
 				<header>
-					<h3>Categories</h3>
+					<h3>个人信息</h3>
 				</header>
-				<ul>
-					<li><a href="#">Lorem ipsum dolor</a></li>
-					<li><a href="#">Sit amet consectetur</a></li>
-					<li><a href="#">Adipisicing elit sed</a></li>
-					<li><a href="#">Do eiusmod tempor</a></li>
-					<li><a href="#">Incididunt ut labore</a></li>
-				</ul>
+				<div>
+					<p>网名:moretime</p>
+					<p>主页:localhost</p>
+					<p>现居:深圳</p>
+				</div>
 			</section>
-			<section>
+			<section class="category">
 				<header>
-					<h3>Archives</h3>
+					<h3>文章分类</h3>
 				</header>
 				<ul>
-					<li><a href="#">December 2008</a></li>
-					<li><a href="#">January 2009</a></li>
-					<li><a href="#">February 2009</a></li>
-					<li><a href="#">March 2009</a></li>
-					<li><a href="#">April 2009</a></li>
-					<li><a href="#">May 2009</a></li>
-					<li><a href="#">June 2009</a></li>
+					<li><a href="#">JAVA</a></li>
+					<li><a href="#">HTML/CSS</a></li>
+					<li><a href="#">Javascript</a></li>
+					<li><a href="#">MySQL</a></li>
+					<li><a href="#">Python</a></li>
 				</ul>
 			</section>
 		</aside><!-- end sidebar -->

@@ -79,25 +79,48 @@ body {
 .blog-item .thumb {
 	float: left;
 	width: 25%;
+	height: 165px;
 }
 
 .blog-item .thumb img {
 	width: 100%;
+	height: 100%;
 	overflow: auto;
 }
-
 
 .blog-item .info {
 	float: right;
 	width: 73%;
+	height: 165px;
 }
 
-.readmore {
+.blog-item .info .title h3{
+	font-size: 20px;
+	margin: 0 0 10px 0;
 }
 
-.readmore a {
+.blog-item .summary {
+	height: 113px;
+}
+
+.blog-item .summary .readmore {
+}
+
+.blog-item .summary .readmore a {
 	color: red;
 	text-decoration: underline;
+}
+
+.blog-item .author {
+	color: #999;
+}
+
+.blog-item .author .muted {
+	margin-right: 14px;
+}
+
+.blog-item .author .muted i{
+	margin-right: 5px;
 }
 
 #sidebar {
@@ -175,18 +198,17 @@ footer #copyright {
 						</p>
 					</div>
 					<div class="author">
-						<p class="dateview">
-							<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
-								href="/itnews/">IT资讯</a>]
-							</span>
-						</p>
+						<span class="muted"><i class="fa fa-list-alt"></i><a href="/itnews/">IT资讯</a></span>
+						<span class="muted"><i class="fa fa-user"></i>作者：test</span>
+						<span class="muted"><i class="fa fa-clock-o"></i>17-11-03</span>
+						<span class="muted"><i class="fa fa-eye"></i>浏览（22）</span>
 					</div>
 				</div>
 			</div>
 			<div class="blog-item">
 				<div class="thumb">
 					<a title="谷歌即将关闭机票搜索软件QPX Express">
-						<img src="<%=path%>/resources/images/koala.jpg" alt="谷歌即将关闭机票搜索软件QPX Express">
+						<img src="<%=path%>/resources/images/cat.jpg" alt="谷歌即将关闭机票搜索软件QPX Express">
 					</a>
 				</div>
 				<div class="info">
@@ -205,11 +227,10 @@ footer #copyright {
 						</p>
 					</div>
 					<div class="author">
-						<p class="dateview">
-							<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
-								href="/itnews/">IT资讯</a>]
-							</span>
-						</p>
+						<span class="muted"><i class="fa fa-list-alt"></i><a href="/itnews/">IT资讯</a></span>
+						<span class="muted"><i class="fa fa-user"></i>作者：test</span>
+						<span class="muted"><i class="fa fa-clock-o"></i>17-11-03</span>
+						<span class="muted"><i class="fa fa-eye"></i>浏览（22）</span>
 					</div>
 				</div>
 			</div>
@@ -234,11 +255,10 @@ footer #copyright {
 						</p>
 					</div>
 					<div class="author">
-						<p class="dateview">
-							<span>17-11-03</span><span>编辑：test</span><span> 分类：[<a
-								href="/itnews/">IT资讯</a>]
-							</span>
-						</p>
+						<span class="muted"><i class="fa fa-list"></i><a href="/itnews/">IT资讯</a></span>
+						<span class="muted"><i class="fa fa-user"></i>作者：test</span>
+						<span class="muted"><i class="fa fa-clock-o"></i>17-11-03</span>
+						<span class="muted"><i class="fa fa-eye"></i>浏览（22）</span>
 					</div>
 				</div>
 			</div>

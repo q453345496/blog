@@ -3,21 +3,21 @@ UE.Editor.prototype.getActionUrl = function(action) {
 	var test = true;
 	if (action == 'config') {
 		if(test){
-			return '/blog/resources/config2.json';
+			return basePath + '/resources/config2.json';
 		}
-		return '/blog/resources/config.json';
+		return basePath + '/resources/config.json';
 	} else if (action == 'uploadImage') {
-		return '/blog/ueditor/uploadImage';
+		return basePath + '/ueditor/uploadImage';
 	} else if (action == 'uploadVideo') {
-		return '/blog/ueditor/uploadVideo';
+		return basePath + '/ueditor/uploadVideo';
 	} else if (action == 'uploadFile') {
-		return '/blog/ueditor/uploadFile';
+		return basePath + '/ueditor/uploadFile';
 	} else if (action == 'listFile') {
-		return '/blog/ueditor/listImage';
+		return basePath + '/ueditor/listImage';
 	} else if (action == 'listImage') {
-		return '/blog/ueditor/listFile';
+		return basePath + '/ueditor/listFile';
 	} else if (action == 'catchImage') {
-		return '/blog/ueditor/catchImage';
+		return basePath + '/ueditor/catchImage';
 	} else {
 		return this._bkGetActionUrl.call(this, action);
 	}

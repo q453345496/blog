@@ -177,91 +177,37 @@ footer #copyright {
 	</nav><!-- end nav -->
 	<div id="main-content">
 		<div id="blog-list">
-			<div class="blog-item">
-				<div class="thumb">
-					<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户">
-						<img src="<%=path%>/resources/images/koala.jpg" alt="腾讯“微保WeSure”上线微信 目前仅面向1%用户">
-					</a>
-				</div>
-				<div class="info">
-					<div class="title">
-						<h3>
-							<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
-								target="_blank">腾讯“微保WeSure”上线微信 目前仅面向1%用户</a>
-						</h3>
-					</div>
-					<div class="summary">
-						<p>11月2日，腾讯正式上线了旗下保险平台“微保WeSure”，这也是腾讯第一家控股保险平台。......
-						</p>
-						<div class="readmore">
-							<a title="腾讯“微保WeSure”上线微信 目前仅面向1%用户" href="/itnews/18269.html"
-								target="_blank">阅读全文&gt;&gt;</a>
+			<c:forEach var="blog" items="${blogs}">
+				<div class="blog-item">
+					<div class="thumb">
+							<a title="${blog.title }">
+								<img src="${blog.thumb }" alt="${blog.title }">
+							</a>
 						</div>
-					</div>
-					<div class="author">
-						<span class="muted"><i class="fa fa-list-alt"></i><a href="/itnews/">IT资讯</a></span>
-						<span class="muted"><i class="fa fa-user"></i>作者：test</span>
-						<span class="muted"><i class="fa fa-clock-o"></i>17-11-03</span>
-						<span class="muted"><i class="fa fa-eye"></i>浏览（22）</span>
-					</div>
-				</div>
-			</div>
-			<div class="blog-item">
-				<div class="thumb">
-					<a title="谷歌即将关闭机票搜索软件QPX Express">
-						<img src="<%=path%>/resources/images/koala.jpg" alt="谷歌即将关闭机票搜索软件QPX Express">
-					</a>
-				</div>
-				<div class="info">
-					<div class="title">
-						<h3>
-							<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
-								target="_blank">谷歌即将关闭机票搜索软件QPX Express</a>
-						</h3>
-					</div>
-					<div class="summary">
-						<p>能把B级片拍到如此境界的导演，我只佩服他。― 是的吧 2017-04-27 ―“金基德电影的痛，是砸碎骨头连着筋的痛。”金基德善于以人类最原始的欲望，来展示人性的阴暗面。      金基德出生于一个不幸的家庭，经历十分丰富曲折。学历是初中。他毕业于非正式的农业大专，因而未获得学历。他有过五年的部队...</p>
-						<div class="readmore">
-							<a title="谷歌即将关闭机票搜索软件QPX Express" href="/itnews/18268.html"
-								target="_blank">阅读全文&gt;&gt;</a>
+						<div class="info">
+							<div class="title">
+								<h3>
+									<a title="${blog.title }" href="/blog/${blog.id }.html"
+										target="_blank">${blog.title }</a>
+								</h3>
+							</div>
+							<div class="summary">
+								<p>${blog.summary }
+								</p>
+								<div class="readmore">
+									<a title="${blog.title }" href="/blog/${blog.id }.html"
+										target="_blank">阅读全文&gt;&gt;</a>
+								</div>
+							</div>
+							<div class="author">
+								<span class="muted"><i class="fa fa-list-alt"></i><a href="/${blog.blogType.id }">${blog.blogType.name}</a></span>
+	<!-- 							<span class="muted"><i class="fa fa-user"></i>作者：test</span> -->
+								<span class="muted"><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${blog.createTime}"/></span>
+								<span class="muted"><i class="fa fa-eye"></i>浏览（${blog.click }）</span>
+							</div>
 						</div>
-					</div>
-					<div class="author">
-						<span class="muted"><i class="fa fa-list-alt"></i><a href="/itnews/">IT资讯</a></span>
-						<span class="muted"><i class="fa fa-user"></i>作者：test</span>
-						<span class="muted"><i class="fa fa-clock-o"></i>17-11-03</span>
-						<span class="muted"><i class="fa fa-eye"></i>浏览（22）</span>
-					</div>
 				</div>
-			</div>
-			<div class="blog-item">
-				<div class="thumb">
-					<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热">
-						<img src="<%=path%>/resources/images/koala.jpg" alt="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热">
-					</a>
-				</div>
-				<div class="info">
-					<div class="title">
-						<h3>
-							<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
-								target="_blank">瑞银：比特币疯涨是郁金香泡沫破灭前的狂热</a>
-						</h3>
-					</div>
-					<div class="summary">
-						<p>北京时间3日早间CNBC称，全球最大期货交易商芝加哥商品交易所集团（CME）计划年底前推出比特币期货，受此推动，过去两天比特币价格一路暴涨，从不到6400美元狂飙至7000美元以上，一度突破7300美元北京时间3日早间CNBC称，全球最大期货交易商芝加哥商品交易所集团（CME）计划年底前推出比特币...</p>
-						<div class="readmore">
-							<a title="瑞银：比特币疯涨是郁金香泡沫破灭前的狂热" href="/itnews/18267.html"
-								target="_blank">阅读全文&gt;&gt;</a>
-						</div>
-					</div>
-					<div class="author">
-						<span class="muted"><i class="fa fa-list"></i><a href="/itnews/">IT资讯</a></span>
-						<span class="muted"><i class="fa fa-user"></i>作者：test</span>
-						<span class="muted"><i class="fa fa-clock-o"></i>17-11-03</span>
-						<span class="muted"><i class="fa fa-eye"></i>浏览（22）</span>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div><!-- end blog-list -->
 		<aside id="sidebar">
 			<section class="widget">

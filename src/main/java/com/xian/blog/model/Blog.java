@@ -24,6 +24,8 @@ public class Blog {
 
 	private String contentNoTag;// 内容无标签,方便分词
 
+	private String thumb;//缩略图
+	
 	public Long getId() {
 		return id;
 	}
@@ -118,6 +120,14 @@ public class Blog {
 
 	public void setBlogType(BlogType blogType) {
 		this.blogType = blogType;
+	}
+
+	public String getThumb() {
+		return thumb;
+	}
+
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
 	}
 
 }

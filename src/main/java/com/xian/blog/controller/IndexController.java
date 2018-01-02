@@ -28,6 +28,7 @@ public class IndexController {
 			blog.setThumb(RegexUtils.getFirstImg(blog.getContent()));
 		}
 		model.addAttribute("blogs", list);
+		model.addAttribute("mainPage", "view/blog/list.jsp");
 		return "index";
 	}
 

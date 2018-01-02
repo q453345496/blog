@@ -18,9 +18,10 @@ public class BlogController {
 
 	@RequestMapping("/blog/{id}")
 	public ModelAndView detail(@PathVariable("id") Long id) {
-		ModelAndView modelAndView = new ModelAndView("upload");
+		ModelAndView modelAndView = new ModelAndView("index");
 		Blog blog = blogService.get(id);
 		modelAndView.addObject("blog", blog);
+		modelAndView.addObject("mainPage", "view/blog/blog.jsp");
 		return modelAndView;
 	}
 

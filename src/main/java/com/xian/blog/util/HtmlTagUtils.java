@@ -29,9 +29,9 @@ public class HtmlTagUtils {
 				continue;
 			}
 			if (currentPage == i) {
-				createPageLi(sb, i, i, param, ACTIVE);
+				createPageLi(sb, i, i, otherParam, ACTIVE);
 			} else {
-				createPageLi(sb, i, i, param, EMPTY);
+				createPageLi(sb, i, i, otherParam, EMPTY);
 			}
 		}
 

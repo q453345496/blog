@@ -169,8 +169,8 @@ footer #copyright {
 	<nav id="nav">
 		<ul>
 			<li class="selected"><a href="#">首页</a></li>
-			<li><a href="#">文章</a></li>
-			<li><a href="#">读书</a></li>
+			<li><a href="1">Python</a></li>
+			<li><a href="3">C++</a></li>
 			<li><a href="#">资讯</a></li>
 			<li><a href="#">关于我</a></li>
 		</ul>
@@ -193,8 +193,8 @@ footer #copyright {
 					<h3>文章分类</h3>
 				</header>
 				<ul>
-					<li><a href="#">JAVA</a></li>
-					<li><a href="#">HTML/CSS</a></li>
+					<li><a href="1">Python</a></li>
+					<li><a href="3">C++</a></li>
 					<li><a href="#">Javascript</a></li>
 					<li><a href="#">MySQL</a></li>
 					<li><a href="#">Python</a></li>

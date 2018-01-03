@@ -21,7 +21,7 @@ public class Blog {
 	private String summary;// 摘要,内容的前n个字符
 
 	private BlogType blogType; // 博客类型
-
+	private int typeId;
 	private String contentNoTag;// 内容无标签,方便分词
 
 	private String thumb;//缩略图
@@ -128,6 +128,14 @@ public class Blog {
 
 	public void setThumb(String thumb) {
 		this.thumb = thumb;
+	}
+
+	public int getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 
 }

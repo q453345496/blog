@@ -56,13 +56,13 @@ body {
 	color: #00F;
 }
 
-#main-content {
+.content-wrap {
 	width: 1200px;
 	margin: 0 auto;
 	overflow: hidden;
 }
 
-.blog-list {
+.main-content {
 	width: 900px;
 	float: left;
 	overflow: hidden;
@@ -112,15 +112,15 @@ body {
 	text-decoration: underline;
 }
 
-.blog-item .author {
+.author {
 	color: #999;
 }
 
-.blog-item .author .muted {
+.author .muted {
 	margin-right: 14px;
 }
 
-.blog-item .author .muted i{
+.author .muted i{
 	margin-right: 5px;
 }
 
@@ -175,7 +175,7 @@ footer #copyright {
 			<li><a href="#">关于我</a></li>
 		</ul>
 	</nav><!-- end nav -->
-	<div id="main-content">
+	<div class="content-wrap">
 		<jsp:include page="${mainPage }"></jsp:include>
 		<aside id="sidebar">
 			<section class="widget">
@@ -201,7 +201,7 @@ footer #copyright {
 				</ul>
 			</section>
 		</aside><!-- end sidebar -->
-	</div><!-- end main-content -->
+	</div><!-- end content-wrap -->
 	<footer>
 		<div id="copyright">
 			<span>Copyright © 2014-2016 <a href="#" title="test"

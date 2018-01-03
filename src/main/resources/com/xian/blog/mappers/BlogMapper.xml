@@ -51,6 +51,7 @@
 				AND b.title LIKE CONCAT('%', #{title}, '%')
 			</if>
 		</where>
+		ORDER BY b.create_time
 		<if test="start != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>

@@ -11,16 +11,11 @@ public class Page {
 	public Page() {
 	}
 
-	public Page(int page, int pageSize) {
-		this.page = page;
-		this.pageSize = pageSize;
-	}
-
 	public Page(Integer page, Integer pageSize) {
-		if (page == null) {
+		if (page == null || page <= 0) {
 			page = 1;
 		}
-		if (pageSize == null) {
+		if (pageSize == null || page <= 0) {
 			pageSize = 20;
 		}
 		this.page = page;

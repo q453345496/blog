@@ -72,7 +72,7 @@ body {
 	background:#fff;
 	width: 100%;
 	padding: 16px;
-	margin-bottom: 12px;
+	margin-top: 12px;
 	display: inline-block;
 }
 
@@ -133,7 +133,7 @@ body {
 #sidebar .widget {
 	background: #FFF;
 	padding: 16px;
-	margin-bottom: 12px;
+	margin-top: 12px;
 }
 
 #sidebar .widget ul {

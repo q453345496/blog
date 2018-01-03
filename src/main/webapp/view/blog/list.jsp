@@ -1,6 +1,11 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+.main-content .navigation{
+	text-align: center;
+}
+</style>
 <div class="main-content">
 	<c:forEach var="blog" items="${blogs}">
 		<div class="blog-item">
@@ -33,4 +38,9 @@
 			</div>
 		</div>
 	</c:forEach>
+	<nav class="navigation">
+		<ul class="pagination">
+			${pageCode }
+		</ul>
+	</nav>
 </div><!-- end blog-list -->

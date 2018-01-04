@@ -21,6 +21,7 @@ import com.xian.blog.common.DataGridResult;
 import com.xian.blog.common.Page;
 import com.xian.blog.model.Blog;
 import com.xian.blog.service.BlogService;
+import com.xian.blog.util.RegexUtils;
 
 /**
  * Date:2016年7月29日下午9:35:11
@@ -55,6 +56,8 @@ public class BlogManagerController {
 	@ResponseBody
 	public CommonResult save(Blog blog) {
 		try {
+			String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
+			blog.setSummary(contentNoTag.substring(0, Math.min(200, contentNoTag.length())));
 			if (blog.getId() == null) {
 				blogService.save(blog);
 			} else {
@@ -79,7 +82,7 @@ public class BlogManagerController {
 		}
 	}
 
-	@RequestMapping(value="/toAdd")
+	@RequestMapping(value = "/toAdd")
 	public ModelAndView toAddPage() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/admin/blog/modifyBlog");

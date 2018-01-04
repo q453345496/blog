@@ -101,9 +101,7 @@ function saveBlog(){
 					'title' : title,
 					'blogType.id' : blogTypeId,
 					'rightType' : rightType,
-					'contentNoTag' : UE.getEditor('content').getContentTxt(),
 					'content' : content,
-					'summary' : UE.getEditor('content').getContentTxt().substr(0,200),
 					'keyWord' : keyWord
 				},
 				function(result){

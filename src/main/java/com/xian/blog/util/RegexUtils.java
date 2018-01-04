@@ -32,14 +32,25 @@ public class RegexUtils {
 		return imgs;
 	}
 
+	public static String getNoTagContent(String content) {
+		if (content == null || content.length() == 0) {
+			return content;
+		}
+		String text = "<!--.*-->|<[^>]*>";
+		Pattern pattern = Pattern.compile(text);
+		Matcher matcher = pattern.matcher(content);
+		StringBuilder sb = new StringBuilder();
+		while (matcher.find()) {
+			sb.append(matcher.replaceAll("").replaceAll("\\s", "").replaceAll("&.*?;", ""));
+		}
+		return sb.toString();
+	}
+
 	public static void main(String[] args) {
 		try {
 			String text = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\Desktop\\test.html"));
-			System.out.println(getFirstImg(text));
 			System.out.println("==========");
-			for (String s : getAllImg(text)) {
-				System.out.println(s);
-			}
+			System.out.println(getNoTagContent(text));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

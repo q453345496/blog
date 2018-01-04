@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" type="text/css" href="<%=path%>/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/resources/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/resources/css/style.css">
 
 <script src="<%=path%>/resources/jquery-1.12.3.min.js"></script>
 <script src="<%=path%>/resources/bootstrap/js/bootstrap.min.js"></script>
@@ -48,5 +49,3 @@
 		document.body.oncopy = addLink;
 	});
 </script>
-<style>
-</style>

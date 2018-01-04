@@ -6,13 +6,12 @@
 	background:#fff;
 	width: 100%;
 	padding: 16px;
-	margin-bottom: 12px;
+	margin-top: 12px;
 }
 .blog-detail .info {
     text-align: center;
     border-bottom: 1px solid red;
-    padding-bottom: 25px;
-    margin-bottom: 27px;
+    padding-bottom: 24px;
 }
 .blog-detail .info .title h3{
 	font-size: 20px;

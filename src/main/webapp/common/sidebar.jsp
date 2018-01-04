@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <aside class="sidebar">
 			<section class="widget">
 				<header>
@@ -21,6 +21,16 @@
 					<li><a href="#">Javascript</a></li>
 					<li><a href="#">MySQL</a></li>
 					<li><a href="#">Python</a></li>
+				</ul>
+			</section>
+			<section class="widget">
+				<header>
+					<h3>最新文章</h3>
+				</header>
+				<ul>
+					<c:forEach var="blog" items="${lastBlogList}">
+					<li><a title="${blog.title }" href="/blog/${blog.id}.html">${blog.title }</a>
+					</c:forEach>
 				</ul>
 			</section>
 </aside><!-- end sidebar -->

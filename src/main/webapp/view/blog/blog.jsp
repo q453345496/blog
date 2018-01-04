@@ -26,8 +26,7 @@
 		<div class="info">
 			<div class="title">
 				<h3>
-					<a title="${blog.title }" href="/blog/${blog.id }.html"
-						target="_blank">${blog.title }</a>
+					<a title="${blog.title }" href="/blog/${blog.id }.html">${blog.title }</a>
 				</h3>
 			</div>
 			<div class="author">

@@ -1,6 +1,7 @@
 package com.xian.blog.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,13 @@ public class BlogService {
 	private BlogDao blogDao;
 
 	public List<Blog> list(Map<String, Object> map) {
+		return blogDao.list(map);
+	}
+	
+	public List<Blog> listLast(int size) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", 0);
+		map.put("size", size);
 		return blogDao.list(map);
 	}
 

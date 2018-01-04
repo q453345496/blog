@@ -25,6 +25,16 @@
 			</section>
 			<section class="widget">
 				<header>
+					<h3>阅读最多</h3>
+				</header>
+				<ul>
+					<c:forEach var="blog" items="${hotBlogList}">
+					<li><a title="${blog.title }" href="/blog/${blog.id}.html">${blog.title }</a>
+					</c:forEach>
+				</ul>
+			</section>
+			<section class="widget">
+				<header>
 					<h3>最新文章</h3>
 				</header>
 				<ul>

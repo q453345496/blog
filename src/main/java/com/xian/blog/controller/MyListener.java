@@ -14,12 +14,12 @@ public class MyListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext servletContext = sce.getServletContext();
-		WebApplicationContext requiredWebApplicationContext = WebApplicationContextUtils
+		WebApplicationContext applicationContext = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(servletContext);
-		BlogService blogService = (BlogService) requiredWebApplicationContext.getBean("blogService");
-		System.err.println("呵呵");
-		System.err.println(blogService);
+		BlogService blogService = (BlogService) applicationContext.getBean("blogService");
 		servletContext.setAttribute("lastBlogList", blogService.listLast(6));
+		servletContext.setAttribute("hotBlogList", blogService.listHot(6));
+
 	}
 
 	@Override

@@ -27,9 +27,18 @@ public class BlogService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", 0);
 		map.put("size", size);
+		map.put("orderByCause", "b.create_time DESC");
 		return blogDao.list(map);
 	}
-
+	
+	public List<Blog> listHot(int size) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", 0);
+		map.put("size", size);
+		map.put("orderByCause", "b.click DESC");
+		return blogDao.list(map);
+	}
+	
 	public Integer getTotal(Map<String, Object> map) {
 		return blogDao.getTotal(map);
 	}

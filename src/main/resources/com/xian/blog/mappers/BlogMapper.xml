@@ -54,7 +54,14 @@
 				AND b.type_id = #{typeId}
 			</if>
 		</where>
-		ORDER BY b.create_time DESC
+		<choose>
+			<when test="orderByCause != null and orderByCause != ''">
+				ORDER BY ${orderByCause}
+			</when>
+			<otherwise>
+				ORDER BY b.create_time DESC
+			</otherwise>
+		</choose>
 		<if test="start != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>

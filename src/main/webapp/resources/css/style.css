@@ -105,15 +105,16 @@ body {
 	text-decoration: underline;
 }
 
-.author {
+.main-content .author {
 	color: #999;
+	font-size: 12px;
 }
 
-.author .muted {
+.main-content .author .muted {
 	margin-right: 14px;
 }
 
-.author .muted i{
+.main-content .author .muted i{
 	margin-right: 5px;
 }
 
@@ -121,11 +122,11 @@ body {
 	width: 290px;
 	float: right;
 	overflow: hidden;
+	margin-top: 12px;
 }
 
 .sidebar .widget {
 	background: #FFF;
-	padding: 16px;
 	margin-top: 12px;
 }
 

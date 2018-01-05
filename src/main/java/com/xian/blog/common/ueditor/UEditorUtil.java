@@ -132,7 +132,9 @@ public final class UEditorUtil {
 			connection.setReadTimeout(10 * 1000);
 			connection.setDefaultUseCaches(true);
 			connection.setInstanceFollowRedirects(true);
+			connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible;MSIE7.0;WindowsNT5.1;360SE)");
 			if (HttpURLConnection.HTTP_OK != connection.getResponseCode()) {
+				LOG.error("Error Response Code:" + connection.getResponseCode());
 				return UEditorResult.errorResult("Error Response Code");
 			}
 			String suffix = UEditorConstant.getSuffix(connection.getContentType());

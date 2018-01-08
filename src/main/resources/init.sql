@@ -63,8 +63,23 @@ CREATE TABLE `t_param` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `key`  varchar(255) NOT NULL ,
 `value` varchar(255) ,
-type_code varchar(255) NOT NULL,
-summary varchar(255) ,
+`type_code` varchar(255) NOT NULL,
+`summary` varchar(255) ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;
+
+/*专题*/
+DROP TABLE IF EXISTS `t_special_topic`;
+CREATE TABLE `t_special_topic` (
+`id` int(11) NOT NULL AUTO_INCREMENT ,
+`name`  varchar(255) NOT NULL ,
+`click` int(11) DEFAULT 0,
+`relate_count` int(11) DEFAULT 0,
+`rank` int(11),
+`create_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB

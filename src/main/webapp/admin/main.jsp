@@ -32,6 +32,9 @@
 				<a href="#" onclick="openTab('文章列表','<%=path%>/admin/blog/blogManager.jsp','fa fa-file-word-o')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-word-o'">文章列表</a>
 				<a href="#" onclick="openTab('文章分类管理','<%=path%>/admin/blogType/blogTypeManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">文章分类管理</a>
 			</div>
+			<div title="专题管理" style="padding:10px">
+				<a href="#" onclick="openTab('专题列表','<%=path%>/admin/specialTopic/specialTopic.jsp','fa fa-file-word-o')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-word-o'">专题列表</a>
+			</div>
 			
 			<div title="帮助" style="padding:10px">
 				<p>ing on a panel heaers can define a panel to be selected.</p>         

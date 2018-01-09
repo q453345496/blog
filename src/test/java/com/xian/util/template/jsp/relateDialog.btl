@@ -1,0 +1,121 @@
+\<%@ page language="java" pageEncoding="UTF-8"%>
+<div id="${dialogId}" class="easyui-dialog" style="width:1200px;height:680px;" closed="true" modal="true">
+	<div id="${contentRelateTabs}" class="easyui-tabs" data-options="fit:true" border=false>
+		<div title="已关联${modelCN}" style="overflow:hidden;height:500px;">
+			<div id="${relatedDataGridToolbar}" style="padding:5px">
+					<a href="#" id="${delUnRelateBtn}" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="${delRelateFunc}()">取消关联</a>
+					&nbsp;${modelCN}名称: <input type="text" id="${model}NameR">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="${doSearchRFunc}()" plain="true">查询</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#${relatedDataGridToolbar}')" plain="true">清空</a>
+			</div> 
+			<table id="${relatedDataGrid}" fit="true" rownumbers="true" pagination="true" fitcolumns=true pageSize="20" data-options="toolbar:'#${relatedDataGridToolbar}',height:500" border=false>
+				<thead>
+					<tr>
+						<th data-options="field:'ck',checkbox:true"></th>
+						<th field="id" width="100" align="left" hidden="true">ID</th>
+						<th field="${modeId}" width="100" align="left" hidden="true">${modelCN}ID</th>
+						<th field="name" width="100" align="left" hidden="true">名称</th>
+					</tr>
+				</thead>
+			</table>    
+		</div>
+		<div title="未关联${modelCN}" style="overflow:hidden;height:500px;"> 
+			<div id="${unRelatedDataGridToolbar}" style="padding:5px">
+					<a href="#" id="${addRelateBtn}" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="${addRelateFunc}()">添加关联</a>
+					&nbsp;${modelCN}名称: <input type="text" id="${model}NameUR">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="${doSearchURFunc}()" plain="true">查询</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#${unRelatedDataGridToolbar}')" plain="true">清空</a>
+			</div>  
+			<table id="${unRelatedDataGrid}" rownumbers="true" fit="true" fitcolumns=true pagination="true" pageSize="20" data-options="toolbar:'#${unRelatedDataGridToolbar}',height:500" border=false>
+				<thead>
+					<tr>
+						<th data-options="field:'ck',checkbox:true"></th>
+						<th field="${modeId}" width="100" align="left" hidden="true">${modelCN}ID</th>
+						<th field="name" width="100" align="left" hidden="true">名称</th>
+					</tr>
+				</thead>
+			</table>    
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+function ${openRelateDialogFunc}(rowIndex){
+	$('#${parentDataGrid}').datagrid('selectRow', rowIndex);
+    var row = $("#${parentDataGrid}").datagrid("getSelected");
+    if(row){
+    	 $("#${dialogId}").dialog("open").dialog('setTitle',"关联${modelCN} 【${parentModelCN}： "+row.name+"】");
+    	 $('#${relatedDataGrid}').datagrid({url : '${relatedDataGridUrl}?id='+row.id});
+    	 $('#${unRelatedDataGrid}').datagrid({url : '${unRelatedDataGridUrl}?id='+row.id});
+    }
+    $('#${contentRelateTabs}').tabs({
+		'onSelect':function(title, index) {
+			${refreshTabFunc}(index);
+		},
+		'selected' : 0
+	});
+    
+}
+
+function ${refreshTabFunc}(index) {
+	if (index == 0) {
+		$("#${relatedDataGrid}").datagrid('load', {});
+	} else {
+		$("#${unRelatedDataGrid}").datagrid('load', {});
+	}
+}
+
+function ${doSearchRFunc}(){
+	var params = {
+			'name': $("#${model}NameR").val()
+	   	};
+	$('#${relatedDataGrid}').datagrid('reload', params);
+}
+
+function ${doSearchURFunc}(){
+	var params = {
+			'name': $("#${model}NameUR").val()
+	   	};
+	$('#${unRelatedDataGrid}').datagrid('reload', params);
+}
+
+function ${addRelateFunc}(){
+	$("#${addRelateBtn}").linkbutton("disable");
+	var ids = concatIds('#${unRelatedDataGrid}', '${modeId}');
+	if (ids != "") {
+		$.post('${relate_url}',{'ids':ids},function(result){
+            if ("0" == result.ret){
+            	$.messager.show({ title: '提示', msg: result.retInfo });
+                $('#${unRelatedDataGrid}').datagrid('reload');
+    			$("#${unRelatedDataGrid}").datagrid({selectOnCheck:true});
+            } else {
+            	$.messager.show({ title: '提示', msg: result.retInfo });
+            }
+            
+            $("#${addRelateBtn}").linkbutton("enable");
+        },'json');
+	} else {
+		$.messager.show({title:'提示',msg:'请选择要关联的${parentModelCN}',timeout:1000});
+		$("#${addRelateBtn}").linkbutton("enable");
+	}
+}
+
+function ${delRelateFunc}(){
+	$("#${delUnRelateBtn}").linkbutton("disable");
+	var ids = concatIds('#${relatedDataGrid}','id');
+	if (ids != "") {
+		$.post('${unRelate_url}',{'ids':ids},function(result){
+            if ("0" == result.ret){
+            	$.messager.show({ title: '提示', msg: result.retInfo });
+                $('#${relatedDataGrid}').datagrid('reload');
+            	$("#${relatedDataGrid}").datagrid({selectOnCheck:true});
+            } else {
+                $.messager.show({ title: '提示', msg: result.retInfo });
+            }
+            $("#${delUnRelateBtn}").linkbutton("enable");
+        },'json');
+	} else {
+		$.messager.show({title:'提示',msg:'请选择要取消关联的${modelCN}',timeout:1000});
+		$("#${delUnRelateBtn}").linkbutton("enable");
+	}
+}
+</script>

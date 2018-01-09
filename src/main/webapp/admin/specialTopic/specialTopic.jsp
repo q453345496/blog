@@ -40,6 +40,7 @@
 		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-save'" onclick="specialTopicSaveFunc()" style="width:90px">保存</a>
 		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-times'" onclick="javascript:$('#specialTopicDialog').dialog('close')" style="width:90px">关闭</a>
 	</div>
+	<%@include file="relate_blog.jsp"%>
 <script>
 $(function() {
 	$('#specialTopicDataGrid').datagrid({
@@ -83,9 +84,18 @@ $(function() {
 			{
 				field : 'createTime',
 				title : '创建时间',
-				width:100,
+				width:40,
 				align:'center'
-			}
+			},
+			{
+				field : 'action',
+				title : '操作',
+				width:100,
+				align:'center',
+				formatter: function(value,row,index){
+					return '<a href="#" onclick="blogOpenRelateDialogFunc('+index+')">关联文章</a>';
+				}
+			}, 
 		]],
 		toolbar : '#specialTopicDataGridToolbar',
 		method : 'GET',

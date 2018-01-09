@@ -88,3 +88,39 @@ function clearSearch(target) {
 		}
 	});
 }
+
+function concatIds(target, prop, separator) {
+	var rows = $(target).datagrid("getSelections");
+	
+	// 未选中记录返回空字符串
+	if(rows.length == 0) {
+		return "";
+    }
+	
+	// 默认连接符
+	var DEFAULT_PROP = "id";
+	if (prop == undefined) {
+		prop = DEFAULT_PROP;
+	}
+	
+	// 默认连接符
+	var DEFAULT_SEPARATOR = ",";
+	if (separator == undefined) {
+		separator = DEFAULT_SEPARATOR;
+	}
+	
+	// 拼接字符串
+	var ids = "";
+    for(var i=0, len=rows.length; i <len; i++) {
+		if(i > 0) {
+			ids += separator;
+		}
+		var obj = rows[i];
+		for ( var p in obj ){ // 方法
+			if (p == prop) {
+				ids += obj[p];
+			} 
+		}
+    }
+    return ids;
+}

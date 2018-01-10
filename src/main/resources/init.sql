@@ -85,3 +85,16 @@ PRIMARY KEY (`id`)
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+
+/*专题关联博客*/
+DROP TABLE IF EXISTS `t_special_topic_resource`;
+CREATE TABLE `t_special_topic_resource` (
+`id` int(11) NOT NULL AUTO_INCREMENT ,
+`topic_id`  int(11) NOT NULL ,
+`blog_id` int(11) NOT NULL ,
+`create_time` datetime NOT NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;

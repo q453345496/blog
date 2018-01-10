@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<div id="contentRelateDialog" class="easyui-dialog" style="width:1200px;height:680px;" closed="true" modal="true">
+<div id="specialTopicRelateblogDialog" class="easyui-dialog" style="width:1200px;height:680px;" closed="true" modal="true">
 	<div id="blogRelateTabs" class="easyui-tabs" data-options="fit:true" border=false>
 		<div title="已关联文章" style="overflow:hidden;height:500px;">
 			<div id="blogRelatedDataGridToolbar" style="padding:5px">
@@ -12,9 +12,9 @@
 				<thead>
 					<tr>
 						<th data-options="field:'ck',checkbox:true"></th>
-						<th field="id" width="100" align="left" hidden="true">ID</th>
-						<th field="blogId" width="100" align="left" hidden="true">文章ID</th>
-						<th field="name" width="100" align="left" hidden="true">名称</th>
+						<th field="id" width="20" align="left" hidden="true">ID</th>
+						<th field="blogId" width="20" align="left">文章ID</th>
+						<th field="blogTitle" width="100" align="left">名称</th>
 					</tr>
 				</thead>
 			</table>    
@@ -30,8 +30,8 @@
 				<thead>
 					<tr>
 						<th data-options="field:'ck',checkbox:true"></th>
-						<th field="blogId" width="100" align="left" hidden="true">文章ID</th>
-						<th field="name" width="100" align="left" hidden="true">名称</th>
+						<th field="blogId" width="20" align="left">文章ID</th>
+						<th field="blogTitle" width="100" align="left">名称</th>
 					</tr>
 				</thead>
 			</table>    
@@ -39,13 +39,15 @@
 	</div>
 </div>
 <script type="text/javascript">
-function blogOpenRelateDialogFunc(rowIndex){
+function openRelateBlogDialogFunc(rowIndex){
+	clearSearch('#blogRelatedDataGridToolbar');
+	clearSearch('#blogUnRelatedDataGridToolbar');
 	$('#specialTopicDataGrid').datagrid('selectRow', rowIndex);
     var row = $("#specialTopicDataGrid").datagrid("getSelected");
     if(row){
-    	 $("#contentRelateDialog").dialog("open").dialog('setTitle',"关联文章 【专题： "+row.name+"】");
-    	 $('#blogRelatedDataGrid').datagrid({url : '?id='+row.id});
-    	 $('#blogUnRelatedDataGrid').datagrid({url : '?id='+row.id});
+    	 $("#specialTopicRelateblogDialog").dialog("open").dialog('setTitle', "关联文章 【专题： " + row.name + "】");
+    	 $('#blogRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/topicResource/listRelate?topicId=' + row.id, queryParams:{}});
+    	 $('#blogUnRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/topicResource/listUnRelate?topicId=' + row.id, queryParams:{}});
     }
     $('#blogRelateTabs').tabs({
 		'onSelect':function(title, index) {
@@ -66,14 +68,14 @@ function refreshBlogTabFunc(index) {
 
 function doSearchBlogRFunc(){
 	var params = {
-			'name': $("#blogNameR").val()
+			'blogTitle': $("#blogNameR").val()
 	   	};
 	$('#blogRelatedDataGrid').datagrid('reload', params);
 }
 
 function doSearchBlogURFunc(){
 	var params = {
-			'name': $("#blogNameUR").val()
+			'blogTitle': $("#blogNameUR").val()
 	   	};
 	$('#blogUnRelatedDataGrid').datagrid('reload', params);
 }
@@ -81,14 +83,14 @@ function doSearchBlogURFunc(){
 function blogAddRelateFunc(){
 	$("#blogAddRelateBtn").linkbutton("disable");
 	var ids = concatIds('#blogUnRelatedDataGrid', 'blogId');
-	if (ids != "") {
-		$.post('',{'ids':ids},function(result){
-            if ("0" == result.ret){
-            	$.messager.show({ title: '提示', msg: result.retInfo });
+	var row = $("#specialTopicDataGrid").datagrid("getSelected");
+	if (row && row.id && ids != "") {
+		$.post(basePath + '/admin/topicResource/save',{'topicId': row.id, 'ids':ids},function(result){
+            if (0 == result.status){
                 $('#blogUnRelatedDataGrid').datagrid('reload');
     			$("#blogUnRelatedDataGrid").datagrid({selectOnCheck:true});
             } else {
-            	$.messager.show({ title: '提示', msg: result.retInfo });
+            	$.messager.show({ title: '错误', msg: result.msg });
             }
             
             $("#blogAddRelateBtn").linkbutton("enable");
@@ -103,13 +105,12 @@ function delRelateBlogFunc(){
 	$("#blogUnrelateBtn").linkbutton("disable");
 	var ids = concatIds('#blogRelatedDataGrid','id');
 	if (ids != "") {
-		$.post('',{'ids':ids},function(result){
-            if ("0" == result.ret){
-            	$.messager.show({ title: '提示', msg: result.retInfo });
+		$.post(basePath + '/admin/topicResource/delete',{'ids':ids},function(result){
+            if (0 == result.status){
                 $('#blogRelatedDataGrid').datagrid('reload');
             	$("#blogRelatedDataGrid").datagrid({selectOnCheck:true});
             } else {
-                $.messager.show({ title: '提示', msg: result.retInfo });
+                $.messager.show({ title: '错误', msg: result.msg });
             }
             $("#blogUnrelateBtn").linkbutton("enable");
         },'json');

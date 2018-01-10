@@ -12,9 +12,9 @@
 				<thead>
 					<tr>
 						<th data-options="field:'ck',checkbox:true"></th>
-						<th field="id" width="100" align="left" hidden="true">ID</th>
-						<th field="${modeId}" width="100" align="left" hidden="true">${modelCN}ID</th>
-						<th field="name" width="100" align="left" hidden="true">名称</th>
+						<th field="id" width="20" align="left" hidden="true">ID</th>
+						<th field="${modeId}" width="20" align="left">${modelCN}ID</th>
+						<th field="${modelNameField}" width="100" align="left">名称</th>
 					</tr>
 				</thead>
 			</table>    
@@ -30,8 +30,8 @@
 				<thead>
 					<tr>
 						<th data-options="field:'ck',checkbox:true"></th>
-						<th field="${modeId}" width="100" align="left" hidden="true">${modelCN}ID</th>
-						<th field="name" width="100" align="left" hidden="true">名称</th>
+						<th field="${modeId}" width="20" align="left">${modelCN}ID</th>
+						<th field="${modelNameField}" width="100" align="left">名称</th>
 					</tr>
 				</thead>
 			</table>    
@@ -40,12 +40,14 @@
 </div>
 <script type="text/javascript">
 function ${openRelateDialogFunc}(rowIndex){
+	clearSearch('#${relatedDataGridToolbar}');
+	clearSearch('#${unRelatedDataGridToolbar}');
 	$('#${parentDataGrid}').datagrid('selectRow', rowIndex);
     var row = $("#${parentDataGrid}").datagrid("getSelected");
     if(row){
-    	 $("#${dialogId}").dialog("open").dialog('setTitle',"关联${modelCN} 【${parentModelCN}： "+row.name+"】");
-    	 $('#${relatedDataGrid}').datagrid({url : '${relatedDataGridUrl}?id='+row.id});
-    	 $('#${unRelatedDataGrid}').datagrid({url : '${unRelatedDataGridUrl}?id='+row.id});
+    	 $("#${dialogId}").dialog("open").dialog('setTitle', "关联${modelCN} 【${parentModelCN}： " + row.name + "】");
+    	 $('#${relatedDataGrid}').datagrid({method : 'GET', url : basePath + '${relatedDataGridUrl}?${parentId}=' + row.id, queryParams:{}});
+    	 $('#${unRelatedDataGrid}').datagrid({method : 'GET', url : basePath + '${unRelatedDataGridUrl}?${parentId}=' + row.id, queryParams:{}});
     }
     $('#${contentRelateTabs}').tabs({
 		'onSelect':function(title, index) {
@@ -66,14 +68,14 @@ function ${refreshTabFunc}(index) {
 
 function ${doSearchRFunc}(){
 	var params = {
-			'name': $("#${model}NameR").val()
+			'${modelNameField}': $("#${model}NameR").val()
 	   	};
 	$('#${relatedDataGrid}').datagrid('reload', params);
 }
 
 function ${doSearchURFunc}(){
 	var params = {
-			'name': $("#${model}NameUR").val()
+			'${modelNameField}': $("#${model}NameUR").val()
 	   	};
 	$('#${unRelatedDataGrid}').datagrid('reload', params);
 }
@@ -81,14 +83,14 @@ function ${doSearchURFunc}(){
 function ${addRelateFunc}(){
 	$("#${addRelateBtn}").linkbutton("disable");
 	var ids = concatIds('#${unRelatedDataGrid}', '${modeId}');
-	if (ids != "") {
-		$.post('${relate_url}',{'ids':ids},function(result){
-            if ("0" == result.ret){
-            	$.messager.show({ title: '提示', msg: result.retInfo });
+	var row = $("#${parentDataGrid}").datagrid("getSelected");
+	if (row && row.id && ids != "") {
+		$.post(basePath + '${relate_url}',{'${parentId}': row.id, 'ids':ids},function(result){
+            if (0 == result.status){
                 $('#${unRelatedDataGrid}').datagrid('reload');
     			$("#${unRelatedDataGrid}").datagrid({selectOnCheck:true});
             } else {
-            	$.messager.show({ title: '提示', msg: result.retInfo });
+            	$.messager.show({ title: '错误', msg: result.msg });
             }
             
             $("#${addRelateBtn}").linkbutton("enable");
@@ -103,13 +105,12 @@ function ${delRelateFunc}(){
 	$("#${delUnRelateBtn}").linkbutton("disable");
 	var ids = concatIds('#${relatedDataGrid}','id');
 	if (ids != "") {
-		$.post('${unRelate_url}',{'ids':ids},function(result){
-            if ("0" == result.ret){
-            	$.messager.show({ title: '提示', msg: result.retInfo });
+		$.post(basePath + '${unRelate_url}',{'ids':ids},function(result){
+            if (0 == result.status){
                 $('#${relatedDataGrid}').datagrid('reload');
             	$("#${relatedDataGrid}").datagrid({selectOnCheck:true});
             } else {
-                $.messager.show({ title: '提示', msg: result.retInfo });
+                $.messager.show({ title: '错误', msg: result.msg });
             }
             $("#${delUnRelateBtn}").linkbutton("enable");
         },'json');

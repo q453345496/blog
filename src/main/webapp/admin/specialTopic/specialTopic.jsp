@@ -93,7 +93,7 @@ $(function() {
 				width:100,
 				align:'center',
 				formatter: function(value,row,index){
-					return '<a href="#" onclick="blogOpenRelateDialogFunc('+index+')">关联文章</a>';
+					return '<a href="#" onclick="openRelateBlogDialogFunc('+index+')">关联文章</a>';
 				}
 			}, 
 		]],

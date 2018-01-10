@@ -31,14 +31,18 @@ public class RelateJspCreator {
 	static String Model = "Blog";
 	static String modelCN = "文章";
 	static String model = StringUtils.uncapitalize(Model);
+	static String modelId = "blogId";
+	static String modelNameField = "blogTitle";
 	static String ParentModel = "SpecialTopic";
 	static String parentModelCN = "专题";
 	static String parentModel = StringUtils.uncapitalize(ParentModel);
+	static String parentId = "topicId";
 
-	static String relateListUrl = "";
-	static String relateUrl = "";
-	static String unRelateListUrl = "";
-	static String unRelateUrl = "";
+	static String relateListUrl = "/admin/topicResource/listRelate";
+	static String relateUrl = "/admin/topicResource/save";
+	static String unRelateListUrl = "/admin/topicResource/listUnRelate";
+	static String unRelateUrl = "/admin/topicResource/delete";
+	
 	static String modelFileName = ParentModel + "/relate_" + model + jsp_suffix;
 	static String programTypeDataGrid = parentModel + "DataGrid";
 
@@ -54,18 +58,20 @@ public class RelateJspCreator {
 		gt = new GroupTemplate(resourceLoader, cfg);
 		Template t = gt.getTemplate(relateDialogTemplatePath);
 
-		map.put("dialogId", "contentRelateDialog");
-
-		map.put("contentRelateTabs", "blogRelateTabs");
 		map.put("model", model);
 		map.put("modelCN", modelCN);
 		map.put("parentModelCN", parentModelCN);
 
-		map.put("refreshTabFunc", "refresh" + Model + "TabFunc");
-		map.put("modeId", model + "Id");//id field
-		map.put("parentDataGrid", programTypeDataGrid);//programTypeDataGrid
+		map.put("dialogId", parentModel + "Relate" + model + "Dialog");
+		map.put("contentRelateTabs", model + "RelateTabs");
 
-		map.put("openRelateDialogFunc", model + "OpenRelateDialogFunc");
+		map.put("refreshTabFunc", "refresh" + Model + "TabFunc");
+		map.put("modeId", modelId);//id field
+		map.put("modelNameField", modelNameField);//name field
+		
+		map.put("parentDataGrid", programTypeDataGrid);//programTypeDataGrid
+		map.put("parentId", parentId);
+		map.put("openRelateDialogFunc", "openRelate" + Model + "DialogFunc");
 
 		map.put("relatedDataGridToolbar", model + "RelatedDataGridToolbar");
 		map.put("delUnRelateBtn", model + "UnrelateBtn");

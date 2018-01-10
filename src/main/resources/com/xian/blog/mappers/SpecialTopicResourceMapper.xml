@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xian.blog.dao.SpecialTopicResourceDao">
+
+	<resultMap type="SpecialTopicResource" id="SpecialTopicResourceResult">
+		<id property="id" column="id" />
+	</resultMap>
+
+	<select id="list" parameterType="Map" resultMap="SpecialTopicResourceResult">
+		SELECT * FROM t_special_topic_resource
+		<where>
+			<if test="topicId != null">
+				AND topic_id = #{topicId}
+			</if>
+			<if test="blogId != null">
+				AND blog_id = #{blogId}
+			</if>
+		</where>
+		ORDER BY create_time
+		<if test="start != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+
+	</select>
+
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		SELECT COUNT(1) FROM t_special_topic_resource
+		<where>
+			<if test="topicId != null">
+				AND topicId = #{topicId}
+			</if>
+			<if test="blogId != null">
+				AND blogId = #{blogId}
+			</if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="SpecialTopicResource" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_special_topic_resource (topic_id, blog_id, create_time) VALUES(#{topicId}, #{blogId}, #{createTime})
+	</insert>
+
+	<update id="update" parameterType="SpecialTopicResource">
+		UPDATE t_special_topic_resource
+		<set>
+			<if test="topicId != null">
+				topic_id = #{topicId},
+			</if>
+			<if test="blogId != null">
+				blog_id = #{blogId},
+			</if>
+			
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		DELETE FROM t_special_topic_resource WHERE id = #{id}
+	</delete>
+	
+	<select id="get" parameterType="Long" resultMap="SpecialTopicResourceResult">
+		SELECT * FROM t_special_topic_resource
+		WHERE id = #{id}
+	</select>
+	
+	<sql id="sql_relate_where">
+		<if test="topicId != null">
+			AND r.topic_id = #{topicId}
+		</if>
+		<if test="blogTypeId != null">
+			AND b.type_id = #{blogTypeId}
+		</if>
+		<if test="blogTitle != null and blogTitle != ''">
+				AND b.title LIKE CONCAT('%', #{blogTitle}, '%')
+		</if>
+	</sql>
+	
+	<select id="listRelate" parameterType="Map" resultMap="SpecialTopicResourceResult">
+		SELECT r.*, b.title AS blogTitle FROM t_special_topic_resource r 
+		LEFT JOIN t_blog b ON r.blog_id = b.id
+		<where>
+			<include refid="sql_relate_where"></include>
+		</where>
+		ORDER BY create_time
+		<if test="start != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+	
+	<select id="getRelateTotal" parameterType="Map" resultType="Integer">
+		SELECT COUNT(1) FROM t_special_topic_resource r 
+		LEFT JOIN t_blog b ON r.blog_id = b.id
+		<where>
+			<include refid="sql_relate_where"></include>
+		</where>
+	</select>
+	
+	<sql id="sql_unrelate_where">
+		<if test="blogTitle != null and blogTitle != ''">
+				AND b.title LIKE CONCAT('%', #{blogTitle}, '%')
+		</if>
+		<if test="blogTypeId != null">
+				AND b.type_id = #{blogTypeId}
+		</if>
+		<if test="topicId != null">
+			AND NOT EXISTS (SELECT 1 FROM t_special_topic_resource r WHERE r.blog_id = b.id AND r.topic_id = #{topicId})
+		</if>
+	</sql>
+	
+	<select id="listUnRelate" parameterType="Map" resultMap="SpecialTopicResourceResult">
+		SELECT b.id AS blog_id, b.title AS blog_title FROM t_blog b
+		<where>
+			<include refid="sql_unrelate_where"></include>
+		</where>
+		ORDER BY create_time
+		<if test="start != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+	
+	<select id="getUnRelateTotal" parameterType="Map" resultType="Integer">
+		SELECT COUNT(1) FROM t_blog b
+		<where>
+			<include refid="sql_unrelate_where"></include>
+		</where>
+	</select>
+</mapper>

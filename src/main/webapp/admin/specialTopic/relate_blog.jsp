@@ -5,6 +5,7 @@
 			<div id="blogRelatedDataGridToolbar" style="padding:5px">
 					<a href="#" id="blogUnrelateBtn" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delRelateBlogFunc()">取消关联</a>
 					&nbsp;文章名称: <input type="text" id="blogNameR">
+					&nbsp;分类: <input id="blogTypeIdR" style="width:145px">
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearchBlogRFunc()" plain="true">查询</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#blogRelatedDataGridToolbar')" plain="true">清空</a>
 			</div> 
@@ -15,6 +16,7 @@
 						<th field="id" width="20" align="left" hidden="true">ID</th>
 						<th field="blogId" width="20" align="left">文章ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
+						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
 				</thead>
 			</table>    
@@ -23,6 +25,7 @@
 			<div id="blogUnRelatedDataGridToolbar" style="padding:5px">
 					<a href="#" id="blogAddRelateBtn" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="blogAddRelateFunc()">添加关联</a>
 					&nbsp;文章名称: <input type="text" id="blogNameUR">
+					&nbsp;分类: <input id="blogTypeIdUR" style="width:145px">
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearchBlogURFunc()" plain="true">查询</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#blogUnRelatedDataGridToolbar')" plain="true">清空</a>
 			</div>  
@@ -32,6 +35,7 @@
 						<th data-options="field:'ck',checkbox:true"></th>
 						<th field="blogId" width="20" align="left">文章ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
+						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
 				</thead>
 			</table>    
@@ -39,6 +43,28 @@
 	</div>
 </div>
 <script type="text/javascript">
+$(function(){
+	$.getJSON(basePath + '/admin/blogType/listAll', function(res){
+		var data = res.data;
+		data.unshift({
+			'id':'',
+			'name':'全部'
+		});
+	    $('#blogTypeIdR').combobox({
+	        data: data,
+	        valueField: 'id',
+	        textField: 'name',
+	        editable: false
+	    });
+	    $('#blogTypeIdUR').combobox({
+	        data: data,
+	        valueField: 'id',
+	        textField: 'name',
+	        editable: false
+	    });
+	});
+});
+
 function openRelateBlogDialogFunc(rowIndex){
 	clearSearch('#blogRelatedDataGridToolbar');
 	clearSearch('#blogUnRelatedDataGridToolbar');
@@ -55,27 +81,28 @@ function openRelateBlogDialogFunc(rowIndex){
 		},
 		'selected' : 0
 	});
-    
 }
 
 function refreshBlogTabFunc(index) {
 	if (index == 0) {
-		$("#blogRelatedDataGrid").datagrid('load', {});
+		doSearchBlogRFunc();
 	} else {
-		$("#blogUnRelatedDataGrid").datagrid('load', {});
+		doSearchBlogURFunc();
 	}
 }
 
 function doSearchBlogRFunc(){
 	var params = {
-			'blogTitle': $("#blogNameR").val()
+			'blogTitle': $("#blogNameR").val(),
+			'blogTypeId': $("#blogTypeIdR").combobox("getValue")
 	   	};
 	$('#blogRelatedDataGrid').datagrid('reload', params);
 }
 
 function doSearchBlogURFunc(){
 	var params = {
-			'blogTitle': $("#blogNameUR").val()
+			'blogTitle': $("#blogNameUR").val(),
+			'blogTypeId': $("#blogTypeIdUR").combobox("getValue")
 	   	};
 	$('#blogUnRelatedDataGrid').datagrid('reload', params);
 }

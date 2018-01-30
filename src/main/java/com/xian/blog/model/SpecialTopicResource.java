@@ -10,6 +10,8 @@ public class SpecialTopicResource {
 	private Long blogId;
 
 	private String blogTitle;
+	private String blogTypeName;
+	private Long blogTypeId;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
@@ -52,6 +54,22 @@ public class SpecialTopicResource {
 
 	public void setBlogTitle(String blogTitle) {
 		this.blogTitle = blogTitle;
+	}
+
+	public String getBlogTypeName() {
+		return blogTypeName;
+	}
+
+	public void setBlogTypeName(String blogTypeName) {
+		this.blogTypeName = blogTypeName;
+	}
+
+	public Long getBlogTypeId() {
+		return blogTypeId;
+	}
+
+	public void setBlogTypeId(Long blogTypeId) {
+		this.blogTypeId = blogTypeId;
 	}
 
 }

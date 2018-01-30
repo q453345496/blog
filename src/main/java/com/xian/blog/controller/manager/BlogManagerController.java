@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -44,6 +45,8 @@ public class BlogManagerController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("start", p.getStart());
 			map.put("size", p.getPageSize());
+			map.put("title", blog.getTitle());
+			map.put("typeId", blog.getTypeId());
 			vo.setTotal(blogService.getTotal(map));
 			vo.setRows(blogService.list(map));
 		} catch (Exception e) {
@@ -57,7 +60,8 @@ public class BlogManagerController {
 	public CommonResult save(Blog blog) {
 		try {
 			String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
-			blog.setSummary(contentNoTag.substring(0, Math.min(200, contentNoTag.length())));
+			blog.setSummary(StringUtils.substring(contentNoTag, 0, 200));
+			
 			if (blog.getId() == null) {
 				blogService.save(blog);
 			} else {

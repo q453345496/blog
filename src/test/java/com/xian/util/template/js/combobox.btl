@@ -1,0 +1,13 @@
+$.getJSON(basePath + '', function(res){
+		var data = res.data;
+		data.unshift({
+			'id':'',
+			'name':'全部'
+		});
+        $('#Q').combobox({
+            data: data,
+	        valueField: 'id',
+	        textField: 'name',
+	        editable: false
+        });
+});

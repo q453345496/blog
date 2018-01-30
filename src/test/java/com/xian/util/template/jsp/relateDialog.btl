@@ -60,9 +60,11 @@ function ${openRelateDialogFunc}(rowIndex){
 
 function ${refreshTabFunc}(index) {
 	if (index == 0) {
-		$("#${relatedDataGrid}").datagrid('load', {});
+		//$("#${relatedDataGrid}").datagrid('load', {});
+		${doSearchRFunc}();
 	} else {
-		$("#${unRelatedDataGrid}").datagrid('load', {});
+		//$("#${unRelatedDataGrid}").datagrid('load', {});
+		${doSearchURFunc}()
 	}
 }
 

@@ -14,18 +14,33 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="openBlogCreateTab()">添加</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-edit',plain:true" onclick="openBlogModifyTab()">修改</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="deleteBlogType()">删除</a>
-			文章标题:<input id="s_title" type="text" class="easyui-textbox"/>
+			文章标题:<input id="blogTitleQ" type="text" class="easyui-textbox"/>
+			文章分类:<input id="blogTypeQ" class="easyui-combobox"/>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="searchBlogType()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#toolbar')">清空</a>
 	</div>
 <script>
 $(function() {
+	$.getJSON(basePath + '/admin/blogType/listAll', function(res){
+			var data = res.data;
+			data.unshift({
+				'id':'',
+				'name':'全部'
+			});
+	        $('#blogTypeQ').combobox({
+	            data: data,
+		        valueField: 'id',
+		        textField: 'name',
+		        editable: false
+	        });
+	});
 	$('#blog_dg').datagrid({
 		title : '文章列表',
-		url : '<%=path%>/admin/blog/list',
+		url : basePath + '/admin/blog/list',
 		columns : [[ 
              {field : 'id',		title : '编号',	width:50,	align:'center'}, 
              {field : 'title',	title : '标题',	width:100,	align:'center'},
+             {field : 'blogTypeName',	title : '分类',	width:30,	align:'center', formatter: function(value,row,index){return row.blogType.name;}},
              {field : 'createTime',	title : '发布时间',	width:100,	align:'center'}
         ]],
         toolbar: '#toolbar',
@@ -61,13 +76,14 @@ function deleteBlogType(){
 function searchBlogType(){
 	$('#blog_dg').datagrid({
 		queryParams: {
-			name: $("#s_title").val(),
+			title : $("#blogTitleQ").val(),
+			typeId : $("#blogTypeQ").combobox("getValue"),
 		}
 	});
 }
 
 function openBlogCreateTab(){
-	parentOpenTab('写博客','<%=path%>/admin/blog/toAdd','fa fa-edit');
+	parentOpenTab('写博客', basePath + '/admin/blog/toAdd','fa fa-edit');
 }
 function openBlogModifyTab(){
 	var selectedRows=$("#blog_dg").datagrid("getSelections");
@@ -76,7 +92,7 @@ function openBlogModifyTab(){
 		return;
 	}
 	var row=selectedRows[0];
-	parentOpenTab('写博客','<%=path%>/admin/blog/toEdit/'+row.id,'fa fa-edit');
+	parentOpenTab('写博客', basePath + '/admin/blog/toEdit/'+row.id,'fa fa-edit');
 }
 </script>
 

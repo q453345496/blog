@@ -74,14 +74,16 @@ function tabClose() {
 
 function clearSearch(target) {
 	$(target).find('input').each(function() {
-		if ($(this).hasClass('combo-text')) {
+		if ($(this).hasClass('textbox-text')) {//the old is $(this).hasClass('combo-text')
 			var $formBox = $(this).parent().prev();
 			if ($formBox.hasClass('easyui-datebox')) {
 				$formBox.datebox('clear');
 			} else if ($formBox.hasClass('easyui-datetimebox')) {
 				$formBox.datetimebox('clear')
-			} else {
+			} else if($formBox.hasClass('combobox-f')){
 				$formBox.combobox('reset');
+			} else{
+				$(this).val('');
 			}
 		} else {
 			$(this).val('');

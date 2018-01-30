@@ -13,7 +13,7 @@
 	<div id="blogTypeDataGridToolbar">
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="blogTypeOpenDialogFunc()">添加</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="blogTypeDeleteFunc()">删除</a>
-			名称:<input id="s_name" type="text" class="easyui-textbox"/>
+			名称:<input id="blogTypeNameQ" type="text" class="easyui-textbox"/>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="blogTypeSearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#blogTypeDataGridToolbar')">清空</a>
 	</div>
@@ -139,7 +139,7 @@ function blogTypeDeleteFunc(){
 function blogTypeSearchFunc(){
 	$('#blogTypeDataGrid').datagrid({
 		queryParams: {
-			name: $("#s_name").val(),
+			name: $("#blogTypeNameQ").val(),
 		}
 	});
 }

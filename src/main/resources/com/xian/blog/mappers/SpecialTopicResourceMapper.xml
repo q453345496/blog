@@ -77,8 +77,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	<select id="listRelate" parameterType="Map" resultMap="SpecialTopicResourceResult">
-		SELECT r.*, b.title AS blogTitle FROM t_special_topic_resource r 
+		SELECT r.*, b.title AS blogTitle, b.type_id AS blogTypeId, t.name as blogTypeName FROM t_special_topic_resource r 
 		LEFT JOIN t_blog b ON r.blog_id = b.id
+		LEFT JOIN t_blog_type t ON t.id = b.type_id
 		<where>
 			<include refid="sql_relate_where"></include>
 		</where>
@@ -109,7 +110,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	<select id="listUnRelate" parameterType="Map" resultMap="SpecialTopicResourceResult">
-		SELECT b.id AS blog_id, b.title AS blog_title FROM t_blog b
+		SELECT b.id AS blogId, b.title AS blogTitle, b.type_id AS blogTypeId, t.name AS blogTypeName FROM t_blog b
+		LEFT JOIN t_blog_type t ON t.id = b.type_id
 		<where>
 			<include refid="sql_unrelate_where"></include>
 		</where>

@@ -33,7 +33,7 @@ public class SpecialTopicResourceManagerController {
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "topicId", required = true) Long topicId,
 			@RequestParam(value = "blogTitle", required = false) String blogTitle,
-			@RequestParam(value = "blogTypeId", required = false) String blogTypeId) {
+			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
 		DataGridResult vo = new DataGridResult();
 		try {
 			if (topicId == null) {
@@ -61,7 +61,7 @@ public class SpecialTopicResourceManagerController {
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "topicId", required = true) Long topicId,
 			@RequestParam(value = "blogTitle", required = false) String blogTitle,
-			@RequestParam(value = "blogTypeId", required = false) String blogTypeId) {
+			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
 		DataGridResult vo = new DataGridResult();
 		try {
 			if (topicId == null) {

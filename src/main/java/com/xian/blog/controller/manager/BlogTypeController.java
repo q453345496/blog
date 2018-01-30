@@ -49,6 +49,12 @@ public class BlogTypeController {
 		}
 		return vo;
 	}
+	
+	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult listAll() {
+		return CommonResult.success(blogTypeService.list(null));
+	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody

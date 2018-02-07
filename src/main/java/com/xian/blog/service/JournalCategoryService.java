@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,17 +39,18 @@ public class JournalCategoryService {
 			journalCategoryDao.update(parent);
 		}
 		journalCategory.setIsParent(false);
+		journalCategory.setCreateTime(new Date());
 		return journalCategoryDao.save(journalCategory);
 	}
 
 	public void delete(Long id) {
 		JournalCategory journalCategory = journalCategoryDao.get(id);
 		if (journalCategory != null) {
-			if(journalCategory.getIsParent()){
+			if (journalCategory.getIsParent()) {
 				throw new CheckException("该节点存在子节点，无法删除");
 			}
-			if (0 == journalCategory.getParentId()) {
-				throw new CheckException("一级节点无法删除");
+			if (-1 == journalCategory.getParentId()) {
+				throw new CheckException("根节点无法删除");
 			}
 			journalCategoryDao.delete(id);
 			int subCount = journalCategoryDao.getSubCount(journalCategory.getParentId());

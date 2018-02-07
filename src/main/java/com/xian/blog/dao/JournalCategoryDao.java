@@ -19,5 +19,5 @@ public interface JournalCategoryDao {
 
 	public JournalCategory get(Long id);
 	
-	public int getSubCount(Long id);
+	public int getSubCount(Long parentId);
 }

@@ -39,11 +39,14 @@ CREATE TABLE `t_journal_category` (
 `rank` int(11),
 `parent_id` int(11) NOT NULL,
 `is_parent` tinyint(1) DEFAULT false,
+`create_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+INSERT INTO `t_journal_category` (`id`, `name`, `parent_id`, `rank`, `is_parent`, `create_time`) 
+VALUES ('1', '根分类', '-1', '1', '0', '2018-02-05 14:53:23');
 
 /*参数类型*/
 DROP TABLE IF EXISTS `t_param_type`;
@@ -98,3 +101,22 @@ PRIMARY KEY (`id`)
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+
+/*栏目*/
+DROP TABLE IF EXISTS `t_column`;
+CREATE TABLE `t_column` (
+`id`  int(11) NOT NULL AUTO_INCREMENT ,
+`name`  varchar(255) NOT NULL ,
+`code`  varchar(255) NOT NULL ,
+`parent_id` int(11) NOT NULL,
+`status` int(11) NOT NULL,
+`rank` int(11),
+`is_parent` tinyint(1) DEFAULT false,
+`create_time` datetime NOT NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;
+INSERT INTO `t_column` (`id`, `name`, `code`, `parent_id`, `status`, `rank`, `is_parent`, `create_time`) 
+VALUES ('1', '根栏目', 'root', '-1', '1', '1', '0', '2018-02-05 14:53:23');

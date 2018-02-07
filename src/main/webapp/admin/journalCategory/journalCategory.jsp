@@ -10,7 +10,7 @@
 </head>
 <body>
 	<table id="journalCategoryTreeGrid" style="padding:10px"></table>
-	<div id="menu" class="easyui-menu" style="width:120px;">
+	<div id="journalCategoryMenu" class="easyui-menu" style="width:120px;">
 		<div onclick="journalCategoryOpenDialogFunc()" data-options="iconCls:'icon-add'">添加</div>
 		<div onclick="journalCategoryDeleteFunc()" data-options="iconCls:'icon-remove'">删除</div>
 	</div>
@@ -42,7 +42,7 @@
 $(function() {
 	$('#journalCategoryTreeGrid').treegrid({
 		title : '流水类型列表',
-		url : basePath + '/admin/journalCategory/list',
+		url : basePath + '/admin/journalCategory/tree',
 		idField:'id',
 		treeField:'name',
 		columns : [[ 
@@ -78,7 +78,7 @@ $(function() {
 				return;
 			}
 			$(this).treegrid('select', row.id);
-			$('#menu').menu('show',{
+			$('#journalCategoryMenu').menu('show',{
 				left: e.pageX,
 				top: e.pageY
 			});

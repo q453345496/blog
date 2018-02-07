@@ -1,11 +1,18 @@
 package com.xian.blog.model;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class JournalCategory {
 	private Long id;
 	private String name;
 	private Integer rank;
 	private Long parentId;
 	private Boolean isParent;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	private Date createTime;
 
 	public Long getId() {
 		return id;
@@ -22,7 +29,7 @@ public class JournalCategory {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public Integer getRank() {
 		return rank;
 	}
@@ -50,4 +57,13 @@ public class JournalCategory {
 	public String getState() {
 		return Boolean.TRUE.equals(isParent) ? "closed" : "open";
 	}
+	
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
 }

@@ -5,20 +5,20 @@
 	<resultMap type="JournalCategory" id="JournalCategoryResult">
 		<id property="id" column="id" />
 	</resultMap>
-	
+
 	<sql id="sql_where">
 		<where>
 			<if test="name != null and name != '' ">
 				AND name LIKE CONCAT('%', #{name}, '%')
-			</if>
-			<if test="rank != null">
-				AND rank = #{rank}
 			</if>
 			<if test="parentId != null">
 				AND parent_id = #{parentId}
 			</if>
 			<if test="isParent != null">
 				AND is_parent = #{isParent}
+			</if>
+			<if test="rank != null">
+				AND rank = #{rank}
 			</if>
 		</where>
 	</sql>
@@ -30,7 +30,6 @@
 		<if test="start != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
-
 	</select>
 
 	<select id="getTotal" parameterType="Map" resultType="Integer">
@@ -39,7 +38,7 @@
 	</select>
 
 	<insert id="save" parameterType="JournalCategory" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_journal_category (name, parent_id, is_parent, rank) VALUES(#{name}, #{parentId}, #{isParent}, #{rank})
+		INSERT INTO t_journal_category (name, parent_id, is_parent, rank, create_time) VALUES(#{name}, #{parentId}, #{isParent}, #{rank}, #{createTime})
 	</insert>
 
 	<update id="update" parameterType="JournalCategory">
@@ -57,6 +56,9 @@
 			<if test="rank != null">
 				rank = #{rank},
 			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
 		</set>
 		WHERE id = #{id}
 	</update>
@@ -72,7 +74,7 @@
 	
 	<select id="getSubCount" parameterType="Long" resultType="Integer">
 		SELECT COUNT(1) FROM t_journal_category
-		WHERE parent_id = #{id}
+		WHERE parent_id = #{parentId}
 	</select>
-	
-</mapper> 
+
+</mapper>

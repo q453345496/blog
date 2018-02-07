@@ -32,7 +32,8 @@ public class MyFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		if (!pathMatcher.match(resourcesPath, req.getRequestURI())) {
+		boolean match = pathMatcher.match(resourcesPath, req.getRequestURI());
+		if (!match) {
 			LOG.info(req.getRequestURI());
 		}
 		chain.doFilter(request, response);

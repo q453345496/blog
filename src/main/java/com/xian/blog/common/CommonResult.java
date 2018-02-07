@@ -1,6 +1,8 @@
 package com.xian.blog.common;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Date:2016年7月29日下午11:20:19
@@ -70,4 +72,11 @@ public final class CommonResult implements Serializable {
 		this.data = data;
 	}
 
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("status", status);
+		map.put("msg", msg);
+		map.put("data", data);
+		return map;
+	}
 }

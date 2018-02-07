@@ -1,5 +1,6 @@
 package ${packageName}.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ${packageName}.dao.${ModelDao};
+<%if(isTree){%>
+import ${packageName}.exception.CheckException;
+<%}%>
 import ${packageName}.model.${Model};
 
 @Service
@@ -31,12 +35,43 @@ public class ${ModelService} {
 	}
 
 	public int save(${Model} ${model}) {
+		<%if(isTree){%>
+		${Model} parent = ${modelDao}.get(${model}.getParentId());
+		if (!parent.getIsParent()) {
+			parent.setIsParent(true);
+			${modelDao}.update(parent);
+		}
+		${model}.setIsParent(false);
+		<%}%>
+		${model}.setCreateTime(new Date());
 		return ${modelDao}.save(${model});
 	}
 
+	<%if(isTree){%>
+	public void delete(Long id) {
+		${Model} ${model} = ${modelDao}.get(id);
+		if (${model} != null) {
+			if (${model}.getIsParent()) {
+				throw new CheckException("该节点存在子节点，无法删除");
+			}
+			if (-1 == ${model}.getParentId()) {
+				throw new CheckException("根节点无法删除");
+			}
+			${modelDao}.delete(id);
+			int subCount = ${modelDao}.getSubCount(${model}.getParentId());
+			if (subCount == 0) {
+				${Model} parent = new ${Model}();
+				parent.setId(${model}.getParentId());
+				parent.setIsParent(false);
+				${modelDao}.update(parent);
+			}
+		}
+	}
+	<%} else {%>
 	public int delete(Long id) {
 		return ${modelDao}.delete(id);
 	}
+	<%}%>
 
 	public ${Model} get(Long id) {
 		return ${modelDao}.get(id);

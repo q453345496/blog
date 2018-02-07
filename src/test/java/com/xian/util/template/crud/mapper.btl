@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${packageName}.dao.${ModelDao}">
 
 	<resultMap type="${Model}" id="${Model}Result">
 		<id property="id" column="id" />
 	</resultMap>
 
-	<select id="list" parameterType="Map" resultMap="${Model}Result">
-		SELECT * FROM ${table}
+	<sql id="sql_where">
 		<where>
 			<if test="name != null and name != '' ">
 				AND name LIKE CONCAT('%', #{name}, '%')
 			</if>
+			<%if(isTree){%>
+			<if test="parentId != null">
+				AND parent_id = #{parentId}
+			</if>
+			<if test="isParent != null">
+				AND is_parent = #{isParent}
+			</if>
+			<if test="rank != null">
+				AND rank = #{rank}
+			</if>
+			<%}%>
 		</where>
-		ORDER BY name
+	</sql>
+	
+	<select id="list" parameterType="Map" resultMap="${Model}Result">
+		SELECT * FROM ${table}
+		<include refid="sql_where"></include>
+		ORDER BY ${isTree? "rank, " : ""}name
 		<if test="start != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
-
 	</select>
 
 	<select id="getTotal" parameterType="Map" resultType="Integer">
 		SELECT COUNT(1) FROM ${table}
-		<where>
-			<if test="name != null and name != '' ">
-				AND name LIKE CONCAT('%', #{name}, '%')
-			</if>
-		</where>
+		<include refid="sql_where"></include>
 	</select>
 
 	<insert id="save" parameterType="${Model}" useGeneratedKeys="true" keyProperty="id">
+		<%if(isTree){%>
+		INSERT INTO ${table} (name, parent_id, is_parent, rank, create_time) VALUES(#{name}, #{parentId}, #{isParent}, #{rank}, #{createTime})
+		<%} else {%>
 		INSERT INTO ${table} (name, create_time) VALUES(#{name}, #{createTime})
+		<%}%>
 	</insert>
 
 	<update id="update" parameterType="${Model}">
@@ -41,10 +53,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="name != null and name != '' ">
 				name = #{name},
 			</if>
+			<%if(isTree){%>
+			<if test="parentId != null">
+				parent_id = #{parentId},
+			</if>
+			<if test="isParent != null">
+				is_parent = #{isParent},
+			</if>
+			<if test="rank != null">
+				rank = #{rank},
+			</if>
+			<%}%>
 			<if test="createTime != null">
 				create_time = #{createTime},
 			</if>
-			
 		</set>
 		WHERE id = #{id}
 	</update>
@@ -57,4 +79,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM ${table}
 		WHERE id = #{id}
 	</select>
+	
+	<%if(isTree){%>
+	<select id="getSubCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(1) FROM ${table}
+		WHERE parent_id = #{parentId}
+	</select>
+	<%}%>
+
 </mapper>

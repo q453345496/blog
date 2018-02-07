@@ -1,12 +1,11 @@
 package ${packageName}.controller${manager ? ".manager" : "" };
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,81 +15,69 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ${packageName}.common.CommonResult;
+<%if(!isTree){%>
 import ${packageName}.common.DataGridResult;
 import ${packageName}.common.Page;
+<%}%>
 import ${packageName}.model.${Model};
 import ${packageName}.service.${ModelService};
 
 @Controller
 @RequestMapping("${requestMapping}")
 public class ${ModelController} {
-	private static final Logger LOG = LoggerFactory.getLogger(${ModelController}.class);
 	@Resource
 	private ${ModelService} ${modelService};
 
+	<%if(isTree){%>
+	@RequestMapping(value = "/tree", method = RequestMethod.GET)
+	@ResponseBody
+	public List<${Model}> tree(@RequestParam(value = "id", required = false, defaultValue = "-1") Long parentId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("parentId", parentId);
+		List<${Model}> list = ${modelService}.list(map);
+		return list;
+	}
+	<%} else {%>
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, ${Model} ${model}) {
 		DataGridResult vo = new DataGridResult();
-		try {
-			Page p = new Page(page, rows);
-			Map<String, Object> map = new HashMap<>();
-			map.put("start", p.getStart());
-			map.put("size", p.getPageSize());
-			vo.setTotal(${modelService}.getTotal(map));
-			vo.setRows(${modelService}.list(map));
-		} catch (Exception e) {
-			LOG.error("list Error", e);
-		}
+		Page p = new Page(page, rows);
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", p.getStart());
+		map.put("size", p.getPageSize());
+		vo.setTotal(${modelService}.getTotal(map));
+		vo.setRows(${modelService}.list(map));
 		return vo;
 	}
+	<%}%>
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public CommonResult save(${Model} ${model}) {
-		try {
-			${modelService}.save(${model});
-			return CommonResult.success(${model}.getId());
-		} catch (Exception e) {
-			LOG.error("save Error", e);
-			return CommonResult.fail(e);
-		}
+		${modelService}.save(${model});
+		return CommonResult.success(${model}.getId());
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public CommonResult update(${Model} ${model}) {
-		try {
-			${modelService}.update(${model});
-			return CommonResult.success();
-		} catch (Exception e) {
-			LOG.error("update Error", e);
-			return CommonResult.fail(e);
-		}
+		${modelService}.update(${model});
+		return CommonResult.success();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult detail(@PathVariable("id") Long id) {
-		try {
-			${Model} ${model} = ${modelService}.get(id);
-			return CommonResult.success(${model});
-		} catch (Exception e) {
-			LOG.error("get detail Error", e);
-			return CommonResult.fail(e);
-		}
+		${Model} ${model} = ${modelService}.get(id);
+		return CommonResult.success(${model});
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {
-		try {
-			${modelService}.delete(id);
-			return CommonResult.success();
-		} catch (Exception e) {
-			LOG.error("delete Error", e);
-			return CommonResult.fail(e);
-		}
+		${modelService}.delete(id);
+		return CommonResult.success();
 	}
 }

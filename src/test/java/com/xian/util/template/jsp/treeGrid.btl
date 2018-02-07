@@ -10,7 +10,7 @@
 </head>
 <body>
 	<table id="${model}TreeGrid" style="padding:10px"></table>
-	<div id="menu" class="easyui-menu" style="width:120px;">
+	<div id="${model}Menu" class="easyui-menu" style="width:120px;">
 		<div onclick="${model}OpenDialogFunc()" data-options="iconCls:'icon-add'">添加</div>
 		<div onclick="${model}DeleteFunc()" data-options="iconCls:'icon-remove'">删除</div>
 	</div>
@@ -78,7 +78,7 @@ $(function() {
 				return;
 			}
 			$(this).treegrid('select', row.id);
-			$('#menu').menu('show',{
+			$('#${model}Menu').menu('show',{
 				left: e.pageX,
 				top: e.pageY
 			});

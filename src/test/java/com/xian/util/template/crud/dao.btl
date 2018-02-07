@@ -18,4 +18,8 @@ public interface ${ModelDao} {
 	public int delete(Long id);
 
 	public ${Model} get(Long id);
+	
+	<%if(isTree){%>
+	public int getSubCount(Long parentId);
+	<%}%>
 }

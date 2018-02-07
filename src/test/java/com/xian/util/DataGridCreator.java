@@ -1,7 +1,5 @@
 package com.xian.util;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,28 +13,19 @@ import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 import org.beetl.core.resource.FileResourceLoader;
 
-public class DataGridCreator {
-	static Charset chartSet = StandardCharsets.UTF_8;
-	static String jsp_suffix = ".jsp";
+public class DataGridCreator extends AutoCreator {
 
-	static String root = "D:/workspace/blog";
-	static String webPath = "src/main/webapp";
-	static String jspPath = "/admin";
-
-	static String Model = "Role";
-	static String modelCN = "角色";
+	static String Model = "journalCategory";
+	static String modelCN = "流水类型";
+	static boolean isTree = true;
 	static String model = StringUtils.uncapitalize(Model);
-	static String modelFileName = model + "/" + model + jsp_suffix;
+	static String modelFileName = model + "/" + model + SUFFIX_JSP;
 
-	static GroupTemplate gt;
-	static String templateRoot = "D:/workspace/blog/src/test/java/com/xian/util/template/jsp";
-	static String dataGridTemplatePath = "dataGrid.btl";
-	static String treeGridTemplatePath = "treeGrid.btl";
-
-	static Map<String, Object> map = new HashMap<>();;
+	protected static GroupTemplate gt;
+	protected static Map<String, Object> map = new HashMap<>();
 
 	public static void main(String[] args) throws Exception {
-		FileResourceLoader resourceLoader = new FileResourceLoader(templateRoot, "utf-8");
+		FileResourceLoader resourceLoader = new FileResourceLoader(TEMPLATE_ROOT_JSP, "utf-8");
 		Configuration cfg = Configuration.defaultConfiguration();
 		gt = new GroupTemplate(resourceLoader, cfg);
 
@@ -44,19 +33,18 @@ public class DataGridCreator {
 		map.put("model", model);
 		map.put("modelCN", modelCN);
 
-		map.put("listUrl", "/admin" + ("/" + model + "/list"));
-		map.put("saveUrl", "/admin" + ("/" + model + "/save"));
-		map.put("deleteUrl", "/admin" + ("/" + model + "/delete"));
-		map.put("updateUrl", "/admin" + ("/" + model + "/update"));
-		boolean tree = false;
-		
-		Template t = gt.getTemplate(tree ? treeGridTemplatePath : dataGridTemplatePath);
+		map.put("listUrl", ADMIN_PATH + ("/" + model + (isTree ? "/tree" : "/list")));
+		map.put("saveUrl", ADMIN_PATH + ("/" + model + "/save"));
+		map.put("deleteUrl", ADMIN_PATH + ("/" + model + "/delete"));
+		map.put("updateUrl", ADMIN_PATH + ("/" + model + "/update"));
+
+		Template t = gt.getTemplate(isTree ? TEMPLATEPATH_TREE_GRID : TEMPLATE_PATH_DATA_GRID);
 		t.binding(map);
-		
-		Path path = Paths.get(root, webPath, jspPath, modelFileName);
+
+		Path path = Paths.get(ROOT, CLASS_WEB, ADMIN_PATH, modelFileName);
 		path.toFile().getParentFile().mkdirs();
-		
-		t.renderTo(Files.newBufferedWriter(path, chartSet, StandardOpenOption.CREATE,
+
+		t.renderTo(Files.newBufferedWriter(path, CHARSET_UTF8, StandardOpenOption.CREATE,
 				StandardOpenOption.TRUNCATE_EXISTING));
 		System.out.println(t.render());
 	}

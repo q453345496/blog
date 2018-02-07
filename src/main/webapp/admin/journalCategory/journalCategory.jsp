@@ -14,7 +14,7 @@
 		<div onclick="journalCategoryOpenDialogFunc()" data-options="iconCls:'icon-add'">添加</div>
 		<div onclick="journalCategoryDeleteFunc()" data-options="iconCls:'icon-remove'">删除</div>
 	</div>
-	<div id="journalCategoryDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#journalCategoryDialog-buttons'">
+	<div id="journalCategoryDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', modal:'true', buttons:'#journalCategoryDialog-buttons'">
 		<form id="journalCategoryForm" method="post" novalidate>
 			<table class="input">
 				<tr>

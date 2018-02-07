@@ -17,7 +17,7 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="specialTopicSearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#specialTopicDataGridToolbar')">清空</a>
 	</div>
-	<div id="specialTopicDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#specialTopicDialog-buttons'">
+	<div id="specialTopicDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', modal:'true', buttons:'#specialTopicDialog-buttons'">
 		<form id="specialTopicForm" method="post" novalidate>
 			<table class="input">
 				<tr>

@@ -18,7 +18,7 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="paramTypeSearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#paramTypeDataGridToolbar')">清空</a>
 	</div>
-	<div id="paramTypeDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#paramTypeDialog-buttons'">
+	<div id="paramTypeDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', modal:'true', buttons:'#paramTypeDialog-buttons'">
 		<form id="paramTypeForm" method="post" novalidate>
 			<table class="input">
 				<tr>

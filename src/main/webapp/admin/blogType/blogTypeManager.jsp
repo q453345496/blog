@@ -17,7 +17,7 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="blogTypeSearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#blogTypeDataGridToolbar')">清空</a>
 	</div>
-	<div id="blogTypeDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#blogTypeDialog-buttons'">
+	<div id="blogTypeDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', modal:'true', buttons:'#blogTypeDialog-buttons'">
 		<form id="blogTypeForm" method="post" novalidate>
 			<table class="input">
 				<tr>

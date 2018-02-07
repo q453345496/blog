@@ -14,7 +14,7 @@
 		<div onclick="${model}OpenDialogFunc()" data-options="iconCls:'icon-add'">添加</div>
 		<div onclick="${model}DeleteFunc()" data-options="iconCls:'icon-remove'">删除</div>
 	</div>
-	<div id="${model}Dialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', buttons:'#${model}Dialog-buttons'">
+	<div id="${model}Dialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', modal:'true', buttons:'#${model}Dialog-buttons'">
 		<form id="${model}Form" method="post" novalidate>
 			<table class="input">
 				<tr>

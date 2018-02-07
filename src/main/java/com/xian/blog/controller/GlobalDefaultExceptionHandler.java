@@ -30,7 +30,7 @@ public class GlobalDefaultExceptionHandler {
 
 	@ExceptionHandler()
 	public ModelAndView all(Exception ex) {
-		LOG.error(ex.getMessage(), ex);
+		LOG.error("服务异常", ex);
 		return new ModelAndView("error/500").addObject("error", ex.getMessage());
 	}
 }

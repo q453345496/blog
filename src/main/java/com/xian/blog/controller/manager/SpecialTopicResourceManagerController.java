@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,6 @@ import com.xian.blog.service.SpecialTopicResourceService;
 @Controller
 @RequestMapping("/admin/topicResource")
 public class SpecialTopicResourceManagerController {
-	private static final Logger LOG = LoggerFactory.getLogger(SpecialTopicResourceManagerController.class);
 	@Resource
 	private SpecialTopicResourceService specialTopicResourceService;
 
@@ -35,23 +32,20 @@ public class SpecialTopicResourceManagerController {
 			@RequestParam(value = "blogTitle", required = false) String blogTitle,
 			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
 		DataGridResult vo = new DataGridResult();
-		try {
-			if (topicId == null) {
-				throw new CheckException("参数不能为空");
-			}
-			Page p = new Page(page, rows);
-			Map<String, Object> map = new HashMap<>();
-			map.put("start", p.getStart());
-			map.put("size", p.getPageSize());
-			map.put("topicId", topicId);
-			map.put("blogTitle", blogTitle);
-			map.put("blogTypeId", blogTypeId);
-
-			vo.setTotal(specialTopicResourceService.getRelateTotal(map));
-			vo.setRows(specialTopicResourceService.listRelate(map));
-		} catch (Exception e) {
-			LOG.error("list Error", e);
+		if (topicId == null) {
+//			throw new CheckException("参数不能为空");
+			throw new RuntimeException("sss");
 		}
+		Page p = new Page(page, rows);
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", p.getStart());
+		map.put("size", p.getPageSize());
+		map.put("topicId", topicId);
+		map.put("blogTitle", blogTitle);
+		map.put("blogTypeId", blogTypeId);
+
+		vo.setTotal(specialTopicResourceService.getRelateTotal(map));
+		vo.setRows(specialTopicResourceService.listRelate(map));
 		return vo;
 	}
 
@@ -63,52 +57,38 @@ public class SpecialTopicResourceManagerController {
 			@RequestParam(value = "blogTitle", required = false) String blogTitle,
 			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
 		DataGridResult vo = new DataGridResult();
-		try {
-			if (topicId == null) {
-				throw new CheckException("参数不能为空");
-			}
-			Page p = new Page(page, rows);
-			Map<String, Object> map = new HashMap<>();
-			map.put("start", p.getStart());
-			map.put("size", p.getPageSize());
-			map.put("topicId", topicId);
-			map.put("blogTitle", blogTitle);
-			map.put("blogTypeId", blogTypeId);
-
-			vo.setTotal(specialTopicResourceService.getUnRelateTotal(map));
-			vo.setRows(specialTopicResourceService.listUnRelate(map));
-		} catch (Exception e) {
-			LOG.error("list Error", e);
+		if (topicId == null) {
+			throw new CheckException("参数不能为空");
 		}
+		Page p = new Page(page, rows);
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", p.getStart());
+		map.put("size", p.getPageSize());
+		map.put("topicId", topicId);
+		map.put("blogTitle", blogTitle);
+		map.put("blogTypeId", blogTypeId);
+
+		vo.setTotal(specialTopicResourceService.getUnRelateTotal(map));
+		vo.setRows(specialTopicResourceService.listUnRelate(map));
 		return vo;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult save(Long topicId, Long[] ids) {
-		try {
-			if (topicId == null || ids == null || ids.length == 0) {
-				throw new CheckException("参数不能为空");
-			}
-			specialTopicResourceService.save(topicId, ids);
-			return CommonResult.success();
-		} catch (Exception e) {
-			LOG.error("save Error", e);
-			return CommonResult.fail(e);
+		if (topicId == null || ids == null || ids.length == 0) {
+			throw new CheckException("参数不能为空");
 		}
+		specialTopicResourceService.save(topicId, ids);
+		return CommonResult.success();
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult delete(Long[] ids) {
-		try {
-			if (ids != null && ids.length > 0) {
-				specialTopicResourceService.delete(ids);
-			}
-			return CommonResult.success();
-		} catch (Exception e) {
-			LOG.error("delete Error", e);
-			return CommonResult.fail(e);
+		if (ids != null && ids.length > 0) {
+			specialTopicResourceService.delete(ids);
 		}
+		return CommonResult.success();
 	}
 }

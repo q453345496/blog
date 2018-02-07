@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +29,6 @@ import com.xian.blog.util.RegexUtils;
 @Controller
 @RequestMapping("/admin/blog")
 public class BlogManagerController {
-	private static final Logger LOG = LoggerFactory.getLogger(BlogManagerController.class);
 	@Resource
 	private BlogService blogService;
 
@@ -40,50 +37,36 @@ public class BlogManagerController {
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, Blog blog) {
 		DataGridResult vo = new DataGridResult();
-		try {
-			Page p = new Page(page, rows);
-			Map<String, Object> map = new HashMap<>();
-			map.put("start", p.getStart());
-			map.put("size", p.getPageSize());
-			map.put("title", blog.getTitle());
-			map.put("typeId", blog.getTypeId());
-			vo.setTotal(blogService.getTotal(map));
-			vo.setRows(blogService.list(map));
-		} catch (Exception e) {
-			LOG.error("BlogTypeController list Error", e);
-		}
+		Page p = new Page(page, rows);
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", p.getStart());
+		map.put("size", p.getPageSize());
+		map.put("title", blog.getTitle());
+		map.put("typeId", blog.getTypeId());
+		vo.setTotal(blogService.getTotal(map));
+		vo.setRows(blogService.list(map));
 		return vo;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public CommonResult save(Blog blog) {
-		try {
-			String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
-			blog.setSummary(StringUtils.substring(contentNoTag, 0, 200));
-			
-			if (blog.getId() == null) {
-				blogService.save(blog);
-			} else {
-				blogService.update(blog);
-			}
-			return CommonResult.success(blog.getId());
-		} catch (Exception e) {
-			LOG.error("BlogTypeController save Error", e);
-			return CommonResult.fail(e);
+		String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
+		blog.setSummary(StringUtils.substring(contentNoTag, 0, 200));
+
+		if (blog.getId() == null) {
+			blogService.save(blog);
+		} else {
+			blogService.update(blog);
 		}
+		return CommonResult.success(blog.getId());
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult detail(@PathVariable("id") Long id) {
-		try {
-			Blog blog = blogService.get(id);
-			return CommonResult.success(blog);
-		} catch (Exception e) {
-			LOG.error("get detail Error", e);
-			return CommonResult.fail(e);
-		}
+		Blog blog = blogService.get(id);
+		return CommonResult.success(blog);
 	}
 
 	@RequestMapping(value = "/toAdd")

@@ -38,7 +38,7 @@ public class DataGridCreator extends AutoCreator {
 		map.put("deleteUrl", ADMIN_PATH + ("/" + model + "/delete"));
 		map.put("updateUrl", ADMIN_PATH + ("/" + model + "/update"));
 
-		Template t = gt.getTemplate(isTree ? TEMPLATEPATH_TREE_GRID : TEMPLATE_PATH_DATA_GRID);
+		Template t = gt.getTemplate(isTree ? TEMPLATE_PATH_TREE_GRID : TEMPLATE_PATH_DATA_GRID);
 		t.binding(map);
 
 		Path path = Paths.get(ROOT, CLASS_WEB, ADMIN_PATH, modelFileName);

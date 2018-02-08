@@ -1,8 +1,6 @@
 package com.xian.util;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,13 +18,7 @@ import org.beetl.core.resource.FileResourceLoader;
  * 测试Guns模板引擎
  *
  */
-public class RelateJspCreator {
-	static Charset chartSet = StandardCharsets.UTF_8;
-	static String jsp_suffix = ".jsp";
-
-	static String root = "D:/workspace/blog";
-	static String webPath = "src/main/webapp";
-	static String jspPath = "/admin";
+public class RelateJspCreator extends AutoCreator{
 
 	static String Model = "Blog";
 	static String modelCN = "文章";
@@ -43,20 +35,17 @@ public class RelateJspCreator {
 	static String unRelateListUrl = "/admin/topicResource/listUnRelate";
 	static String unRelateUrl = "/admin/topicResource/delete";
 	
-	static String modelFileName = ParentModel + "/relate_" + model + jsp_suffix;
+	static String modelFileName = parentModel + "/relate_" + model + SUFFIX_JSP;
 	static String programTypeDataGrid = parentModel + "DataGrid";
 
 	static GroupTemplate gt;
-	static String templateRoot = "D:/workspace/blog/src/test/java/com/xian/util/template/jsp";
-	static String relateDialogTemplatePath = "relateDialog.btl";
-
 	static Map<String, Object> map = new HashMap<>();
 
 	public static void main(String[] args) throws IOException {
-		FileResourceLoader resourceLoader = new FileResourceLoader(templateRoot, "utf-8");
+		FileResourceLoader resourceLoader = new FileResourceLoader(TEMPLATE_ROOT_JSP, "utf-8");
 		Configuration cfg = Configuration.defaultConfiguration();
 		gt = new GroupTemplate(resourceLoader, cfg);
-		Template t = gt.getTemplate(relateDialogTemplatePath);
+		Template t = gt.getTemplate(TEMPLATE_PATH_RELATE_DIALOG);
 
 		map.put("model", model);
 		map.put("modelCN", modelCN);
@@ -91,10 +80,10 @@ public class RelateJspCreator {
 
 		t.binding(map);
 
-		Path path = Paths.get(root, webPath, jspPath, modelFileName);
+		Path path = Paths.get(ROOT, CLASS_WEB, ADMIN_PATH, modelFileName);
 		path.toFile().getParentFile().mkdirs();
 
-		t.renderTo(Files.newBufferedWriter(path, chartSet, StandardOpenOption.CREATE,
+		t.renderTo(Files.newBufferedWriter(path, CHARSET_UTF8, StandardOpenOption.CREATE,
 				StandardOpenOption.TRUNCATE_EXISTING));
 
 		String str = t.render();

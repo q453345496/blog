@@ -27,6 +27,7 @@ public abstract class AutoCreator {
 
 	public static final String TEMPLATE_ROOT_JSP = "D:/workspace/blog/src/test/java/com/xian/util/template/jsp";
 	public static final String TEMPLATE_PATH_DATA_GRID = "dataGrid.btl";
-	public static final String TEMPLATEPATH_TREE_GRID = "treeGrid.btl";
+	public static final String TEMPLATE_PATH_TREE_GRID = "treeGrid.btl";
+	public static final String TEMPLATE_PATH_RELATE_DIALOG = "relateDialog.btl";
 
 }

@@ -53,6 +53,7 @@
 		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-save'" onclick="columnSaveFunc()" style="width:90px">保存</a>
 		<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-times'" onclick="javascript:$('#columnDialog').dialog('close')" style="width:90px">关闭</a>
 	</div>
+	<%@include file="relate_blogType.jsp"%>
 <script>
 $(function() {
 	$('#columnTreeGrid').treegrid({
@@ -79,6 +80,7 @@ $(function() {
 				align:'center',
 				formatter: function(value, row, index){
 					var html = '<a href="javascript:void(0)" class="column-easyui-linkbutton-edit" data-options="plain:true,iconCls:\'fa fa-pencil-square-o\'" onclick="columnEditFunc(\''+ row.id +'\');">编辑</a>'
+					html += '<a href="#" onclick="openRelateBlogTypeDialogFunc(\''+row.id+'\')">关联分类</a>';
 					return html;
 				}
 			}

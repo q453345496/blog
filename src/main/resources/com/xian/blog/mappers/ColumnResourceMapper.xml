@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xian.blog.dao.ColumnResourceDao">
+
+	<resultMap type="ColumnResource" id="ColumnResourceResult">
+		<id property="id" column="id" />
+	</resultMap>
+
+	<sql id="sql_where">
+		<where>
+			<if test="columnId != null">
+				AND column_id = #{columnId}
+			</if>
+			<if test="typeId != null">
+				AND type_id = #{typeId}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="list" parameterType="Map" resultMap="ColumnResourceResult">
+		SELECT * FROM t_column_resource
+		<include refid="sql_where"></include>
+		ORDER BY create_time
+		<if test="start != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+
+	<select id="getTotal" parameterType="Map" resultType="Integer">
+		SELECT COUNT(1) FROM t_column_resource
+		<include refid="sql_where"></include>
+	</select>
+
+	<insert id="save" parameterType="ColumnResource" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_column_resource (column_id, type_id, rank, create_time) VALUES(#{columnId}, #{typeId}, #{rank}, #{createTime})
+	</insert>
+
+	<update id="update" parameterType="ColumnResource">
+		UPDATE t_column_resource
+		<set>
+			<if test="columnId != null">
+				column_id = #{columnId},
+			</if>
+			<if test="type_id != null">
+				type_id = #{typeId},
+			</if>
+			<if test="rank != null">
+				rank = #{rank},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		DELETE FROM t_column_resource WHERE id = #{id}
+	</delete>
+	
+	<select id="get" parameterType="Long" resultMap="ColumnResourceResult">
+		SELECT * FROM t_column_resource
+		WHERE id = #{id}
+	</select>
+	
+	<sql id="sql_relate_where">
+		<if test="columnId != null">
+				AND column_id = #{columnId}
+		</if>
+		<if test="blogTypeName != null and blogTypeName != ''">
+				AND t.name LIKE CONCAT('%', #{blogTypeName}, '%')
+		</if>
+	</sql>
+	
+	<select id="listRelate" parameterType="Map" resultMap="ColumnResourceResult">
+		SELECT r.*, t.name as blogTypeName FROM t_column_resource r 
+		LEFT JOIN t_blog_type t ON t.id = r.type_id
+		<where>
+			<include refid="sql_relate_where"></include>
+		</where>
+		ORDER BY r.rank, r.create_time
+		<if test="start != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+	
+	<select id="getRelateTotal" parameterType="Map" resultType="Integer">
+		SELECT COUNT(1) FROM t_column_resource r 
+		LEFT JOIN t_blog_type t ON t.id = r.type_id
+		<where>
+			<include refid="sql_relate_where"></include>
+		</where>
+	</select>
+	
+	<sql id="sql_unrelate_where">
+		<if test="blogTypeName != null and blogTypeName != ''">
+				AND t.name LIKE CONCAT('%', #{blogTypeName}, '%')
+		</if>
+		<if test="columnId != null">
+			AND NOT EXISTS (SELECT 1 FROM t_column_resource r WHERE r.type_id = t.id AND r.column_id = #{columnId})
+		</if>
+	</sql>
+	
+	<select id="listUnRelate" parameterType="Map" resultMap="ColumnResourceResult">
+		SELECT t.id AS typeId, t.name AS blogTypeName FROM t_blog_type t
+		<where>
+			<include refid="sql_unrelate_where"></include>
+		</where>
+		ORDER BY create_time
+		<if test="start != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+	
+	<select id="getUnRelateTotal" parameterType="Map" resultType="Integer">
+		SELECT COUNT(1) FROM t_blog_type t
+		<where>
+			<include refid="sql_unrelate_where"></include>
+		</where>
+	</select>
+</mapper>

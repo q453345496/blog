@@ -16,7 +16,7 @@
 				AND name LIKE CONCAT('%', #{name}, '%')
 			</if>
 		</where>
-		ORDER BY rank, name
+		ORDER BY rank, create_time
 		<if test="start != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
@@ -34,7 +34,7 @@
 
 	<insert id="save" parameterType="BlogType" useGeneratedKeys="true"
 		keyProperty="id">
-		INSERT INTO t_blog_type (name, rank, last_update_time) VALUES(#{name}, #{rank}, #{lastUpdateTime})
+		INSERT INTO t_blog_type (name, rank, create_time, last_update_time) VALUES(#{name}, #{rank}, #{createTime}, #{lastUpdateTime})
 	</insert>
 
 	<update id="update" parameterType="BlogType">

@@ -24,6 +24,7 @@ CREATE TABLE `t_blog_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `name`  varchar(255) NOT NULL ,
 `rank` int(11),
+`create_time` datetime NOT NULL,
 `last_update_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
@@ -120,3 +121,17 @@ DEFAULT CHARACTER SET=utf8
 ;
 INSERT INTO `t_column` (`id`, `name`, `code`, `parent_id`, `status`, `rank`, `is_parent`, `create_time`) 
 VALUES ('1', '根栏目', 'root', '-1', '1', '1', '0', '2018-02-05 14:53:23');
+
+/*栏目关联分类*/
+DROP TABLE IF EXISTS `t_column_resource`;
+CREATE TABLE `t_column_resource` (
+`id` int(11) NOT NULL AUTO_INCREMENT ,
+`column_id`  int(11) NOT NULL ,
+`type_id` int(11) NOT NULL ,
+`rank` int(11) NOT NULL ,
+`create_time` datetime NOT NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;

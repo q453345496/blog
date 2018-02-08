@@ -10,6 +10,8 @@ public class BlogType {
 	private Integer rank;// 序号
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	private Date createTime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date lastUpdateTime;
 	
 	public Long getId() {
@@ -34,6 +36,14 @@ public class BlogType {
 
 	public void setRank(Integer rank) {
 		this.rank = rank;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public Date getLastUpdateTime() {

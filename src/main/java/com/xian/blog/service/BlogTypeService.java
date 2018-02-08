@@ -32,7 +32,9 @@ public class BlogTypeService {
 	}
 
 	public int save(BlogType blogType) {
-		blogType.setLastUpdateTime(new Date());
+		Date now = new Date();
+		blogType.setCreateTime(now);
+		blogType.setLastUpdateTime(now);
 		return blogTypeDao.save(blogType);
 	}
 

@@ -2,6 +2,7 @@ package com.xian.blog.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,6 +26,13 @@ public class GlobalDefaultExceptionHandler {
 	@ResponseBody
 	public CommonResult check(CheckException ex) {
 		LOG.error(ex.getMessage(), ex);
+		return CommonResult.fail(ex);
+	}
+
+	@ExceptionHandler({ DataAccessException.class})
+	@ResponseBody
+	public CommonResult runtime(Exception ex) {
+		LOG.error("SQL异常", ex);
 		return CommonResult.fail(ex);
 	}
 

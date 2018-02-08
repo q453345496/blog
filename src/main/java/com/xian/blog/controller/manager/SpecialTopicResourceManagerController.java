@@ -31,10 +31,8 @@ public class SpecialTopicResourceManagerController {
 			@RequestParam(value = "topicId", required = true) Long topicId,
 			@RequestParam(value = "blogTitle", required = false) String blogTitle,
 			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
-		DataGridResult vo = new DataGridResult();
 		if (topicId == null) {
-//			throw new CheckException("参数不能为空");
-			throw new RuntimeException("sss");
+			throw new CheckException("参数不能为空");
 		}
 		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
@@ -44,6 +42,7 @@ public class SpecialTopicResourceManagerController {
 		map.put("blogTitle", blogTitle);
 		map.put("blogTypeId", blogTypeId);
 
+		DataGridResult vo = new DataGridResult();
 		vo.setTotal(specialTopicResourceService.getRelateTotal(map));
 		vo.setRows(specialTopicResourceService.listRelate(map));
 		return vo;
@@ -56,7 +55,6 @@ public class SpecialTopicResourceManagerController {
 			@RequestParam(value = "topicId", required = true) Long topicId,
 			@RequestParam(value = "blogTitle", required = false) String blogTitle,
 			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
-		DataGridResult vo = new DataGridResult();
 		if (topicId == null) {
 			throw new CheckException("参数不能为空");
 		}
@@ -68,6 +66,7 @@ public class SpecialTopicResourceManagerController {
 		map.put("blogTitle", blogTitle);
 		map.put("blogTypeId", blogTypeId);
 
+		DataGridResult vo = new DataGridResult();
 		vo.setTotal(specialTopicResourceService.getUnRelateTotal(map));
 		vo.setRows(specialTopicResourceService.listUnRelate(map));
 		return vo;

@@ -42,8 +42,13 @@
 function ${openRelateDialogFunc}(rowIndex){
 	clearSearch('#${relatedDataGridToolbar}');
 	clearSearch('#${unRelatedDataGridToolbar}');
+	<%if(parentIsTree){%>
+	$('#${parentDataGrid}').treegrid('select', rowIndex);
+    var row = $("#${parentDataGrid}").treegrid("find", rowIndex);
+	<%} else {%>
 	$('#${parentDataGrid}').datagrid('selectRow', rowIndex);
     var row = $("#${parentDataGrid}").datagrid("getSelected");
+    <%}%>
     if(row){
     	 $("#${dialogId}").dialog("open").dialog('setTitle', "关联${modelCN} 【${parentModelCN}： " + row.name + "】");
     	 $('#${relatedDataGrid}').datagrid({method : 'GET', url : basePath + '${relatedDataGridUrl}?${parentId}=' + row.id, queryParams:{}});

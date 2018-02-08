@@ -14,29 +14,26 @@ import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 import org.beetl.core.resource.FileResourceLoader;
 
-/**
- * 测试Guns模板引擎
- *
- */
 public class RelateJspCreator extends AutoCreator{
 
-	static String Model = "Blog";
-	static String modelCN = "文章";
+	static String Model = "BlogType";
+	static String modelCN = "分类";
 	static String model = StringUtils.uncapitalize(Model);
-	static String modelId = "blogId";
-	static String modelNameField = "blogTitle";
-	static String ParentModel = "SpecialTopic";
-	static String parentModelCN = "专题";
+	static String modelId = "typeId";
+	static String modelNameField = "blogTypeName";
+	static String ParentModel = "Column";
+	static String parentModelCN = "栏目";
 	static String parentModel = StringUtils.uncapitalize(ParentModel);
-	static String parentId = "topicId";
-
-	static String relateListUrl = "/admin/topicResource/listRelate";
-	static String relateUrl = "/admin/topicResource/save";
-	static String unRelateListUrl = "/admin/topicResource/listUnRelate";
-	static String unRelateUrl = "/admin/topicResource/delete";
+	static String parentId = "columnId";
+	static boolean parentIsTree = false;
+	static String relateModel = "columnResource";
+	static String relateListUrl = "/admin/" + relateModel + "/listRelate";
+	static String relateUrl = "/admin/" + relateModel + "/save";
+	static String unRelateListUrl = "/admin/" + relateModel + "/listUnRelate";
+	static String unRelateUrl = "/admin/" + relateModel + "/delete";
 	
 	static String modelFileName = parentModel + "/relate_" + model + SUFFIX_JSP;
-	static String programTypeDataGrid = parentModel + "DataGrid";
+	static String parentDataGrid = parentModel + (parentIsTree ? "TreeGrid" : "DataGrid");
 
 	static GroupTemplate gt;
 	static Map<String, Object> map = new HashMap<>();
@@ -50,7 +47,8 @@ public class RelateJspCreator extends AutoCreator{
 		map.put("model", model);
 		map.put("modelCN", modelCN);
 		map.put("parentModelCN", parentModelCN);
-
+		map.put("parentIsTree", parentIsTree);
+		
 		map.put("dialogId", parentModel + "Relate" + model + "Dialog");
 		map.put("contentRelateTabs", model + "RelateTabs");
 
@@ -58,7 +56,7 @@ public class RelateJspCreator extends AutoCreator{
 		map.put("modeId", modelId);//id field
 		map.put("modelNameField", modelNameField);//name field
 		
-		map.put("parentDataGrid", programTypeDataGrid);//programTypeDataGrid
+		map.put("parentDataGrid", parentDataGrid);//programTypeDataGrid
 		map.put("parentId", parentId);
 		map.put("openRelateDialogFunc", "openRelate" + Model + "DialogFunc");
 
@@ -86,11 +84,6 @@ public class RelateJspCreator extends AutoCreator{
 		t.renderTo(Files.newBufferedWriter(path, CHARSET_UTF8, StandardOpenOption.CREATE,
 				StandardOpenOption.TRUNCATE_EXISTING));
 
-		String str = t.render();
-		System.out.println(str);
 	}
 
-	public static long getTime() {
-		return System.currentTimeMillis();
-	}
 }

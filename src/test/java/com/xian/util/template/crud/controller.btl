@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,7 @@ public class ${ModelController} {
 		return list;
 	}
 	<%} else {%>
-	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, ${Model} ${model}) {
@@ -53,14 +52,14 @@ public class ${ModelController} {
 	}
 	<%}%>
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult save(${Model} ${model}) {
 		${modelService}.save(${model});
 		return CommonResult.success(${model}.getId());
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult update(${Model} ${model}) {
 		${modelService}.update(${model});

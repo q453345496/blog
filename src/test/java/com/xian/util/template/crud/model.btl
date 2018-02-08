@@ -7,10 +7,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ${Model} {
 	private Long id;
 	private String name;
+	<%if(isTree){%>
 	private Integer rank;
 	private Long parentId;
 	private Boolean isParent;
-	
+	<%}%>
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
 
@@ -29,7 +30,8 @@ public class ${Model} {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	<%if(isTree){%>
+
 	public Integer getRank() {
 		return rank;
 	}
@@ -57,7 +59,8 @@ public class ${Model} {
 	public String getState() {
 		return Boolean.TRUE.equals(isParent) ? "closed" : "open";
 	}
-	
+	<%}%>
+
 	public Date getCreateTime() {
 		return createTime;
 	}

@@ -28,7 +28,7 @@
 	<select id="list" parameterType="Map" resultMap="${Model}Result">
 		SELECT * FROM ${table}
 		<include refid="sql_where"></include>
-		ORDER BY ${isTree? "rank, " : ""}name
+		ORDER BY ${isTree? "rank, " : ""}create_time
 		<if test="start != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>

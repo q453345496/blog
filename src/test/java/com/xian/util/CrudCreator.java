@@ -16,9 +16,9 @@ import org.beetl.core.resource.FileResourceLoader;
 
 public class CrudCreator extends AutoCreator {
 
-	static String table = "t_journal_category";// table name
-	static String Model = "JournalCategory";
-	static boolean isTree = true;
+	static String table = "t_column_resource";// table name
+	static String Model = "ColumnResource";
+	static boolean isTree = false;
 	static String model = StringUtils.uncapitalize(Model);
 	static boolean manager = true;
 	static String requestMapping = (manager ? ADMIN_PATH : "") + "/" + model;

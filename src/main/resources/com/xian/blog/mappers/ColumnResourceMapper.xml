@@ -32,7 +32,7 @@
 	</select>
 
 	<insert id="save" parameterType="ColumnResource" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_column_resource (column_id, type_id, rank, create_time) VALUES(#{columnId}, #{typeId}, #{rank}, #{createTime})
+		INSERT INTO t_column_resource (column_id, type_id, rank, create_time, modify_time) VALUES(#{columnId}, #{typeId}, #{rank}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="ColumnResource">
@@ -46,6 +46,9 @@
 			</if>
 			<if test="rank != null">
 				rank = #{rank},
+			</if>
+			<if test="modifyTime != null ">
+				modify_time = #{modifyTime},
 			</if>
 		</set>
 		WHERE id = #{id}

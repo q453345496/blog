@@ -16,7 +16,7 @@ public class Blog {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	private Date lastUpdateTime;
+	private Date modifyTime;
 
 	private String summary;// 摘要,内容的前n个字符
 
@@ -106,12 +106,12 @@ public class Blog {
 		this.createTime = createTime;
 	}
 
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
+	public Date getModifyTime() {
+		return modifyTime;
 	}
 
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 	public BlogType getBlogType() {

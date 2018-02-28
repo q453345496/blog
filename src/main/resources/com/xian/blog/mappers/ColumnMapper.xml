@@ -44,7 +44,7 @@
 	</select>
 
 	<insert id="save" parameterType="Column" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_column (name, parent_id, is_parent, rank, `code`, status, create_time) VALUES(#{name}, #{parentId}, #{isParent}, #{rank}, #{code}, #{status}, #{createTime})
+		INSERT INTO t_column (name, parent_id, is_parent, rank, `code`, status, create_time, modify_time) VALUES(#{name}, #{parentId}, #{isParent}, #{rank}, #{code}, #{status}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="Column">
@@ -68,8 +68,8 @@
 			<if test="status != null">
 				status = #{status},
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime},
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime},
 			</if>
 		</set>
 		WHERE id = #{id}

@@ -30,7 +30,7 @@
 	</select>
 
 	<insert id="save" parameterType="SpecialTopic" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_special_topic (name, rank, create_time) VALUES(#{name}, #{rank}, #{createTime})
+		INSERT INTO t_special_topic (name, rank, create_time, modify_time) VALUES(#{name}, #{rank}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="SpecialTopic">
@@ -48,10 +48,9 @@
 			<if test="rank != null">
 				rank = #{rank},
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime},
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime},
 			</if>
-			
 		</set>
 		WHERE id = #{id}
 	</update>

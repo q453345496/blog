@@ -6,7 +6,7 @@
 		<id property="id" column="id" />
 <!-- 		<result property="name" column="name" /> -->
 <!-- 		<result property="rank" column="rank" /> -->
-<!-- 		<result property="lastUpdateTime" column="lastUpdateTime" /> -->
+<!-- 		<result property="modifyTime" column="modifyTime" /> -->
 	</resultMap>
 
 	<select id="list" parameterType="Map" resultMap="BlogTypeResult">
@@ -34,7 +34,7 @@
 
 	<insert id="save" parameterType="BlogType" useGeneratedKeys="true"
 		keyProperty="id">
-		INSERT INTO t_blog_type (name, rank, create_time, last_update_time) VALUES(#{name}, #{rank}, #{createTime}, #{lastUpdateTime})
+		INSERT INTO t_blog_type (name, rank, create_time, modify_time) VALUES(#{name}, #{rank}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="BlogType">
@@ -46,8 +46,8 @@
 			<if test="rank != null">
 				rank = #{rank},
 			</if>
-			<if test="lastUpdateTime != null">
-				last_update_time = #{lastUpdateTime},
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime},
 			</if>
 			
 		</set>

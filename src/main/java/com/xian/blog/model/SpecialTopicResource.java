@@ -15,7 +15,9 @@ public class SpecialTopicResource {
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
-
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	private Date modifyTime;
+	
 	public Long getId() {
 		return id;
 	}
@@ -70,6 +72,14 @@ public class SpecialTopicResource {
 
 	public void setBlogTypeId(Long blogTypeId) {
 		this.blogTypeId = blogTypeId;
+	}
+
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

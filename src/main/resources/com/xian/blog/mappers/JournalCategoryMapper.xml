@@ -38,7 +38,7 @@
 	</select>
 
 	<insert id="save" parameterType="JournalCategory" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_journal_category (name, parent_id, is_parent, rank, create_time) VALUES(#{name}, #{parentId}, #{isParent}, #{rank}, #{createTime})
+		INSERT INTO t_journal_category (name, parent_id, is_parent, rank, create_time, modify_time) VALUES(#{name}, #{parentId}, #{isParent}, #{rank}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="JournalCategory">
@@ -56,8 +56,8 @@
 			<if test="rank != null">
 				rank = #{rank},
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime},
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime},
 			</if>
 		</set>
 		WHERE id = #{id}

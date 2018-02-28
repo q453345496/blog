@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,14 @@ public class ParamService {
 	}
 
 	public int update(Param param) {
+		param.setModifyTime(new Date());
 		return paramDao.update(param);
 	}
 
 	public int save(Param param) {
+		Date now = new Date();
+		param.setCreateTime(now);
+		param.setModifyTime(now);
 		return paramDao.save(param);
 	}
 

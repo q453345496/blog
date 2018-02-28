@@ -29,6 +29,7 @@ public class JournalCategoryService {
 	}
 
 	public int update(JournalCategory journalCategory) {
+		journalCategory.setModifyTime(new Date());
 		return journalCategoryDao.update(journalCategory);
 	}
 
@@ -39,7 +40,9 @@ public class JournalCategoryService {
 			journalCategoryDao.update(parent);
 		}
 		journalCategory.setIsParent(false);
-		journalCategory.setCreateTime(new Date());
+		Date now = new Date();
+		journalCategory.setCreateTime(now);
+		journalCategory.setModifyTime(now);
 		return journalCategoryDao.save(journalCategory);
 	}
 

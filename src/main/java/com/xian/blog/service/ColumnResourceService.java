@@ -28,11 +28,14 @@ public class ColumnResourceService {
 	}
 
 	public int update(ColumnResource columnResource) {
+		columnResource.setModifyTime(new Date());
 		return columnResourceDao.update(columnResource);
 	}
 
 	public int save(ColumnResource columnResource) {
-		columnResource.setCreateTime(new Date());
+		Date now = new Date();
+		columnResource.setCreateTime(now);
+		columnResource.setModifyTime(now);
 		return columnResourceDao.save(columnResource);
 	}
 

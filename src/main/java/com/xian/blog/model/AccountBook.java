@@ -20,7 +20,7 @@ public class AccountBook {
 	private String userId;// 所属用户的id
 
 	private Date createTime;
-	private Date lastUpdateTime;
+	private Date modifyTime;
 
 	public Long getId() {
 		return id;
@@ -78,12 +78,12 @@ public class AccountBook {
 		this.createTime = createTime;
 	}
 
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
+	public Date getModifyTime() {
+		return modifyTime;
 	}
 
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

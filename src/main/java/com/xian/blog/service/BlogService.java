@@ -44,14 +44,14 @@ public class BlogService {
 	}
 
 	public int update(Blog blog) {
-		blog.setLastUpdateTime(new Date());
+		blog.setModifyTime(new Date());
 		return blogDao.update(blog);
 	}
 
 	public int save(Blog blog) {
 		Date now = new Date();
 		blog.setCreateTime(now);
-		blog.setLastUpdateTime(now);
+		blog.setModifyTime(now);
 		return blogDao.save(blog);
 	}
 

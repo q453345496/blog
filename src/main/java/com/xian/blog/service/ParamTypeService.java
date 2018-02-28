@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +34,7 @@ public class ParamTypeService {
 		if (byCode != null && !Objects.equals(paramType.getId(), byCode.getId())) {
 			throw new CheckException("code已经存在:" + paramType.getCode());
 		}
+		paramType.setModifyTime(new Date());
 		return paramTypeDao.update(paramType);
 	}
 
@@ -41,6 +43,9 @@ public class ParamTypeService {
 		if (byCode != null) {
 			throw new CheckException("code已经存在:" + paramType.getCode());
 		}
+		Date now = new Date();
+		paramType.setCreateTime(now);
+		paramType.setModifyTime(now);
 		return paramTypeDao.save(paramType);
 	}
 

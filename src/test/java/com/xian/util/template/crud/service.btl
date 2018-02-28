@@ -31,6 +31,7 @@ public class ${ModelService} {
 	}
 
 	public int update(${Model} ${model}) {
+		${model}.setModifyTime(new Date());
 		return ${modelDao}.update(${model});
 	}
 
@@ -43,7 +44,9 @@ public class ${ModelService} {
 		}
 		${model}.setIsParent(false);
 		<%}%>
-		${model}.setCreateTime(new Date());
+		Date now = new Date();
+		${model}.setCreateTime(now);
+		${model}.setModifyTime(now);
 		return ${modelDao}.save(${model});
 	}
 

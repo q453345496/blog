@@ -28,11 +28,14 @@ public class SpecialTopicService {
 	}
 
 	public int update(SpecialTopic specialTopic) {
+		specialTopic.setModifyTime(new Date());
 		return specialTopicDao.update(specialTopic);
 	}
 
 	public int save(SpecialTopic specialTopic) {
-		specialTopic.setCreateTime(new Date());
+		Date now = new Date();
+		specialTopic.setCreateTime(now);
+		specialTopic.setModifyTime(now);
 		return specialTopicDao.save(specialTopic);
 	}
 

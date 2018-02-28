@@ -3,6 +3,8 @@ package com.xian.blog.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 流水账
  * 
@@ -18,9 +20,11 @@ public class Journal {
 	private JournalCategory subType;// 一级分类
 	private Date occurTime;// 产生时间
 	private String remark;// 备注
-
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
-	private Date lastUpdateTime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	private Date modifyTime;
 
 	public Long getId() {
 		return id;
@@ -86,12 +90,12 @@ public class Journal {
 		this.createTime = createTime;
 	}
 
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
+	public Date getModifyTime() {
+		return modifyTime;
 	}
 
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

@@ -29,6 +29,7 @@ public class ColumnService {
 	}
 
 	public int update(Column column) {
+		column.setModifyTime(new Date());
 		return columnDao.update(column);
 	}
 
@@ -39,7 +40,9 @@ public class ColumnService {
 			columnDao.update(parent);
 		}
 		column.setIsParent(false);
-		column.setCreateTime(new Date());
+		Date now = new Date();
+		column.setCreateTime(now);
+		column.setModifyTime(now);
 		return columnDao.save(column);
 	}
 

@@ -28,11 +28,14 @@ public class SpecialTopicResourceService {
 	}
 
 	public int update(SpecialTopicResource specialTopicResource) {
+		specialTopicResource.setModifyTime(new Date());
 		return specialTopicResourceDao.update(specialTopicResource);
 	}
 
 	public int save(SpecialTopicResource specialTopicResource) {
+		Date now = new Date();
 		specialTopicResource.setCreateTime(new Date());
+		specialTopicResource.setModifyTime(now);
 		return specialTopicResourceDao.save(specialTopicResource);
 	}
 

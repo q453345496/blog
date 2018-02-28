@@ -27,14 +27,14 @@ public class BlogTypeService {
 	}
 
 	public int update(BlogType blogType) {
-		blogType.setLastUpdateTime(new Date());
+		blogType.setModifyTime(new Date());
 		return blogTypeDao.update(blogType);
 	}
 
 	public int save(BlogType blogType) {
 		Date now = new Date();
 		blogType.setCreateTime(now);
-		blogType.setLastUpdateTime(now);
+		blogType.setModifyTime(now);
 		return blogTypeDao.save(blogType);
 	}
 

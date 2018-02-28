@@ -11,7 +11,7 @@ CREATE TABLE `t_blog` (
 `click` int(11) DEFAULT 0,
 `reply` int(11) DEFAULT 0,
 `create_time` datetime NOT NULL,
-`last_update_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -25,7 +25,7 @@ CREATE TABLE `t_blog_type` (
 `name`  varchar(255) NOT NULL ,
 `rank` int(11),
 `create_time` datetime NOT NULL,
-`last_update_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -41,13 +41,14 @@ CREATE TABLE `t_journal_category` (
 `parent_id` int(11) NOT NULL,
 `is_parent` tinyint(1) DEFAULT false,
 `create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
-INSERT INTO `t_journal_category` (`id`, `name`, `parent_id`, `rank`, `is_parent`, `create_time`) 
-VALUES ('1', '根分类', '-1', '1', '0', '2018-02-05 14:53:23');
+INSERT INTO `t_journal_category` (`id`, `name`, `parent_id`, `rank`, `is_parent`, `create_time`, `modify_time`) 
+VALUES ('1', '根分类', '-1', '1', '0', NOW(), NOW());
 
 /*参数类型*/
 DROP TABLE IF EXISTS `t_param_type`;
@@ -55,6 +56,8 @@ CREATE TABLE `t_param_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `name`  varchar(255) NOT NULL ,
 `code` varchar(255) ,
+`create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -69,6 +72,8 @@ CREATE TABLE `t_param` (
 `value` varchar(255) ,
 `type_code` varchar(255) NOT NULL,
 `summary` varchar(255) ,
+`create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -84,6 +89,7 @@ CREATE TABLE `t_special_topic` (
 `relate_count` int(11) DEFAULT 0,
 `rank` int(11),
 `create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -97,6 +103,7 @@ CREATE TABLE `t_special_topic_resource` (
 `topic_id`  int(11) NOT NULL ,
 `blog_id` int(11) NOT NULL ,
 `create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
@@ -114,13 +121,14 @@ CREATE TABLE `t_column` (
 `rank` int(11),
 `is_parent` tinyint(1) DEFAULT false,
 `create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
-INSERT INTO `t_column` (`id`, `name`, `code`, `parent_id`, `status`, `rank`, `is_parent`, `create_time`) 
-VALUES ('1', '根栏目', 'root', '-1', '1', '1', '0', '2018-02-05 14:53:23');
+INSERT INTO `t_column` (`id`, `name`, `code`, `parent_id`, `status`, `rank`, `is_parent`, `create_time`, `modify_time`) 
+VALUES ('1', '根栏目', 'root', '-1', '1', '1', '0', NOW(), NOW());
 
 /*栏目关联分类*/
 DROP TABLE IF EXISTS `t_column_resource`;
@@ -130,6 +138,7 @@ CREATE TABLE `t_column_resource` (
 `type_id` int(11) NOT NULL ,
 `rank` int(11) NOT NULL ,
 `create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB

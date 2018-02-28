@@ -12,7 +12,7 @@ public class BlogType {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	private Date lastUpdateTime;
+	private Date modifyTime;
 	
 	public Long getId() {
 		return id;
@@ -46,12 +46,12 @@ public class BlogType {
 		this.createTime = createTime;
 	}
 
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
+	public Date getModifyTime() {
+		return modifyTime;
 	}
 
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

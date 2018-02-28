@@ -36,7 +36,7 @@
 	</select>
 
 	<insert id="save" parameterType="ParamType" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_param_type (name, `code`) VALUES(#{name}, #{code})
+		INSERT INTO t_param_type (name, `code`, create_time, modify_time) VALUES(#{name}, #{code}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="ParamType">
@@ -47,6 +47,9 @@
 			</if>
 			<if test="code != null and code != '' ">
 				`code` = #{code},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime},
 			</if>
 		</set>
 		WHERE id = #{id}

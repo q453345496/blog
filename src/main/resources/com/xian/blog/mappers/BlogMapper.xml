@@ -12,7 +12,7 @@
 <!-- 		<result property="reply" column="reply" /> -->
 <!-- 		<result property="click" column="click" /> -->
 <!-- 		<result property="createTime" column="create_time" /> -->
-<!-- 		<result property="lastUpdateTime" column="last_update_time" /> -->
+<!-- 		<result property="modifyTime" column="modify_time" /> -->
 		<association property="blogType" javaType="BlogType">
 			<id property="id" column="type_id"/>
 			<result property="name" column="type_name" />
@@ -31,7 +31,7 @@
 		b.click AS click, 
 		b.reply AS reply,
 		b.create_time,
-		b.last_update_time,
+		b.modify_time,
 		t.NAME AS type_name
 		FROM
 		t_blog b
@@ -80,9 +80,9 @@
 	</select>
 
 	<insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_blog (title, type_id, key_word, summary, content, right_type, create_time, last_update_time)
+		INSERT INTO t_blog (title, type_id, key_word, summary, content, right_type, create_time, modify_time)
 		VALUES
-		(#{title}, #{blogType.id}, #{keyWord}, #{summary}, #{content}, #{rightType}, #{createTime}, #{lastUpdateTime})
+		(#{title}, #{blogType.id}, #{keyWord}, #{summary}, #{content}, #{rightType}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="Blog">
@@ -112,8 +112,8 @@
 			<if test="reply != null ">
 				reply = #{reply},
 			</if>
-			<if test="lastUpdateTime != null ">
-				last_update_time = #{lastUpdateTime},
+			<if test="modifyTime != null ">
+				modify_time = #{modifyTime},
 			</if>
 		</set>
 		WHERE id = #{id}

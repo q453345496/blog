@@ -11,11 +11,15 @@ import org.apache.commons.io.FileUtils;
 
 public class RegexUtils {
 
-	public static final String IMG_URL = "<img.*?src=\"(.*?)\"[^>]*?>";
+	private static final String IMG_URL_REGEX = "<img.*?src=\"(.*?)\"[^>]*?>";
+
+	private static final Pattern IMG_PATTERN = Pattern.compile(IMG_URL_REGEX);
+
+	private static final String TAG_REGEX = "<!--.*-->|<[^>]*>";
+	private static final Pattern TAG_PATTERN = Pattern.compile(TAG_REGEX);
 
 	public static String getFirstImg(String text) {
-		Pattern pattern = Pattern.compile(IMG_URL);
-		Matcher matcher = pattern.matcher(text);
+		Matcher matcher = IMG_PATTERN.matcher(text);
 		if (matcher.find()) {
 			return matcher.group(1);
 		}
@@ -23,8 +27,7 @@ public class RegexUtils {
 	}
 
 	public static List<String> getAllImg(String text) {
-		Pattern pattern = Pattern.compile(IMG_URL);
-		Matcher matcher = pattern.matcher(text);
+		Matcher matcher = IMG_PATTERN.matcher(text);
 		List<String> imgs = new ArrayList<>();
 		while (matcher.find()) {
 			imgs.add(matcher.group(1));
@@ -36,9 +39,7 @@ public class RegexUtils {
 		if (content == null || content.length() == 0) {
 			return content;
 		}
-		String text = "<!--.*-->|<[^>]*>";
-		Pattern pattern = Pattern.compile(text);
-		Matcher matcher = pattern.matcher(content);
+		Matcher matcher = TAG_PATTERN.matcher(content);
 		StringBuilder sb = new StringBuilder();
 		while (matcher.find()) {
 			sb.append(matcher.replaceAll("").replaceAll("\\s", "").replaceAll("&.*?;", ""));

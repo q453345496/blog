@@ -7,6 +7,10 @@ import java.util.List;
  * 
  */
 public final class UEditorListResult {
+	private static final UEditorListResult ERROR = new UEditorListResult();
+	static {
+		ERROR.setState("error");
+	}
 	private String state;
 	private List<?> list;
 	private int start;
@@ -44,4 +48,7 @@ public final class UEditorListResult {
 		this.total = total;
 	}
 
+	public static UEditorListResult error() {
+		return ERROR;
+	}
 }

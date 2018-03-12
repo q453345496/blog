@@ -66,7 +66,7 @@ public class BlogService {
 
 	public Long getDraftId() {
 		Map<String, Object> map = new HashMap<>();
-		map.put("status", -1);
+		map.put("status", Blog.DRAFT);
 		List<Blog> list = blogDao.list(map);
 		if (list.isEmpty()) {
 			Date now = new Date();

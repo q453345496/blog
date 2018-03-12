@@ -43,14 +43,14 @@ public class UEditorController {
 
 	@RequestMapping(value = "/listFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorListResult listFile(int start, int size) {
-		return UEditorUtil.listFiles("file", start, size);
+	public UEditorListResult listFile() {
+		return UEditorListResult.error();//不提供服务
 	}
 
 	@RequestMapping(value = "/listImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorListResult listImage(int start, int size) {
-		return UEditorUtil.listFiles("image", start, size);
+	public UEditorListResult listImage() {
+		return UEditorListResult.error();//不提供服务
 	}
 
 	/**

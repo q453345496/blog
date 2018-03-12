@@ -29,6 +29,7 @@ public class IndexController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", p.getStart());
 		map.put("size", p.getPageSize());
+		map.put("status", Blog.ONLINE);
 		List<Blog> list = blogService.list(map);
 		Integer total = blogService.getTotal(map);
 		for (Blog blog : list) {

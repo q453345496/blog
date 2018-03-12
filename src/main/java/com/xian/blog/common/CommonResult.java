@@ -12,6 +12,7 @@ public final class CommonResult implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final int SUCCESS = 0;
 	public static final int FAIL = -1;
+	private static final CommonResult EMPTY = new CommonResult();
 	
 	private int status = SUCCESS;
 	private String msg = "success";
@@ -45,7 +46,7 @@ public final class CommonResult implements Serializable {
 	}
 
 	public static CommonResult success() {
-		return new CommonResult();
+		return EMPTY;
 	}
 
 	public int getStatus() {

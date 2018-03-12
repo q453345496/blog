@@ -3,11 +3,13 @@ package com.xian.blog.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class RegexUtils {
 
@@ -23,41 +25,51 @@ public class RegexUtils {
 	private static final Pattern TAG_PATTERN = Pattern.compile(TAG_REGEX);
 
 	public static String getFirstImgURL(String text) {
-		Matcher matcher = IMG_URL_PATTERN.matcher(text);
-		if (matcher.find()) {
-			return matcher.group(1);
+		if (StringUtils.isNotBlank(text)) {
+			Matcher matcher = IMG_URL_PATTERN.matcher(text);
+			if (matcher.find()) {
+				return matcher.group(1);
+			}
 		}
 		return null;
 	}
 
 	public static List<String> getAllImgURL(String text) {
-		Matcher matcher = IMG_URL_PATTERN.matcher(text);
-		List<String> imgs = new ArrayList<>();
-		while (matcher.find()) {
-			imgs.add(matcher.group(1));
+		if (StringUtils.isNotBlank(text)) {
+			List<String> imgs = new ArrayList<>();
+			Matcher matcher = IMG_URL_PATTERN.matcher(text);
+			while (matcher.find()) {
+				imgs.add(matcher.group(1));
+			}
+			return imgs;
 		}
-		return imgs;
+		return Collections.emptyList();
 	}
 	
 	public static List<String> getAllImg(String text) {
-		Matcher matcher = IMG_PATTERN.matcher(text);
-		List<String> imgs = new ArrayList<>();
-		while (matcher.find()) {
-			imgs.add(matcher.group());
+		if (StringUtils.isNotBlank(text)) {
+			Matcher matcher = IMG_PATTERN.matcher(text);
+			List<String> imgs = new ArrayList<>();
+			while (matcher.find()) {
+				imgs.add(matcher.group());
+			}
+			return imgs;
 		}
-		return imgs;
+		return Collections.emptyList();
 	}
 	
 	public static String getSrc(String text) {
-		Matcher matcher = SRC_PATTERN.matcher(text);
-		while (matcher.find()) {
-			return matcher.group(1);
+		if (StringUtils.isNotBlank(text)) {
+			Matcher matcher = SRC_PATTERN.matcher(text);
+			while (matcher.find()) {
+				return matcher.group(1);
+			}
 		}
 		return null;
 	}
 
 	public static String getNoTagContent(String content) {
-		if (content == null || content.length() == 0) {
+		if (StringUtils.isBlank(content)) {
 			return content;
 		}
 		Matcher matcher = TAG_PATTERN.matcher(content);

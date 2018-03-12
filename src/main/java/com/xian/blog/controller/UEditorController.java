@@ -1,7 +1,6 @@
 package com.xian.blog.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,23 +21,20 @@ public class UEditorController {
 
 	@RequestMapping(value = "/uploadImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorResult uploadImage(@RequestParam("upfile") MultipartFile upfile, HttpServletRequest request,
-			HttpServletResponse response) {
-		return UEditorUtil.upload(upfile, UEditorConstant.IMAGE_PATH);
+	public UEditorResult uploadImage(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
+		return UEditorUtil.upload(id, upfile, UEditorConstant.IMAGE_PATH);
 	}
 
 	@RequestMapping(value = "/uploadVideo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorResult uploadVideo(@RequestParam("upfile") MultipartFile upfile, HttpServletRequest request,
-			HttpServletResponse response) {
-		return UEditorUtil.upload(upfile, UEditorConstant.VIDEO_PATH);
+	public UEditorResult uploadVideo(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
+		return UEditorUtil.upload(id, upfile, UEditorConstant.VIDEO_PATH);
 	}
 
 	@RequestMapping(value = "/uploadFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorResult uploadFile(@RequestParam("upfile") MultipartFile upfile, HttpServletRequest request,
-			HttpServletResponse response) {
-		return UEditorUtil.upload(upfile, UEditorConstant.FILE_PATH);
+	public UEditorResult uploadFile(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
+		return UEditorUtil.upload(id, upfile, UEditorConstant.FILE_PATH);
 	}
 
 	@RequestMapping(value = "/listFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -54,13 +50,12 @@ public class UEditorController {
 	}
 
 	/**
-	 * 不使用(@RequestParam("sources[]") String[] resources)
-	 * 参数是因为地址中可能带有逗号，导致出现问题
+	 * 不使用(@RequestParam("sources[]") String[] resources) 参数是因为地址中可能带有逗号，导致出现问题
 	 */
 	@RequestMapping(value = "/catchImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorCatchResult catchImage(HttpServletRequest request) {
+	public UEditorCatchResult catchImage(@RequestParam("id") String id, HttpServletRequest request) {
 		String[] sources = request.getParameterValues("sources[]");
-		return UEditorUtil.capture(sources);
+		return UEditorUtil.capture(id, sources);
 	}
 }

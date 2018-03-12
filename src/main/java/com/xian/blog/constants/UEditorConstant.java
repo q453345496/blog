@@ -11,7 +11,7 @@ public final class UEditorConstant {
 	public static final String IMAGE_PATH = "image";
 	public static final String VIDEO_PATH = "video";
 	public static final String FILE_PATH = "file";
-	public static final String CATCH_IMAGE_PATH = "catchImage";
+//	public static final String CATCH_IMAGE_PATH = "catchImage";
 
 	public static final String SUCCESS = "SUCCESS";
 

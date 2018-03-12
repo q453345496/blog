@@ -1,14 +1,10 @@
 package com.xian.blog.common.ueditor;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.net.ftp.FTPFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,23 +23,20 @@ public final class UEditorUtil {
 	public static String getTitle(String suffix) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(System.currentTimeMillis())//
-				.append((Math.random() + "").substring(2, 8))//
+				.append((Math.random() + "").substring(2, 8))//随机六位
 				.append(suffix);
 		return sb.toString();
 	}
 
-	public static String getSavepPath(String title, String path) {
-		Date now = new Date();
-		String format = new SimpleDateFormat("yyyyMMdd").format(now);
+	public static String getSavepPath(String id, String title, String path) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(path)//
-				.append("/").append(format)//
+		sb.append("blog/").append(id)//
+				.append("/").append(path)//
 				.append("/").append(title);//
-		// .append(suffix);
 		return sb.toString();
 	}
 
-	public static UEditorResult upload(MultipartFile upfile, String path) {
+	public static UEditorResult upload(String id, MultipartFile upfile, String path) {
 		if (upfile == null) {
 			return UEditorResult.errorResult("empty content");
 		}
@@ -51,7 +44,7 @@ public final class UEditorUtil {
 		String originalFilename = upfile.getOriginalFilename();
 		String suffix = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
 		String title = getTitle(suffix);
-		String remote = UEditorUtil.getSavepPath(title, path);
+		String remote = UEditorUtil.getSavepPath(id, title, path);
 
 		FtpAdapter ftpAdapter = new FtpAdapter();
 		try {
@@ -68,63 +61,19 @@ public final class UEditorUtil {
 		}
 	}
 
-	public static UEditorListResult listFiles(String path, int start, int size) {
-		UEditorListResult uEditorListResult = new UEditorListResult();
-		uEditorListResult.setStart(start);
-		FtpAdapter ftpAdapter = new FtpAdapter();
-		try {
-			ftpAdapter.connect();
-			List<UEditorResult> list = new ArrayList<>();
-			int currentCount = 0;
-			currentCount = listDir(list, ftpAdapter, path, start, start + size, currentCount);
-
-			uEditorListResult.setState(UEditorConstant.SUCCESS);
-			uEditorListResult.setTotal(currentCount);
-			uEditorListResult.setList(list);
-		} catch (IOException e) {
-			LOG.error("listFiles ERROR", e);
-			uEditorListResult.setState(e.getMessage());
-		} finally {
-			FtpAdapter.closeFtpAdapter(ftpAdapter);
-		}
-		return uEditorListResult;
-	}
-
-	private static int listDir(List<UEditorResult> list, FtpAdapter ftpAdapter, String dir, int first, int last,
-			int currentCount) throws IOException {
-		int tmp = currentCount;
-		FTPFile[] files = ftpAdapter.listFiles(dir);
-		for (FTPFile ftpFile : files) {
-			if (ftpFile.isDirectory()) {
-				tmp = listDir(list, ftpAdapter, dir + "/" + ftpFile.getName(), first, last, tmp);
-			} else {
-				if (tmp >= last || tmp < first) {
-					tmp++;
-					continue;
-				}
-				if (tmp >= first && tmp < last) {
-					UEditorResult result = new UEditorResult(dir + "/" + ftpFile.getName());
-					list.add(result);
-					tmp++;
-				}
-			}
-		}
-		return tmp;
-	}
-
-	public static UEditorCatchResult capture(String[] sources) {
+	public static UEditorCatchResult capture(String id, String[] sources) {
 		UEditorCatchResult result = new UEditorCatchResult();
 		result.setState(UEditorConstant.SUCCESS);
 		List<UEditorResult> list = new ArrayList<>();
 		for (String source : sources) {
-			list.add(captureRemoteData(source));
+			list.add(captureRemoteData(id, source));
 		}
 		result.setList(list);
 		return result;
 
 	}
 
-	private static UEditorResult captureRemoteData(String sourceUrl) {
+	private static UEditorResult captureRemoteData(String id, String sourceUrl) {
 		try {
 			URL url = new URL(sourceUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -138,7 +87,7 @@ public final class UEditorUtil {
 				return UEditorResult.errorResult("Error Response Code");
 			}
 			String suffix = UEditorConstant.getSuffix(connection.getContentType());
-			String savepPath = getSavepPath(getTitle(suffix), UEditorConstant.CATCH_IMAGE_PATH);
+			String savepPath = getSavepPath(id, getTitle(suffix), UEditorConstant.IMAGE_PATH);
 
 			FtpAdapter ftpAdapter = new FtpAdapter();
 			try {
@@ -156,6 +105,6 @@ public final class UEditorUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println((getSavepPath(getTitle(".java"), "image")));
+		System.out.println((getSavepPath("2", getTitle(".java"), UEditorConstant.IMAGE_PATH)));
 	}
 }

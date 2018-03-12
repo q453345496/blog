@@ -65,6 +65,7 @@ $(function() {
   	ue.ready(function(){
     	var id = $("#blogId").val();
     	if(id){
+    		ue.execCommand('serverparam', 'id', id);
 	        $.getJSON("<%=path%>/admin/blog/"+id,function(result){
 	        	var blog = result.data;
 	        	if(blog){

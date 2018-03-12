@@ -24,7 +24,21 @@ table.input tr td:nth-child(1){
 	background-image:none!important;
 	overflow: visible!important;
 }
-/* span.l-btn { */
-/* 	text-align: left /*按钮样式默认是居中*/ */
-/* } */
+
+.s0 {
+}
+.datagrid-row-selected .s0{
+}
+.s1 {
+	color: green;
+}
+.datagrid-row-selected .s1 {
+	color: #fff;
+}
+.s-1 {
+	color: red;
+}
+.datagrid-row-selected .s-1 {
+	color: #fff;
+}
 </style>

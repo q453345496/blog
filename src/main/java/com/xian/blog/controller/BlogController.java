@@ -33,7 +33,7 @@ public class BlogController {
 		return modelAndView;
 	}
 
-	@RequestMapping("/{typeId}")
+	@RequestMapping("/t/{typeId}")
 	public ModelAndView listByType(@PathVariable("typeId") Long typeId,
 			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
 		Page p = new Page(page, 10);
@@ -41,10 +41,11 @@ public class BlogController {
 		map.put("start", p.getStart());
 		map.put("size", p.getPageSize());
 		map.put("typeId", typeId);
+		map.put("status", Blog.ONLINE);
 		List<Blog> list = blogService.list(map);
 		Integer total = blogService.getTotal(map);
 		for (Blog blog : list) {
-			blog.setThumb(RegexUtils.getFirstImg(blog.getContent()));
+			blog.setThumb(RegexUtils.getFirstImgURL(blog.getContent()));
 		}
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("blogs", list);

@@ -32,6 +32,7 @@
 		b.reply AS reply,
 		b.create_time,
 		b.modify_time,
+		b.`status`,
 		t.NAME AS type_name
 		FROM
 		t_blog b
@@ -50,8 +51,11 @@
 			<if test="title != null and title != '' ">
 				AND b.title LIKE CONCAT('%', #{title}, '%')
 			</if>
-			<if test="typeId != null and typeId != '' ">
+			<if test="typeId != null">
 				AND b.type_id = #{typeId}
+			</if>
+			<if test="status != null">
+				AND b.`status` = #{status}
 			</if>
 		</where>
 		<choose>
@@ -73,16 +77,19 @@
 			<if test="title != null and title != '' ">
 				AND b.title LIKE CONCAT('%', #{title}, '%')
 			</if>
-			<if test="typeId != null and typeId != '' ">
+			<if test="typeId != null">
 				AND b.type_id = #{typeId}
+			</if>
+			<if test="status != null">
+				AND b.`status` = #{status}
 			</if>
 		</where>
 	</select>
 
 	<insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_blog (title, type_id, key_word, summary, content, right_type, create_time, modify_time)
+		INSERT INTO t_blog (title, type_id, key_word, summary, content, right_type, `status`, create_time, modify_time)
 		VALUES
-		(#{title}, #{blogType.id}, #{keyWord}, #{summary}, #{content}, #{rightType}, #{createTime}, #{modifyTime})
+		(#{title}, #{blogType.id}, #{keyWord}, #{summary}, #{content}, #{rightType}, #{status}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="Blog">
@@ -93,6 +100,9 @@
 			</if>
 			<if test="blogType.id != null ">
 				type_id = #{blogType.id},
+			</if>
+			<if test="status != null ">
+				`status` = #{status},
 			</if>
 			<if test="keyWord != null and keyWord != '' ">
 				key_word = #{keyWord},
@@ -111,6 +121,9 @@
 			</if>
 			<if test="reply != null ">
 				reply = #{reply},
+			</if>
+			<if test="createTime != null ">
+				create_time = #{createTime},
 			</if>
 			<if test="modifyTime != null ">
 				modify_time = #{modifyTime},

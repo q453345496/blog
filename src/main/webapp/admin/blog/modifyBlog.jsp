@@ -24,6 +24,7 @@
 <div id="blogDetail" class="easyui-panel" title="文章内容" data-options="fit:true" style="padding: 20px;">
 	<div>
 		<input id="blogId" name="id" type="hidden" value="${id}"/>
+		<input id="status" name="status" type="hidden"/>
 		<span class="blog">文章标题：</span>
 		<input id="title" name="title" type="text" class="easyui-textbox" data-options="prompt:'文章标题'" />
 		<span class="blog">关键字：</span>
@@ -67,6 +68,7 @@ $(function() {
 	        $.getJSON("<%=path%>/admin/blog/"+id,function(result){
 	        	var blog = result.data;
 	        	if(blog){
+	        		$("#status").val(blog.status);
 		        	$("#title").textbox('setValue',blog.title);
 		        	$("#keyWord").textbox('setValue',blog.keyWord);
 		        	$("#blogTypeId").combobox("setValue",blog.blogType.id);
@@ -98,6 +100,7 @@ function saveBlog(){
 		$.post("<%=path%>/admin/blog/save",
 				{	
 					'id': $("#blogId").val(),
+					'status': $("#status").val(),
 					'title' : title,
 					'blogType.id' : blogTypeId,
 					'rightType' : rightType,

@@ -32,7 +32,7 @@ public class IndexController {
 		List<Blog> list = blogService.list(map);
 		Integer total = blogService.getTotal(map);
 		for (Blog blog : list) {
-			blog.setThumb(RegexUtils.getFirstImg(blog.getContent()));
+			blog.setThumb(RegexUtils.getFirstImgURL(blog.getContent()));
 		}
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("blogs", list);

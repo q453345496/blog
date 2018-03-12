@@ -20,7 +20,11 @@ public class FtpAdapter {
 	private static final int PORT = AT_HOME ? 2121 : 21;
 	private static final String USER_NAME = "ftper";
 	private static final String PASSWORD = "ftper";
-	private static final String ROOT_PATH = "xian_test";
+	public static final String ROOT_PATH = "xian_test";
+	public static final String TMP_PATH = "tmp";
+	public static final String BLOG_PATH = "blog";
+	public static final String POSTER_SERVER = AT_HOME ? "http://127.0.0.1:81/" : "http://192.168.15.165:80/";
+	
 	private FTPClient ftpClient = null;
 
 	public FtpAdapter() {

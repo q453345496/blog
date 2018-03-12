@@ -35,6 +35,7 @@ public class BlogService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", 0);
 		map.put("size", size);
+		map.put("status", Blog.ONLINE);
 		map.put("orderByCause", "b.click DESC");
 		return blogDao.list(map);
 	}
@@ -43,16 +44,16 @@ public class BlogService {
 		return blogDao.getTotal(map);
 	}
 
-	public int update(Blog blog) {
+	public void update(Blog blog) {
 		blog.setModifyTime(new Date());
-		return blogDao.update(blog);
+		blogDao.update(blog);
 	}
 
-	public int save(Blog blog) {
+	public void save(Blog blog) {
 		Date now = new Date();
 		blog.setCreateTime(now);
 		blog.setModifyTime(now);
-		return blogDao.save(blog);
+		blogDao.save(blog);
 	}
 
 	public int delete(Long id) {
@@ -61,5 +62,23 @@ public class BlogService {
 
 	public Blog get(Long id) {
 		return blogDao.get(id);
+	}
+
+	public Long getDraftId() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("status", -1);
+		List<Blog> list = blogDao.list(map);
+		if (list.isEmpty()) {
+			Date now = new Date();
+			Blog blog = new Blog();
+			blog.setCreateTime(now);
+			blog.setModifyTime(now);
+			blog.setTitle("");
+			blog.setStatus(Blog.DRAFT);
+			blogDao.save(blog);
+			return blog.getId();
+		} else {
+			return list.get(0).getId();
+		}
 	}
 }

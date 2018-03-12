@@ -10,6 +10,7 @@ CREATE TABLE `t_blog` (
 `right_type` int(11) DEFAULT 0,
 `click` int(11) DEFAULT 0,
 `reply` int(11) DEFAULT 0,
+`status` int(11) DEFAULT 0,
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)

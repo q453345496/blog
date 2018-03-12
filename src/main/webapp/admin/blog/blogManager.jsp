@@ -40,8 +40,20 @@ $(function() {
 		columns : [[ 
              {field : 'id',		title : '编号',	width:50,	align:'center'}, 
              {field : 'title',	title : '标题',	width:100,	align:'center'},
-             {field : 'blogTypeName',	title : '分类',	width:30,	align:'center', formatter: function(value,row,index){return row.blogType.name;}},
-             {field : 'createTime',	title : '发布时间',	width:100,	align:'center'}
+             {field : 'blogTypeName',	title : '分类',	width:30,	align:'center', 
+            	formatter: function(value,row,index){
+            		return row.blogType ? row.blogType.name : "";
+            	}
+             },
+             {field : 'createTime',	title : '发布时间',	width:100,	align:'center'},
+             {field : 'status',	title : '状态',	width:100,	align:'center', 
+            	formatter: function(value,row,index){
+            		if(value == "0") return '<span class="s0">草稿</span>';
+            		if(value == "-1") return '<span class="s-1">下线</span>';
+            		if(value == "1") return '<span class="s1">上线</span>';
+            		return value;
+             	}
+             },
         ]],
         toolbar: '#toolbar',
         method : 'GET',
@@ -60,9 +72,9 @@ function deleteBlogType(){
             if (r){
                 $.post('<%=path%>/admin/blog/delete',{id:row.id},function(result){
                     if (result.status == 0){
-                        $('#blog_dg').datagrid('reload');    // reload the user data
+                        $('#blog_dg').datagrid('reload');
                     } else {
-                        $.messager.show({    // show error message
+                        $.messager.show({
                             title: '错误',
                             msg: result.msg
                         });

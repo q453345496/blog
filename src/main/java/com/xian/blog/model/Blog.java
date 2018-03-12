@@ -5,6 +5,10 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Blog {
+	public static final int OFFLINE = -1;
+	public static final int DRAFT = 0;
+	public static final int ONLINE = 1;
+	
 	private Long id;
 	private String title;// 标题
 	private String content;// 内容
@@ -12,7 +16,7 @@ public class Blog {
 	private Integer rightType;// 权限类型 目前只有自己可见和公开
 	private Integer click;
 	private Integer reply;
-
+	private Integer status;//-1草稿,1正式
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
@@ -25,7 +29,7 @@ public class Blog {
 	private String contentNoTag;// 内容无标签,方便分词
 
 	private String thumb;//缩略图
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -136,6 +140,14 @@ public class Blog {
 
 	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

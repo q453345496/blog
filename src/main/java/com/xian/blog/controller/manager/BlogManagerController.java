@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class BlogManagerController {
 	@Resource
 	private BlogService blogService;
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, Blog blog) {
@@ -48,17 +47,15 @@ public class BlogManagerController {
 		return vo;
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult save(Blog blog) {
 		String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
 		blog.setSummary(StringUtils.substring(contentNoTag, 0, 200));
-
-		if (blog.getId() == null) {
-			blogService.save(blog);
-		} else {
-			blogService.update(blog);
+		if (Blog.DRAFT == blog.getStatus()) {//草稿的保存后成为正式使用
+			blog.setStatus(Blog.ONLINE);
 		}
+		blogService.update(blog);
 		return CommonResult.success(blog.getId());
 	}
 
@@ -71,8 +68,10 @@ public class BlogManagerController {
 
 	@RequestMapping(value = "/toAdd")
 	public ModelAndView toAddPage() {
+		Long draftId = blogService.getDraftId();
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/admin/blog/modifyBlog");
+		mv.addObject("id", draftId);
 		return mv;
 	}
 

@@ -2,19 +2,23 @@ package com.xian.blog.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.SocketException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPFileFilter;
 import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.xian.blog.exception.FtpException;
 
 /**
  * Date:2016年8月4日下午10:17:20
  * 
  */
-public class FtpAdapter {
+public final class FtpAdapter {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FtpAdapter.class);
 	private static final boolean AT_HOME = false;
 	private static final String HOSTNAME = AT_HOME ? "127.0.0.1" : "192.168.15.165";
 	private static final int PORT = AT_HOME ? 2121 : 21;
@@ -24,13 +28,22 @@ public class FtpAdapter {
 	public static final String TMP_PATH = "tmp";
 	public static final String BLOG_PATH = "blog";
 	public static final String POSTER_SERVER = AT_HOME ? "http://127.0.0.1:81/" : "http://192.168.15.165:80/";
-	
+
 	private FTPClient ftpClient = null;
 
-	public FtpAdapter() {
+	private FtpAdapter() {
 	}
 
-	public FTPClient connect() throws SocketException, IOException {
+	public static FtpAdapter getAndConnect() {
+		FtpAdapter ftpAdapter = new FtpAdapter();
+		FTPClient connect = ftpAdapter.connect();
+		if (null == connect) {
+			throw new FtpException("ftp连接异常");
+		}
+		return ftpAdapter;
+	}
+
+	private FTPClient connect() {
 		try {
 			ftpClient = new FTPClient();
 			ftpClient.connect(HOSTNAME, PORT);
@@ -42,19 +55,19 @@ public class FtpAdapter {
 			int reply = ftpClient.getReplyCode();
 			if (!FTPReply.isPositiveCompletion(reply)) {
 				ftpClient.disconnect();
-				throw new IOException(String.format("FTP server refused connection:[%d]", reply));
+				throw new RuntimeException(String.format("FTP server refused connection:[%d]", reply));
 			}
 			if (!ftpClient.changeWorkingDirectory(ROOT_PATH)) {
 				if (ftpClient.makeDirectory(ROOT_PATH)) {
 					ftpClient.changeWorkingDirectory(ROOT_PATH);
 				} else {
-					throw new IOException("makeDirectory fail");
+					throw new FtpException("ftp makeDirectory fail");
 				}
 			}
 		} catch (Exception e) {
 			closeFtpClient(ftpClient);
 			ftpClient = null;
-			throw new IOException("ftp连接异常", e);
+			throw new FtpException("ftp连接异常", e);
 		}
 		return ftpClient;
 	}
@@ -72,12 +85,12 @@ public class FtpAdapter {
 			try {
 				ftpClient.disconnect();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.error("关闭ftp连接异常");
 			}
 		}
 	}
 
-	public void upload(InputStream is, String remote) throws SocketException, IOException {
+	public void upload(InputStream is, String remote) {
 		try {
 			int lastIndexOf = remote.lastIndexOf("/");
 			if (lastIndexOf > -1) {
@@ -87,12 +100,14 @@ public class FtpAdapter {
 			} else {
 				ftpClient.storeFile(new String(remote.getBytes("UTF-8"), "iso-8859-1"), is);
 			}
+		} catch (Exception e) {
+			throw new FtpException("ftp上传异常");
 		} finally {
 			IOUtils.closeQuietly(is);
 		}
 	}
 
-	public void upload(InputStream is, String remote, String path) throws SocketException, IOException {
+	public void upload(InputStream is, String remote, String path) {
 		try {
 			if (path != null) {
 				String[] dirNames = path.split("/");
@@ -101,12 +116,14 @@ public class FtpAdapter {
 						if (ftpClient.makeDirectory(dir)) {
 							ftpClient.changeWorkingDirectory(dir);
 						} else {
-							throw new IOException("makeDirectory fail");
+							throw new FtpException("makeDirectory fail");
 						}
 					}
 				}
 			}
 			ftpClient.storeFile(new String(remote.getBytes("UTF-8"), "iso-8859-1"), is);
+		} catch (Exception e) {
+			throw new FtpException("ftp上传失败");
 		} finally {
 			IOUtils.closeQuietly(is);
 		}

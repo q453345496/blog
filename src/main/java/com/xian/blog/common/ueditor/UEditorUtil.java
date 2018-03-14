@@ -46,9 +46,8 @@ public final class UEditorUtil {
 		String title = getTitle(suffix);
 		String remote = UEditorUtil.getSavepPath(id, title, path);
 
-		FtpAdapter ftpAdapter = new FtpAdapter();
+		FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
 		try {
-			ftpAdapter.connect();
 			ftpAdapter.upload(upfile.getInputStream(), remote);
 
 			return new UEditorUploadResult(title, originalFilename, remote);
@@ -89,9 +88,8 @@ public final class UEditorUtil {
 			String suffix = UEditorConstant.getSuffix(connection.getContentType());
 			String savepPath = getSavepPath(id, getTitle(suffix), UEditorConstant.IMAGE_PATH);
 
-			FtpAdapter ftpAdapter = new FtpAdapter();
+			FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
 			try {
-				ftpAdapter.connect();
 				ftpAdapter.upload(connection.getInputStream(), savepPath);
 			} finally {
 				FtpAdapter.closeFtpAdapter(ftpAdapter);

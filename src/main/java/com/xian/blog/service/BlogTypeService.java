@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.BlogTypeDao;
 import com.xian.blog.model.BlogType;
 
@@ -21,7 +22,14 @@ public class BlogTypeService {
 	public List<BlogType> list(Map<String, Object> map) {
 		return blogTypeDao.list(map);
 	}
-
+	
+	public DataGridResult page(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getTotal(map));
+		vo.setRows(list(map));
+		return vo;
+	}
+	
 	public Integer getTotal(Map<String, Object> map) {
 		return blogTypeDao.getTotal(map);
 	}

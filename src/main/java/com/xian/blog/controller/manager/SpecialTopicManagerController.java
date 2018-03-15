@@ -29,15 +29,12 @@ public class SpecialTopicManagerController {
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, SpecialTopic specialTopic) {
-		DataGridResult vo = new DataGridResult();
 		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", p.getStart());
 		map.put("size", p.getPageSize());
 		map.put("name", specialTopic.getName());
-		vo.setTotal(specialTopicService.getTotal(map));
-		vo.setRows(specialTopicService.list(map));
-		return vo;
+		return specialTopicService.page(map);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

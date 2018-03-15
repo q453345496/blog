@@ -35,16 +35,13 @@ public class BlogManagerController {
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, Blog blog) {
-		DataGridResult vo = new DataGridResult();
 		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", p.getStart());
 		map.put("size", p.getPageSize());
 		map.put("title", blog.getTitle());
 		map.put("typeId", blog.getTypeId());
-		vo.setTotal(blogService.getTotal(map));
-		vo.setRows(blogService.list(map));
-		return vo;
+		return blogService.page(map);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

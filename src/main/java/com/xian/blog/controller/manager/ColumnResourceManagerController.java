@@ -39,10 +39,7 @@ public class ColumnResourceManagerController {
 		map.put("size", p.getPageSize());
 		map.put("columnId", columnId);
 		
-		DataGridResult vo = new DataGridResult();
-		vo.setTotal(columnResourceService.getRelateTotal(map));
-		vo.setRows(columnResourceService.listRelate(map));
-		return vo;
+		return columnResourceService.pageRelate(map);
 	}
 	
 	@RequestMapping(value = "/listUnRelate", method = RequestMethod.GET)
@@ -59,10 +56,7 @@ public class ColumnResourceManagerController {
 		map.put("size", p.getPageSize());
 		map.put("columnId", columnId);
 		
-		DataGridResult vo = new DataGridResult();
-		vo.setTotal(columnResourceService.getUnRelateTotal(map));
-		vo.setRows(columnResourceService.listUnRelate(map));
-		return vo;
+		return columnResourceService.pageUnRelate(map);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.SpecialTopicDao;
 import com.xian.blog.model.SpecialTopic;
 
@@ -22,7 +23,14 @@ public class SpecialTopicService {
 	public List<SpecialTopic> list(Map<String, Object> map) {
 		return specialTopicDao.list(map);
 	}
-
+	
+	public DataGridResult page(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getTotal(map));
+		vo.setRows(list(map));
+		return vo;
+	}
+	
 	public Integer getTotal(Map<String, Object> map) {
 		return specialTopicDao.getTotal(map);
 	}

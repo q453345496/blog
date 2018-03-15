@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.SpecialTopicResourceDao;
 import com.xian.blog.model.SpecialTopicResource;
 
@@ -67,11 +68,25 @@ public class SpecialTopicResourceService {
 		return specialTopicResourceDao.getRelateTotal(map);
 	}
 
+	public DataGridResult pageRelate(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getRelateTotal(map));
+		vo.setRows(listRelate(map));
+		return vo;
+	}
+	
 	public List<SpecialTopicResource> listUnRelate(Map<String, Object> map) {
 		return specialTopicResourceDao.listUnRelate(map);
 	}
-
+	
 	public Integer getUnRelateTotal(Map<String, Object> map){
 		return specialTopicResourceDao.getUnRelateTotal(map);
+	}
+	
+	public DataGridResult pageUnRelate(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getUnRelateTotal(map));
+		vo.setRows(listUnRelate(map));
+		return vo;
 	}
 }

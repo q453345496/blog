@@ -29,16 +29,13 @@ public class ParamTypeManagerController {
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, ParamType paramType) {
-		DataGridResult vo = new DataGridResult();
 		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
 		map.put("name", paramType.getName());
 		map.put("code", paramType.getCode());
 		map.put("start", p.getStart());
 		map.put("size", p.getPageSize());
-		vo.setTotal(paramTypeService.getTotal(map));
-		vo.setRows(paramTypeService.list(map));
-		return vo;
+		return paramTypeService.page(map);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

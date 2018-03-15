@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ${packageName}.common.DataGridResult;
 import ${packageName}.dao.${ModelDao};
 <%if(isTree){%>
 import ${packageName}.exception.CheckException;
@@ -25,7 +26,14 @@ public class ${ModelService} {
 	public List<${Model}> list(Map<String, Object> map) {
 		return ${modelDao}.list(map);
 	}
-
+	
+	public DataGridResult page(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getTotal(map));
+		vo.setRows(list(map));
+		return vo;
+	}
+	
 	public Integer getTotal(Map<String, Object> map) {
 		return ${modelDao}.getTotal(map);
 	}

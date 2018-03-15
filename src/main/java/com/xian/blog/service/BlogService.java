@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.BlogDao;
 import com.xian.blog.model.Blog;
 
@@ -21,6 +22,13 @@ public class BlogService {
 
 	public List<Blog> list(Map<String, Object> map) {
 		return blogDao.list(map);
+	}
+	
+	public DataGridResult page(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getTotal(map));
+		vo.setRows(list(map));
+		return vo;
 	}
 	
 	public List<Blog> listLast(int size) {

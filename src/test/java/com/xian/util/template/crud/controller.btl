@@ -41,14 +41,11 @@ public class ${ModelController} {
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, ${Model} ${model}) {
-		DataGridResult vo = new DataGridResult();
 		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", p.getStart());
 		map.put("size", p.getPageSize());
-		vo.setTotal(${modelService}.getTotal(map));
-		vo.setRows(${modelService}.list(map));
-		return vo;
+		return ${modelService}.page(map);
 	}
 	<%}%>
 

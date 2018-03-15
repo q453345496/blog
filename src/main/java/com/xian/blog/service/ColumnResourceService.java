@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.ColumnResourceDao;
 import com.xian.blog.model.ColumnResource;
 
@@ -54,7 +55,14 @@ public class ColumnResourceService {
 	public List<ColumnResource> listRelate(Map<String, Object> map) {
 		return columnResourceDao.listRelate(map);
 	}
-
+	
+	public DataGridResult pageRelate(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getRelateTotal(map));
+		vo.setRows(listRelate(map));
+		return vo;
+	}
+	
 	public int getUnRelateTotal(Map<String, Object> map) {
 		return columnResourceDao.getUnRelateTotal(map);
 	}
@@ -62,7 +70,14 @@ public class ColumnResourceService {
 	public List<ColumnResource> listUnRelate(Map<String, Object> map) {
 		return columnResourceDao.listUnRelate(map);
 	}
-
+	
+	public DataGridResult pageUnRelate(Map<String, Object> map) {
+		DataGridResult vo = new DataGridResult();
+		vo.setTotal(getUnRelateTotal(map));
+		vo.setRows(listUnRelate(map));
+		return vo;
+	}
+	
 	public void save(Long columnId, Long[] ids) {
 		for (Long typeId : ids) {
 			ColumnResource columnResource = new ColumnResource();

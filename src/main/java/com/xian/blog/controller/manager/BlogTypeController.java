@@ -32,15 +32,12 @@ public class BlogTypeController {
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows, BlogType blogType) {
-		DataGridResult vo = new DataGridResult();
 		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
 		map.put("name", blogType.getName());
 		map.put("start", p.getStart());
 		map.put("size", p.getPageSize());
-		vo.setTotal(blogTypeService.getTotal(map));
-		vo.setRows(blogTypeService.list(map));
-		return vo;
+		return blogTypeService.page(map);
 	}
 
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)

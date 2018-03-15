@@ -42,10 +42,7 @@ public class SpecialTopicResourceManagerController {
 		map.put("blogTitle", blogTitle);
 		map.put("blogTypeId", blogTypeId);
 
-		DataGridResult vo = new DataGridResult();
-		vo.setTotal(specialTopicResourceService.getRelateTotal(map));
-		vo.setRows(specialTopicResourceService.listRelate(map));
-		return vo;
+		return specialTopicResourceService.pageRelate(map);
 	}
 
 	@RequestMapping(value = "/listUnRelate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -66,10 +63,7 @@ public class SpecialTopicResourceManagerController {
 		map.put("blogTitle", blogTitle);
 		map.put("blogTypeId", blogTypeId);
 
-		DataGridResult vo = new DataGridResult();
-		vo.setTotal(specialTopicResourceService.getUnRelateTotal(map));
-		vo.setRows(specialTopicResourceService.listUnRelate(map));
-		return vo;
+		return specialTopicResourceService.pageUnRelate(map);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

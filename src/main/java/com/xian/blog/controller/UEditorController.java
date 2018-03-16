@@ -1,5 +1,6 @@
 package com.xian.blog.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.MediaType;
@@ -12,29 +13,49 @@ import org.springframework.web.multipart.MultipartFile;
 import com.xian.blog.common.ueditor.UEditorCatchResult;
 import com.xian.blog.common.ueditor.UEditorListResult;
 import com.xian.blog.common.ueditor.UEditorResult;
+import com.xian.blog.common.ueditor.UEditorUploadResult;
 import com.xian.blog.common.ueditor.UEditorUtil;
 import com.xian.blog.constants.UEditorConstant;
+import com.xian.blog.model.Attachment;
+import com.xian.blog.service.AttachmentService;
 
 @RequestMapping("/ueditor")
 @Controller
 public class UEditorController {
+	@Resource
+	private AttachmentService attachmentService;
 
 	@RequestMapping(value = "/uploadImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public UEditorResult uploadImage(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
-		return UEditorUtil.upload(id, upfile, UEditorConstant.IMAGE_PATH);
+		try {
+			Attachment attachment = attachmentService.upload(upfile, id, "blog", UEditorConstant.IMAGE_PATH);
+			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
+		} catch (Exception e) {
+			return UEditorUploadResult.errorResult("upload error");
+		}
 	}
 
 	@RequestMapping(value = "/uploadVideo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public UEditorResult uploadVideo(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
-		return UEditorUtil.upload(id, upfile, UEditorConstant.VIDEO_PATH);
+		try {
+			Attachment attachment = attachmentService.upload(upfile, id, "blog", UEditorConstant.VIDEO_PATH);
+			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
+		} catch (Exception e) {
+			return UEditorUploadResult.errorResult("upload error");
+		}
 	}
 
 	@RequestMapping(value = "/uploadFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public UEditorResult uploadFile(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
-		return UEditorUtil.upload(id, upfile, UEditorConstant.FILE_PATH);
+		try {
+			Attachment attachment = attachmentService.upload(upfile, id, "blog", UEditorConstant.FILE_PATH);
+			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
+		} catch (Exception e) {
+			return UEditorUploadResult.errorResult("upload error");
+		}
 	}
 
 	@RequestMapping(value = "/listFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

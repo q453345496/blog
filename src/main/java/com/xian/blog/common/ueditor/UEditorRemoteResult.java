@@ -6,7 +6,7 @@ package com.xian.blog.common.ueditor;
  */
 public class UEditorRemoteResult extends UEditorResult {
 
-	private String source;
+	private String source;//ueditor源码里,是源路径,只有是成功而且该值为源路径时才替换img的src
 
 	public UEditorRemoteResult() {
 		super();

@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.xian.blog.constants.UEditorConstant;
 import com.xian.blog.util.FtpAdapter;
@@ -19,6 +18,7 @@ import com.xian.blog.util.FtpAdapter;
 public final class UEditorUtil {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UEditorUtil.class);
+	private static final String BLOG = "blog/";
 
 	public static String getTitle(String suffix) {
 		StringBuilder sb = new StringBuilder();
@@ -28,36 +28,12 @@ public final class UEditorUtil {
 		return sb.toString();
 	}
 
-	public static String getSavepPath(String id, String title, String path) {
+	private static String getSavepPath(String id, String title, String path) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("blog/").append(id)//
+		sb.append(BLOG).append(id)//
 				.append("/").append(path)//
 				.append("/").append(title);//
 		return sb.toString();
-	}
-
-	public static UEditorResult upload(String id, MultipartFile upfile, String path) {
-		if (upfile == null) {
-			return UEditorResult.errorResult("empty content");
-		}
-
-		String originalFilename = upfile.getOriginalFilename();
-		String suffix = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
-		String title = getTitle(suffix);
-		String remote = UEditorUtil.getSavepPath(id, title, path);
-
-		FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
-		try {
-			ftpAdapter.upload(upfile.getInputStream(), remote);
-
-			return new UEditorUploadResult(title, originalFilename, remote);
-
-		} catch (Exception e) {
-			LOG.error(String.format("上传异常[file=%s,path=%s]", upfile.getOriginalFilename(), path), e);
-			return UEditorUploadResult.errorResult("upload error");
-		} finally {
-			FtpAdapter.closeFtpAdapter(ftpAdapter);
-		}
 	}
 
 	public static UEditorCatchResult capture(String id, String[] sources) {
@@ -75,6 +51,10 @@ public final class UEditorUtil {
 	private static UEditorResult captureRemoteData(String id, String sourceUrl) {
 		try {
 			URL url = new URL(sourceUrl);
+			String host = url.getHost();
+			if ("192.168.15.165".equals(host)) {
+				return UEditorResult.errorResult("本地图片不用再上传");
+			}
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setConnectTimeout(10 * 1000);
 			connection.setReadTimeout(10 * 1000);

@@ -1,16 +1,28 @@
 package com.xian.blog.util;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.xian.blog.common.ssl.DefaultHostnameVerifier;
+import com.xian.blog.common.ssl.DefaultTrustManager;
 import com.xian.blog.exception.HttpException;
 
 public class HttpUtil {
@@ -34,7 +46,7 @@ public class HttpUtil {
 		try {
 			for (String header : headers) {
 				ip = request.getHeader(header);
-				if (!isUnkonw(ip)) {
+				if (!isUnkonwIp(ip)) {
 					return getMultistageReverseProxyIp(ip);
 				}
 			}
@@ -45,7 +57,7 @@ public class HttpUtil {
 		return ip;
 	}
 
-	public static boolean isUnkonw(String ip) {
+	public static boolean isUnkonwIp(String ip) {
 		return StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip);
 	}
 
@@ -54,7 +66,7 @@ public class HttpUtil {
 		if (ip != null && ip.indexOf(",") > 0) {
 			final String[] ips = ip.trim().split(",");
 			for (String subIp : ips) {
-				if (!isUnkonw(subIp)) {
+				if (!isUnkonwIp(subIp)) {
 					return subIp;
 				}
 			}
@@ -103,5 +115,41 @@ public class HttpUtil {
 			return true;
 		}
 		return false;
+	}
+
+	public static boolean isUrl(String url) {
+		try {
+			new java.net.URL(url);
+		} catch (MalformedURLException e) {
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean isHttps(String url) {
+		return url.toLowerCase().startsWith("https");
+	}
+
+	public static HttpURLConnection getConnection(String urlStr)
+			throws IOException, NoSuchAlgorithmException, KeyManagementException {
+		if (StringUtils.isBlank(urlStr)) {
+			throw new HttpException("url is blank");
+		}
+		if (!isUrl(urlStr)) {
+			throw new HttpException(urlStr + " is not a url!");
+		}
+		URL url = new URL(urlStr);
+		if (isHttps(urlStr)) {
+			HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+			httpsURLConnection.setHostnameVerifier(new DefaultHostnameVerifier());
+			SSLContext sslContext = SSLContext.getInstance("SSL");
+			TrustManager[] tm = { new DefaultTrustManager() };
+			sslContext.init(null, tm, new java.security.SecureRandom());
+			SSLSocketFactory ssf = sslContext.getSocketFactory();
+			httpsURLConnection.setSSLSocketFactory(ssf);
+			return httpsURLConnection;
+		} else {
+			return (HttpURLConnection) url.openConnection();
+		}
 	}
 }

@@ -13,7 +13,9 @@ public class Attachment {
 	private Integer width;
 	private Long size;
 	private String type;
-
+	private String bizId;
+	private String bizType;
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
@@ -97,6 +99,22 @@ public class Attachment {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getBizId() {
+		return bizId;
+	}
+
+	public void setBizId(String bizId) {
+		this.bizId = bizId;
+	}
+
+	public String getBizType() {
+		return bizType;
+	}
+
+	public void setBizType(String bizType) {
+		this.bizType = bizType;
 	}
 
 }

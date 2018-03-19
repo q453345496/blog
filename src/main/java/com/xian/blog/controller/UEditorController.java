@@ -1,5 +1,8 @@
 package com.xian.blog.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,10 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.xian.blog.common.ueditor.UEditorCatchResult;
 import com.xian.blog.common.ueditor.UEditorListResult;
+import com.xian.blog.common.ueditor.UEditorRemoteResult;
 import com.xian.blog.common.ueditor.UEditorResult;
 import com.xian.blog.common.ueditor.UEditorUploadResult;
-import com.xian.blog.common.ueditor.UEditorUtil;
-import com.xian.blog.constants.UEditorConstant;
+import com.xian.blog.constants.FTPConstant;
 import com.xian.blog.model.Attachment;
 import com.xian.blog.service.AttachmentService;
 
@@ -27,9 +30,10 @@ public class UEditorController {
 
 	@RequestMapping(value = "/uploadImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorResult uploadImage(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
+	public UEditorResult uploadImage(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
+			@RequestParam("bizType") String bizType) {
 		try {
-			Attachment attachment = attachmentService.upload(upfile, id, "blog", UEditorConstant.IMAGE_PATH);
+			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.IMAGE_PATH);
 			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
 		} catch (Exception e) {
 			return UEditorUploadResult.errorResult("upload error");
@@ -38,9 +42,10 @@ public class UEditorController {
 
 	@RequestMapping(value = "/uploadVideo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorResult uploadVideo(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
+	public UEditorResult uploadVideo(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
+			@RequestParam("bizType") String bizType) {
 		try {
-			Attachment attachment = attachmentService.upload(upfile, id, "blog", UEditorConstant.VIDEO_PATH);
+			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.VIDEO_PATH);
 			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
 		} catch (Exception e) {
 			return UEditorUploadResult.errorResult("upload error");
@@ -49,9 +54,10 @@ public class UEditorController {
 
 	@RequestMapping(value = "/uploadFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorResult uploadFile(@RequestParam("upfile") MultipartFile upfile, @RequestParam("id") String id) {
+	public UEditorResult uploadFile(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
+			@RequestParam("bizType") String bizType) {
 		try {
-			Attachment attachment = attachmentService.upload(upfile, id, "blog", UEditorConstant.FILE_PATH);
+			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.FILE_PATH);
 			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
 		} catch (Exception e) {
 			return UEditorUploadResult.errorResult("upload error");
@@ -75,8 +81,25 @@ public class UEditorController {
 	 */
 	@RequestMapping(value = "/catchImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public UEditorCatchResult catchImage(@RequestParam("id") String id, HttpServletRequest request) {
+	public UEditorCatchResult catchImage(@RequestParam("bizId") String bizId, @RequestParam("bizType") String bizType,
+			HttpServletRequest request) {
 		String[] sources = request.getParameterValues("sources[]");
-		return UEditorUtil.capture(id, sources);
+		UEditorCatchResult result = new UEditorCatchResult();
+		if (sources != null) {
+			List<UEditorResult> list = new ArrayList<>(sources.length);
+			for (String sourceUrl : sources) {
+				try {
+					Attachment attachment = attachmentService.captureRemoteData(sourceUrl, bizId, "blog",
+							FTPConstant.IMAGE_PATH);
+					list.add(new UEditorRemoteResult(attachment.getSourceURL(), attachment.getPath()));
+				} catch (Exception e) {
+					list.add(UEditorResult.errorResult(e.getMessage()));
+				}
+			}
+			result.setList(list);
+		} else {
+			result.setState("must not be empty");
+		}
+		return result;
 	}
 }

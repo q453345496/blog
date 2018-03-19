@@ -37,6 +37,12 @@ public class GlobalDefaultExceptionHandler {
 	}
 
 	@ExceptionHandler()
+	public CommonResult nullPointer(NullPointerException ex) {
+		LOG.error("空指针", ex);
+		return CommonResult.fail(ex);
+	}
+	
+	@ExceptionHandler()
 	public ModelAndView all(Exception ex) {
 		LOG.error("服务异常", ex);
 		return new ModelAndView("error/500").addObject("error", ex.getMessage());

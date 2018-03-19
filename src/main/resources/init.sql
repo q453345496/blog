@@ -1,7 +1,7 @@
 /*博客表*/
 DROP TABLE IF EXISTS `t_blog`;
 CREATE TABLE `t_blog` (
-`id`  bigint NOT NULL AUTO_INCREMENT ,
+`id`  bigint(20) NOT NULL AUTO_INCREMENT ,
 `title`  varchar(255) NOT NULL ,
 `type_id` int(11),
 `key_word` varchar(255),
@@ -138,6 +138,27 @@ CREATE TABLE `t_column_resource` (
 `column_id`  int(11) NOT NULL ,
 `type_id` int(11) NOT NULL ,
 `rank` int(11) NOT NULL ,
+`create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;
+
+/*文件表*/
+DROP TABLE IF EXISTS `t_attachment`;
+CREATE TABLE `t_attachment` (
+`id` int(11) NOT NULL AUTO_INCREMENT ,
+`name` varchar(255) NOT NULL ,
+`source_url` varchar(500) NULL ,
+`path` varchar(500) NOT NULL ,
+`height` int(11) NULL ,
+`width` int(11) NULL ,
+`size` bigint(20) NOT NULL ,
+`type` varchar(255) NOT NULL ,
+`biz_id` varchar(255) NOT NULL ,
+`biz_type` varchar(255) NOT NULL ,
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)

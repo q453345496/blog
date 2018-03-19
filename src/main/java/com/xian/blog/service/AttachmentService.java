@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.net.HttpURLConnection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xian.blog.common.DataGridResult;
-import com.xian.blog.constants.UEditorConstant;
+import com.xian.blog.constants.FTPConstant;
 import com.xian.blog.dao.AttachmentDao;
 import com.xian.blog.exception.UploadException;
 import com.xian.blog.model.Attachment;
 import com.xian.blog.util.FtpAdapter;
+import com.xian.blog.util.HttpUtil;
 
 @Service
 public class AttachmentService {
@@ -71,9 +73,9 @@ public class AttachmentService {
 			throw new UploadException("empty upfile");
 		}
 		String originalFilename = upfile.getOriginalFilename();
-		String suffix = UEditorConstant.getSuffix(upfile.getContentType());
-		String title = getTitle(suffix);
-		String localPath = getSavepPath(bizId, bizType, type, title);
+		String suffix = FTPConstant.getSuffix(originalFilename);
+		String title = FTPConstant.getTitle(suffix);
+		String localPath = FTPConstant.getSavepPath(bizId, bizType, type, title);
 
 		FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
 		try {
@@ -84,6 +86,8 @@ public class AttachmentService {
 			attachment.setPath(localPath);
 			attachment.setSize(upfile.getSize());
 			attachment.setSourceURL(originalFilename);
+			attachment.setBizId(bizId);
+			attachment.setBizType(bizType);
 			save(attachment);
 			return attachment;
 		} catch (Exception e) {
@@ -96,20 +100,47 @@ public class AttachmentService {
 
 	}
 
-	public static String getTitle(String suffix) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(System.currentTimeMillis())//
-				.append((Math.random() + "").substring(2, 8))//随机六位
-				.append(suffix);
-		return sb.toString();
+	@Transactional
+	public Attachment captureRemoteData(String sourceUrl, String bizId, String bizType, String type) {
+		if (HttpUtil.inHostList(sourceUrl)) {
+			throw new UploadException("in our server");
+		}
+		HttpURLConnection connection = null;
+		try {
+			connection = HttpUtil.getConnection(sourceUrl);
+			if (HttpURLConnection.HTTP_OK != connection.getResponseCode()) {
+				LOG.error("Error Response Code:" + connection.getResponseCode());
+				throw new UploadException("Error Response Code");
+			}
+			String suffix = FTPConstant.getSuffix(sourceUrl);
+			String title = FTPConstant.getTitle(suffix);
+			String localPath = FTPConstant.getSavepPath(bizId, bizType, type, title);
+			FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
+			try {
+				ftpAdapter.upload(connection.getInputStream(), localPath);
+				Attachment attachment = new Attachment();
+				attachment.setType(type);
+				attachment.setName(title);
+				attachment.setPath(localPath);
+				attachment.setSize((long) connection.getContentLength());
+				attachment.setSourceURL(sourceUrl);
+				attachment.setBizId(bizId);
+				attachment.setBizType(bizType);
+				save(attachment);
+				return attachment;
+			} finally {
+				FtpAdapter.closeFtpAdapter(ftpAdapter);
+			}
+
+		} catch (Exception e) {
+			LOG.error(String.format("captureRemoteData error:[sourceUrl:%s,bizId:%s,bizType:%s,type:%s]", sourceUrl,
+					bizId, bizType, type), e);
+			throw new UploadException(e.getMessage());
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
 	}
 
-	public static String getSavepPath(String bizId, String bizType, String type, String name) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(bizType)//
-				.append("/").append(bizId)//
-				.append("/").append(type)//
-				.append("/").append(name);//
-		return sb.toString();
-	}
 }

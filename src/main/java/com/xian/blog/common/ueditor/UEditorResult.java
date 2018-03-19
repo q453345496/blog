@@ -1,13 +1,13 @@
 package com.xian.blog.common.ueditor;
 
-import com.xian.blog.constants.UEditorConstant;
+import com.xian.blog.constants.FTPConstant;
 
 /**
  * Date:2016年7月29日下午11:20:19
  * 
  */
 public class UEditorResult {
-	protected String state;
+	protected String state = FTPConstant.SUCCESS;
 	protected String url;
 
 	public UEditorResult() {
@@ -16,7 +16,6 @@ public class UEditorResult {
 
 	public UEditorResult(String url) {
 		this.url = url;
-		this.state = UEditorConstant.SUCCESS;
 	}
 
 	public static UEditorResult errorResult(String state) {

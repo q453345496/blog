@@ -139,6 +139,7 @@ public class HttpUtil {
 			throw new HttpException(urlStr + " is not a url!");
 		}
 		URL url = new URL(urlStr);
+		HttpURLConnection connection = null;
 		if (isHttps(urlStr)) {
 			HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
 			httpsURLConnection.setHostnameVerifier(new DefaultHostnameVerifier());
@@ -147,9 +148,32 @@ public class HttpUtil {
 			sslContext.init(null, tm, new java.security.SecureRandom());
 			SSLSocketFactory ssf = sslContext.getSocketFactory();
 			httpsURLConnection.setSSLSocketFactory(ssf);
-			return httpsURLConnection;
+			connection = httpsURLConnection;
 		} else {
-			return (HttpURLConnection) url.openConnection();
+			connection = (HttpURLConnection) url.openConnection();
 		}
+		connection.setConnectTimeout(10 * 1000);
+		connection.setReadTimeout(10 * 1000);
+		connection.setDefaultUseCaches(true);
+		connection.setInstanceFollowRedirects(true);
+		connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible;MSIE7.0;WindowsNT5.1;360SE)");
+		return connection;
 	}
+
+	public static boolean inHostList(String urlStr, String... hosts) {
+		URL url;
+		try {
+			url = new URL(urlStr);
+		} catch (Exception e) {
+			throw new HttpException("an unknown protocol is found, or is null");
+		}
+		String host = url.getHost();
+		for (String tmp : hosts) {
+			if (StringUtils.equals(host, tmp)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

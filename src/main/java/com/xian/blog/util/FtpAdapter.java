@@ -107,7 +107,7 @@ public final class FtpAdapter {
 		}
 	}
 
-	public void upload(InputStream is, String remote, String path) {
+	public void upload(InputStream is, String name, String path) {
 		try {
 			if (path != null) {
 				String[] dirNames = path.split("/");
@@ -121,7 +121,7 @@ public final class FtpAdapter {
 					}
 				}
 			}
-			ftpClient.storeFile(new String(remote.getBytes("UTF-8"), "iso-8859-1"), is);
+			ftpClient.storeFile(new String(name.getBytes("UTF-8"), "iso-8859-1"), is);
 		} catch (Exception e) {
 			throw new FtpException("ftp上传失败");
 		} finally {

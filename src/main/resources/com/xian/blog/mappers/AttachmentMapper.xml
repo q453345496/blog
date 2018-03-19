@@ -11,13 +11,22 @@
 			<if test="name != null and name != '' ">
 				AND name LIKE CONCAT('%', #{name}, '%')
 			</if>
+			<if test="type != null and type != '' ">
+				AND `type` = #{type}
+			</if>
+			<if test="bizId != null and bizId != '' ">
+				AND biz_id = #{bizId}
+			</if>
+			<if test="bizType != null and bizType != '' ">
+				AND biz_type = #{bizType}
+			</if>
 		</where>
 	</sql>
 	
 	<select id="list" parameterType="Map" resultMap="AttachmentResult">
 		SELECT * FROM t_attachment
 		<include refid="sql_where"></include>
-		ORDER BY create_time
+<!-- 		ORDER BY create_time -->
 		<if test="start != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
@@ -29,7 +38,8 @@
 	</select>
 
 	<insert id="save" parameterType="Attachment" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_attachment (name, create_time, modify_time) VALUES(#{name}, #{createTime}, #{modifyTime})
+		INSERT INTO t_attachment (name, source_url, path, height, width, size, `type`, biz_id, biz_type, create_time, modify_time) 
+		VALUES(#{name}, #{sourceURL}, #{path}, #{height}, #{width}, #{size}, #{type}, #{bizId}, #{bizType}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="Attachment">
@@ -37,6 +47,30 @@
 		<set>
 			<if test="name != null and name != '' ">
 				name = #{name},
+			</if>
+			<if test="sourceURL != null and sourceURL != '' ">
+				source_url = #{sourceURL},
+			</if>
+			<if test="path != null and path != '' ">
+				path = #{path},
+			</if>
+			<if test="height != null">
+				height = #{height},
+			</if>
+			<if test="width != null">
+				width = #{width},
+			</if>
+			<if test="size != null">
+				size = #{size},
+			</if>
+			<if test="type != null and type != '' ">
+				`type` = #{type},
+			</if>
+			<if test="bizId != null and bizId != '' ">
+				`biz_id` = #{bizId},
+			</if>
+			<if test="bizType != null and bizType != '' ">
+				`biz_type` = #{bizType},
 			</if>
 			<if test="createTime != null">
 				create_time = #{createTime},

@@ -72,8 +72,8 @@ public class ${ModelController} {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {
-		${modelService}.delete(id);
+	public CommonResult delete(@RequestParam(value = "id", required = true) Long[] ids) {
+		${modelService}.delete(ids);
 		return CommonResult.success();
 	}
 }

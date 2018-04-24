@@ -70,8 +70,8 @@ public class BlogTypeController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {
-		blogTypeService.delete(id);
+	public CommonResult delete(@RequestParam(value = "id", required = true) Long[] ids) {
+		blogTypeService.delete(ids);
 		return CommonResult.success();
 	}
 }

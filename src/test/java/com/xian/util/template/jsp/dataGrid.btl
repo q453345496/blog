@@ -88,6 +88,7 @@ function ${model}OpenDialogFunc(){
 }
 
 function ${model}EditFunc(index){
+	$('#${model}DataGrid').datagrid('unselectAll');
 	$('#${model}DataGrid').datagrid('selectRow', index);
 	var row = $('#${model}DataGrid').datagrid('getSelected');
 	if (row){
@@ -95,6 +96,7 @@ function ${model}EditFunc(index){
 		$('#${model}Form').form('load',row);
 		${model}SubmitUrl = basePath + "${updateUrl}";
 	}
+	event.stopPropagation();
 }
 function ${model}SaveFunc(){
 	$('#${model}Form').form('submit',{
@@ -117,11 +119,11 @@ function ${model}SaveFunc(){
 	});
 }
 function ${model}DeleteFunc(){
-	var row = $('#${model}DataGrid').datagrid('getSelected');
-	if (row){
+	var ids = concatIds('#${model}DataGrid');
+	if (ids != ''){
 		$.messager.confirm('提示','真的要删除这个${modelCN}吗?',function(r){
 			if (r){
-				$.post(basePath + '${deleteUrl}',{id:row.id},function(result){
+				$.post(basePath + '${deleteUrl}',{id : ids},function(result){
 					if (result.status == 0){
 						$('#${model}DataGrid').datagrid('reload');
 					} else {

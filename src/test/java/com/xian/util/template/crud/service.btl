@@ -84,6 +84,12 @@ public class ${ModelService} {
 	}
 	<%}%>
 
+	public int delete(Long[] ids) {
+		for (Long id : ids) {
+			${modelDao}.delete(id);
+		}
+	}
+	
 	public ${Model} get(Long id) {
 		return ${modelDao}.get(id);
 	}

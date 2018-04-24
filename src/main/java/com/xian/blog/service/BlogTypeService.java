@@ -81,4 +81,10 @@ public class BlogTypeService {
 	public BlogType get(Long id) {
 		return blogTypeDao.get(id);
 	}
+	
+	public void delete(Long[] ids) {
+		for (Long id : ids) {
+			blogTypeDao.delete(id);
+		}
+	}
 }

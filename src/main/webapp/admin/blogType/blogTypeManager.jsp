@@ -53,7 +53,7 @@ $(function() {
 		title : '分类列表',
 		url : basePath + '/admin/blogType/list',
 		columns : [[ 
-//			{field : 'ck',	checkbox : true}, 
+			{field : 'ck',	checkbox : true, }, 
 			{
 				field : 'id',
 				title : '编号',
@@ -66,7 +66,7 @@ $(function() {
 				width:100,
 				align:'center',
 				formatter: function(value,row,index) {
-					return '<a href="#" onclick="blogTypeEditFunc('+index+')">'+value+'</a>';
+					return '<a href="#" onclick="blogTypeEditFunc(\'' + index + '\')">'+value+'</a>';
 				}
 			}, 
 			{
@@ -78,7 +78,7 @@ $(function() {
 		]],
 		toolbar : '#blogTypeDataGridToolbar',
 		method : 'GET',
-		singleSelect : true,
+		singleSelect : false,
 		pagination : true,
 		rownumbers : true,
 		fitColumns : true,
@@ -96,6 +96,7 @@ function blogTypeOpenDialogFunc(){
 }
 
 function blogTypeEditFunc(index){
+	$('#blogTypeDataGrid').datagrid('unselectAll');
 	$('#blogTypeDataGrid').datagrid('selectRow', index);
 	var row = $('#blogTypeDataGrid').datagrid('getSelected');
 	if (row){
@@ -107,6 +108,7 @@ function blogTypeEditFunc(index){
 		}
 		blogTypeSubmitUrl = basePath + "/admin/blogType/update";
 	}
+	event.stopPropagation();
 }
 function blogTypeSaveFunc(){
 	$('#blogTypeForm').form('submit',{
@@ -129,11 +131,11 @@ function blogTypeSaveFunc(){
 	});
 }
 function blogTypeDeleteFunc(){
-	var row = $('#blogTypeDataGrid').datagrid('getSelected');
-	if (row){
+	var ids = concatIds('#blogTypeDataGrid');
+	if (ids != ''){
 		$.messager.confirm('提示','真的要删除这个分类吗?',function(r){
 			if (r){
-				$.post(basePath + '/admin/blogType/delete',{id:row.id},function(result){
+				$.post(basePath + '/admin/blogType/delete',{id:ids},function(result){
 					if (result.status == 0){
 						$('#blogTypeDataGrid').datagrid('reload');
 					} else {

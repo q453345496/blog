@@ -33,7 +33,7 @@ public class UEditorController {
 	public UEditorResult uploadImage(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
 			@RequestParam("bizType") String bizType) {
 		try {
-			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.IMAGE_PATH);
+			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.PATH_IMAGE);
 			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
 		} catch (Exception e) {
 			return UEditorUploadResult.errorResult("upload error");
@@ -45,7 +45,7 @@ public class UEditorController {
 	public UEditorResult uploadVideo(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
 			@RequestParam("bizType") String bizType) {
 		try {
-			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.VIDEO_PATH);
+			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.PATH_VIDEO);
 			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
 		} catch (Exception e) {
 			return UEditorUploadResult.errorResult("upload error");
@@ -57,7 +57,7 @@ public class UEditorController {
 	public UEditorResult uploadFile(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
 			@RequestParam("bizType") String bizType) {
 		try {
-			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.FILE_PATH);
+			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.PATH_FILE);
 			return new UEditorUploadResult(attachment.getName(), attachment.getPath());
 		} catch (Exception e) {
 			return UEditorUploadResult.errorResult("upload error");
@@ -90,7 +90,7 @@ public class UEditorController {
 			for (String sourceUrl : sources) {
 				try {
 					Attachment attachment = attachmentService.captureRemoteData(sourceUrl, bizId, "blog",
-							FTPConstant.IMAGE_PATH);
+							FTPConstant.PATH_IMAGE);
 					list.add(new UEditorRemoteResult(attachment.getSourceURL(), attachment.getPath()));
 				} catch (Exception e) {
 					list.add(UEditorResult.errorResult(e.getMessage()));

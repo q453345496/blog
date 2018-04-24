@@ -23,7 +23,7 @@ public class FtpAdapterTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			FtpAdapter.closeFtpAdapter(ftpAdapter);
+			FtpAdapter.close(ftpAdapter);
 		}
 	}
 
@@ -35,7 +35,7 @@ public class FtpAdapterTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		FtpAdapter.closeFtpAdapter(ftpAdapter);
+		FtpAdapter.close(ftpAdapter);
 	}
 
 }

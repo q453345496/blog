@@ -34,7 +34,7 @@
 
 	<insert id="save" parameterType="BlogType" useGeneratedKeys="true"
 		keyProperty="id">
-		INSERT INTO t_blog_type (name, rank, create_time, modify_time) VALUES(#{name}, #{rank}, #{createTime}, #{modifyTime})
+		INSERT INTO t_blog_type (name, rank, img_path, create_time, modify_time) VALUES(#{name}, #{rank}, #{imgPath}, #{createTime}, #{modifyTime})
 	</insert>
 
 	<update id="update" parameterType="BlogType">
@@ -42,6 +42,9 @@
 		<set>
 			<if test="name != null and name != '' ">
 				name = #{name},
+			</if>
+			<if test="imgPath != null and imgPath != '' ">
+				img_path = #{imgPath},
 			</if>
 			<if test="rank != null">
 				rank = #{rank},

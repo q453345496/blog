@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPFileFilter;
@@ -18,7 +19,7 @@ import com.xian.blog.exception.FtpException;
  * 
  */
 public final class FtpAdapter {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FtpAdapter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FtpAdapter.class);
 	private static final boolean AT_HOME = false;
 	private static final String HOSTNAME = AT_HOME ? "127.0.0.1" : "192.168.15.165";
 	private static final int PORT = AT_HOME ? 2121 : 21;
@@ -72,7 +73,7 @@ public final class FtpAdapter {
 		return ftpClient;
 	}
 
-	public static void closeFtpAdapter(FtpAdapter ftpAdapter) {
+	public static void close(FtpAdapter ftpAdapter) {
 		if (ftpAdapter == null) {
 			return;
 		}
@@ -85,7 +86,7 @@ public final class FtpAdapter {
 			try {
 				ftpClient.disconnect();
 			} catch (IOException e) {
-				LOGGER.error("关闭ftp连接异常");
+				LOG.error("关闭ftp连接异常");
 			}
 		}
 	}
@@ -112,6 +113,9 @@ public final class FtpAdapter {
 			if (path != null) {
 				String[] dirNames = path.split("/");
 				for (String dir : dirNames) {
+					if (StringUtils.isBlank(dir)) {
+						continue;
+					}
 					if (!ftpClient.changeWorkingDirectory(dir)) {
 						if (ftpClient.makeDirectory(dir)) {
 							ftpClient.changeWorkingDirectory(dir);

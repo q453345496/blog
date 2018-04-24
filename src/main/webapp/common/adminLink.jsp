@@ -41,4 +41,9 @@ table.input tr td:nth-child(1){
 .datagrid-row-selected .s-1 {
 	color: #fff;
 }
+.img-preview{
+	height: 180px;
+	width: 200px;
+	padding-top: 10px
+}
 </style>

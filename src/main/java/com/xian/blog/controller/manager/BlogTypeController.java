@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.xian.blog.common.CommonResult;
 import com.xian.blog.common.DataGridResult;
@@ -48,15 +49,15 @@ public class BlogTypeController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult save(BlogType blogType) {
-		blogTypeService.save(blogType);
+	public CommonResult save(BlogType blogType, MultipartFile img) {
+		blogTypeService.save(blogType, img);
 		return CommonResult.success(blogType.getId());
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult update(BlogType blogType) {
-		blogTypeService.update(blogType);
+	public CommonResult update(BlogType blogType, MultipartFile img) {
+		blogTypeService.update(blogType, img);
 		return CommonResult.success();
 	}
 

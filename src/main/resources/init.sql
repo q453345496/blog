@@ -23,7 +23,8 @@ DEFAULT CHARACTER SET=utf8
 DROP TABLE IF EXISTS `t_blog_type`;
 CREATE TABLE `t_blog_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
-`name`  varchar(255) NOT NULL ,
+`name` varchar(255) NOT NULL ,
+`img_path` varchar(255) ,
 `rank` int(11),
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,

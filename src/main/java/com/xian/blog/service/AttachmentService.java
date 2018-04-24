@@ -74,7 +74,7 @@ public class AttachmentService {
 		}
 		String originalFilename = upfile.getOriginalFilename();
 		String suffix = FTPConstant.getSuffix(originalFilename);
-		String title = FTPConstant.getTitle(suffix);
+		String title = FTPConstant.newTitle(suffix);
 		String localPath = FTPConstant.getSavepPath(bizId, bizType, type, title);
 
 		FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
@@ -95,7 +95,7 @@ public class AttachmentService {
 			LOG.error(msg, e);
 			throw new UploadException(msg);
 		} finally {
-			FtpAdapter.closeFtpAdapter(ftpAdapter);
+			FtpAdapter.close(ftpAdapter);
 		}
 
 	}
@@ -113,7 +113,7 @@ public class AttachmentService {
 				throw new UploadException("Error Response Code");
 			}
 			String suffix = FTPConstant.getSuffix(sourceUrl);
-			String title = FTPConstant.getTitle(suffix);
+			String title = FTPConstant.newTitle(suffix);
 			String localPath = FTPConstant.getSavepPath(bizId, bizType, type, title);
 			FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
 			try {
@@ -122,14 +122,14 @@ public class AttachmentService {
 				attachment.setType(type);
 				attachment.setName(title);
 				attachment.setPath(localPath);
-				attachment.setSize((long) connection.getContentLength());
+				attachment.setSize(connection.getContentLengthLong());
 				attachment.setSourceURL(sourceUrl);
 				attachment.setBizId(bizId);
 				attachment.setBizType(bizType);
 				save(attachment);
 				return attachment;
 			} finally {
-				FtpAdapter.closeFtpAdapter(ftpAdapter);
+				FtpAdapter.close(ftpAdapter);
 			}
 
 		} catch (Exception e) {

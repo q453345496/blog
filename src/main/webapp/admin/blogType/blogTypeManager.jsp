@@ -17,8 +17,8 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="blogTypeSearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#blogTypeDataGridToolbar')">清空</a>
 	</div>
-	<div id="blogTypeDialog" class="easyui-dialog" style="width:360px;height:180px;padding:10px" data-options="closed:'true', modal:'true', buttons:'#blogTypeDialog-buttons'">
-		<form id="blogTypeForm" method="post" novalidate>
+	<div id="blogTypeDialog" class="easyui-dialog" style="width:360px;height:400px;padding:10px" data-options="closed:'true', modal:'true', buttons:'#blogTypeDialog-buttons'">
+		<form id="blogTypeForm" method="post" enctype="multipart/form-data" novalidate>
 			<table class="input">
 				<tr>
 					<td width="30%">名称:</td>
@@ -31,6 +31,13 @@
 					<td>排序:</td>
 					<td>
 						<input name="rank" class="easyui-numberbox" value="100" data-options="required:true,min:0"/>
+					</td>
+				</tr>
+				<tr>
+					<td>图片:</td>
+					<td>
+						<input id="img" name="img" type="file" onchange="setImagePreviews('img','img_preview')"/>
+						<img id="img_preview" class="img-preview">
 					</td>
 				</tr>
 			</table>
@@ -84,6 +91,7 @@ var blogTypeSubmitUrl;
 function blogTypeOpenDialogFunc(){
 	$('#blogTypeDialog').dialog('open').dialog('center').dialog('setTitle','添加文章分类信息');
 	$('#blogTypeForm').form('clear');
+	$('#img_preview').html('');
 	blogTypeSubmitUrl = basePath + "/admin/blogType/save";
 }
 
@@ -93,6 +101,10 @@ function blogTypeEditFunc(index){
 	if (row){
 		$('#blogTypeDialog').dialog('open').dialog('center').dialog('setTitle','修改文章分类信息');
 		$('#blogTypeForm').form('load',row);
+		$('#img_preview').html('');
+		if(row.imgURL){
+			$('#img_preview').attr('src',row.imgURL);
+		}
 		blogTypeSubmitUrl = basePath + "/admin/blogType/update";
 	}
 }

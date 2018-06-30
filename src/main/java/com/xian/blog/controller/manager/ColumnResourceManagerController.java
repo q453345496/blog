@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.CommonResult;
 import com.xian.blog.common.DataGridResult;
-import com.xian.blog.common.Page;
 import com.xian.blog.exception.CheckException;
 import com.xian.blog.model.ColumnResource;
 import com.xian.blog.service.ColumnResourceService;
@@ -33,15 +33,12 @@ public class ColumnResourceManagerController {
 		if (columnId == null) {
 			throw new CheckException("参数不能为空");
 		}
-		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
-		map.put("start", p.getStart());
-		map.put("size", p.getPageSize());
 		map.put("columnId", columnId);
-		
-		return columnResourceService.pageRelate(map);
+
+		return columnResourceService.pageRelate(new Page<ColumnResource>(page, rows), map);
 	}
-	
+
 	@RequestMapping(value = "/listUnRelate", method = RequestMethod.GET)
 	@ResponseBody
 	public DataGridResult listUnRelate(@RequestParam(value = "page", required = false) Integer page,
@@ -50,13 +47,10 @@ public class ColumnResourceManagerController {
 		if (columnId == null) {
 			throw new CheckException("参数不能为空");
 		}
-		Page p = new Page(page, rows);
 		Map<String, Object> map = new HashMap<>();
-		map.put("start", p.getStart());
-		map.put("size", p.getPageSize());
 		map.put("columnId", columnId);
-		
-		return columnResourceService.pageUnRelate(map);
+
+		return columnResourceService.pageUnRelate(new Page<ColumnResource>(page, rows), map);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -68,7 +62,7 @@ public class ColumnResourceManagerController {
 		columnResourceService.save(columnId, ids);
 		return CommonResult.success();
 	}
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult update(ColumnResource columnResource) {

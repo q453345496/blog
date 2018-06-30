@@ -115,7 +115,6 @@ function blogAddRelateFunc(){
 		$.post(basePath + '/admin/topicResource/save',{'topicId': row.id, 'ids':ids},function(result){
             if (0 == result.status){
                 $('#blogUnRelatedDataGrid').datagrid('reload');
-    			$("#blogUnRelatedDataGrid").datagrid({selectOnCheck:true});
             } else {
             	$.messager.show({ title: '错误', msg: result.msg });
             }
@@ -135,7 +134,6 @@ function delRelateBlogFunc(){
 		$.post(basePath + '/admin/topicResource/delete',{'ids':ids},function(result){
             if (0 == result.status){
                 $('#blogRelatedDataGrid').datagrid('reload');
-            	$("#blogRelatedDataGrid").datagrid({selectOnCheck:true});
             } else {
                 $.messager.show({ title: '错误', msg: result.msg });
             }

@@ -1,14 +1,16 @@
 package ${packageName}.service;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import ${packageName}.common.DataGridResult;
 import ${packageName}.dao.${ModelDao};
 <%if(isTree){%>
@@ -23,74 +25,71 @@ public class ${ModelService} {
 	@Resource
 	private ${Model}Dao ${modelDao};
 
-	public List<${Model}> list(Map<String, Object> map) {
-		return ${modelDao}.list(map);
+	public List<${Model}> list(Wrapper<${Model}> wrapper) {
+		return ${modelDao}.selectList(wrapper);
 	}
-	
-	public DataGridResult page(Map<String, Object> map) {
+
+	public DataGridResult page(Page<${Model}> page, Wrapper<${Model}> wrapper) {
 		DataGridResult vo = new DataGridResult();
-		vo.setTotal(getTotal(map));
-		vo.setRows(list(map));
+		List<${Model}> datas = ${modelDao}.selectPage(page, wrapper);
+		vo.setTotal(page.getTotal());
+		vo.setRows(datas);
 		return vo;
-	}
-	
-	public Integer getTotal(Map<String, Object> map) {
-		return ${modelDao}.getTotal(map);
 	}
 
 	public int update(${Model} ${model}) {
-		${model}.setModifyTime(new Date());
-		return ${modelDao}.update(${model});
+		return ${modelDao}.updateById(${model});
 	}
 
 	public int save(${Model} ${model}) {
 		<%if(isTree){%>
-		${Model} parent = ${modelDao}.get(${model}.getParentId());
-		if (!parent.getIsParent()) {
-			parent.setIsParent(true);
-			${modelDao}.update(parent);
+		${Model} parent = ${modelDao}.selectById(${model}.getParentId());
+		if (!parent.getParent()) {
+			parent.setParent(true);
+			${modelDao}.updateById(parent);
 		}
-		${model}.setIsParent(false);
+		${model}.setParent(false);
 		<%}%>
-		Date now = new Date();
-		${model}.setCreateTime(now);
-		${model}.setModifyTime(now);
-		return ${modelDao}.save(${model});
+		return ${modelDao}.insert(${model});
 	}
 
 	<%if(isTree){%>
 	public void delete(Long id) {
-		${Model} ${model} = ${modelDao}.get(id);
+		${Model} ${model} = ${modelDao}.selectById(id);
 		if (${model} != null) {
-			if (${model}.getIsParent()) {
+			if (${model}.getParent()) {
 				throw new CheckException("该节点存在子节点，无法删除");
 			}
 			if (-1 == ${model}.getParentId()) {
 				throw new CheckException("根节点无法删除");
 			}
-			${modelDao}.delete(id);
-			int subCount = ${modelDao}.getSubCount(${model}.getParentId());
+			${modelDao}.deleteById(id);
+			int subCount = getSubCount(${model}.getParentId());
 			if (subCount == 0) {
 				${Model} parent = new ${Model}();
 				parent.setId(${model}.getParentId());
-				parent.setIsParent(false);
-				${modelDao}.update(parent);
+				parent.setParent(false);
+				${modelDao}.updateById(parent);
 			}
 		}
 	}
 	<%} else {%>
 	public int delete(Long id) {
-		return ${modelDao}.delete(id);
+		return ${modelDao}.deleteById(id);
 	}
 	<%}%>
 
 	public int delete(Long[] ids) {
-		for (Long id : ids) {
-			${modelDao}.delete(id);
-		}
+		return ${modelDao}.deleteBatchIds(Arrays.asList(ids));
+	}
+
+	public ${Model} get(Long id) {
+		return ${modelDao}.selectById(id);
 	}
 	
-	public ${Model} get(Long id) {
-		return ${modelDao}.get(id);
+	<%if(isTree){%>
+	public int getSubCount(Long parentId) {
+		return ${modelDao}.selectCount(new EntityWrapper<${Model}>().eq("parent_id", parentId));
 	}
+	<%}%>
 }

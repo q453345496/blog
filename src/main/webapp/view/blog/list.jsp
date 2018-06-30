@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="author">
-					<span class="muted"><i class="fa fa-list-alt"></i><a href="/${blog.blogType.id }">${blog.blogType.name}</a></span>
+					<span class="muted"><i class="fa fa-list-alt"></i><a href="/${blog.typeId }">${blog.typeName}</a></span>
 <!-- 							<span class="muted"><i class="fa fa-user"></i>作者：test</span> -->
 					<span class="muted"><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${blog.createTime}"/></span>
 					<span class="muted"><i class="fa fa-eye"></i>浏览（${blog.click }）</span>

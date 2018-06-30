@@ -5,11 +5,11 @@ public class HtmlTagUtils {
 	private static final String DISABLED = "disabled";
 	private static final String ACTIVE = "active";
 
-	public static String createPage(final Integer currentPage, final Integer pageSize, final int total, String param) {
+	public static String createPage(final Integer currentPage, final Integer pageSize, final Long total, String param) {
 		if (total == 0) {
 			return "";
 		}
-		int totalPage = total % pageSize == 0 ? (total / pageSize) : (total / pageSize) + 1;
+		long totalPage = total % pageSize == 0 ? (total / pageSize) : (total / pageSize) + 1;
 		if (currentPage == null || currentPage > totalPage) {
 			return "";
 		}
@@ -45,7 +45,7 @@ public class HtmlTagUtils {
 		return sb.toString();
 	}
 
-	private static StringBuilder createPageLi(StringBuilder sb, Object name, int pageNum, String param,
+	private static StringBuilder createPageLi(StringBuilder sb, Object name, long pageNum, String param,
 			String className) {
 		if (EMPTY.equals(className)) {
 			sb.append("<li>");
@@ -62,6 +62,6 @@ public class HtmlTagUtils {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(createPage(11, 10, 100, "&typeID=1"));
+		System.out.println(createPage(11, 10, 100l, "&typeID=1"));
 	}
 }

@@ -1,8 +1,6 @@
 package com.xian.blog.service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Resource;
@@ -10,6 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.ParamTypeDao;
 import com.xian.blog.exception.CheckException;
@@ -22,50 +22,45 @@ public class ParamTypeService {
 	@Resource
 	private ParamTypeDao paramTypeDao;
 
-	public List<ParamType> list(Map<String, Object> map) {
-		return paramTypeDao.list(map);
+	public List<ParamType> list(Wrapper<ParamType> wrapper) {
+		return paramTypeDao.selectList(wrapper);
 	}
-	
-	public DataGridResult page(Map<String, Object> map) {
+
+	public DataGridResult page(Page<ParamType> page, Wrapper<ParamType> wrapper) {
 		DataGridResult vo = new DataGridResult();
-		vo.setTotal(getTotal(map));
-		vo.setRows(list(map));
+		List<ParamType> datas = paramTypeDao.selectPage(page, wrapper);
+		vo.setTotal(page.getTotal());
+		vo.setRows(datas);
 		return vo;
-	}
-	
-	public Integer getTotal(Map<String, Object> map) {
-		return paramTypeDao.getTotal(map);
 	}
 
 	public int update(ParamType paramType) {
-		ParamType byCode = paramTypeDao.getByCode(paramType.getCode());
+		ParamType byCode = getByCode(paramType.getCode());
 		if (byCode != null && !Objects.equals(paramType.getId(), byCode.getId())) {
 			throw new CheckException("code已经存在:" + paramType.getCode());
 		}
-		paramType.setModifyTime(new Date());
-		return paramTypeDao.update(paramType);
+		return paramTypeDao.updateById(paramType);
 	}
 
 	public int save(ParamType paramType) {
-		ParamType byCode = paramTypeDao.getByCode(paramType.getCode());
+		ParamType byCode = getByCode(paramType.getCode());
 		if (byCode != null) {
 			throw new CheckException("code已经存在:" + paramType.getCode());
 		}
-		Date now = new Date();
-		paramType.setCreateTime(now);
-		paramType.setModifyTime(now);
-		return paramTypeDao.save(paramType);
+		return paramTypeDao.insert(paramType);
 	}
 
 	public int delete(Long id) {
-		return paramTypeDao.delete(id);
+		return paramTypeDao.deleteById(id);
 	}
 
 	public ParamType get(Long id) {
-		return paramTypeDao.get(id);
+		return paramTypeDao.selectById(id);
 	}
 
 	public ParamType getByCode(String code) {
-		return paramTypeDao.getByCode(code);
+		ParamType paramType = new ParamType();
+		paramType.setCode(code);
+		return paramTypeDao.selectOne(paramType);
 	}
 }

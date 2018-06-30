@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.CommonResult;
 import com.xian.blog.common.DataGridResult;
-import com.xian.blog.common.Page;
 import com.xian.blog.model.Blog;
 import com.xian.blog.service.BlogService;
 import com.xian.blog.util.RegexUtils;
@@ -33,15 +33,12 @@ public class BlogManagerController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "rows", required = false) Integer rows, Blog blog) {
-		Page p = new Page(page, rows);
+	public DataGridResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(value = "rows", required = false, defaultValue = "20") Integer rows, Blog blog) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("start", p.getStart());
-		map.put("size", p.getPageSize());
 		map.put("title", blog.getTitle());
 		map.put("typeId", blog.getTypeId());
-		return blogService.page(map);
+		return blogService.page(new Page<Blog>(page, rows), map);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -59,7 +56,7 @@ public class BlogManagerController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult detail(@PathVariable("id") Long id) {
-		Blog blog = blogService.get(id);
+		Blog blog = blogService.detail(id);
 		return CommonResult.success(blog);
 	}
 

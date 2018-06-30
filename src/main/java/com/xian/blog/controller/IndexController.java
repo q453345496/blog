@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.xian.blog.common.Page;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.model.Blog;
 import com.xian.blog.service.BlogService;
 import com.xian.blog.util.HtmlTagUtils;
@@ -25,20 +25,18 @@ public class IndexController {
 
 	@RequestMapping(value = { "/index" })
 	public ModelAndView index(@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
-		Page p = new Page(page, 10);
 		Map<String, Object> map = new HashMap<>();
-		map.put("start", p.getStart());
-		map.put("size", p.getPageSize());
 		map.put("status", Blog.ONLINE);
-		List<Blog> list = blogService.list(map);
-		Integer total = blogService.getTotal(map);
+		Page<Blog> pageInfo = new Page<Blog>(page, 10);
+		List<Blog> list = blogService.list(pageInfo, map);
+		long total = pageInfo.getTotal();
 		for (Blog blog : list) {
 			blog.setThumb(RegexUtils.getFirstImgURL(blog.getContent()));
 		}
 		ModelAndView view = new ModelAndView("index");
 		view.addObject("blogs", list);
 		view.addObject("mainPage", "view/blog/list.jsp");
-		view.addObject("pageCode", HtmlTagUtils.createPage(p.getPage(), 10, total, null));
+		view.addObject("pageCode", HtmlTagUtils.createPage(page, 10, total, null));
 		return view;
 	}
 

@@ -1,9 +1,7 @@
 package com.xian.blog.service;
 
 import java.net.HttpURLConnection;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -13,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.DataGridResult;
 import com.xian.blog.constants.FTPConstant;
 import com.xian.blog.dao.AttachmentDao;
@@ -28,43 +28,36 @@ public class AttachmentService {
 	@Resource
 	private AttachmentDao attachmentDao;
 
-	public List<Attachment> list(Map<String, Object> map) {
-		return attachmentDao.list(map);
+	public List<Attachment> list(Wrapper<Attachment> wrapper) {
+		return attachmentDao.selectList(wrapper);
 	}
 
 	@Transactional
-	public DataGridResult page(Map<String, Object> map) {
+	public DataGridResult page(Page<Attachment> page, Wrapper<Attachment> wrapper) {
 		DataGridResult vo = new DataGridResult();
-		vo.setTotal(getTotal(map));
-		vo.setRows(list(map));
+		List<Attachment> datas = attachmentDao.selectPage(page, wrapper);
+		vo.setTotal(page.getTotal());
+		vo.setRows(datas);
 		return vo;
-	}
-
-	public Integer getTotal(Map<String, Object> map) {
-		return attachmentDao.getTotal(map);
 	}
 
 	@Transactional
 	public int update(Attachment attachment) {
-		attachment.setModifyTime(new Date());
-		return attachmentDao.update(attachment);
+		return attachmentDao.updateById(attachment);
 	}
 
 	@Transactional
 	public int save(Attachment attachment) {
-		Date now = new Date();
-		attachment.setCreateTime(now);
-		attachment.setModifyTime(now);
-		return attachmentDao.save(attachment);
+		return attachmentDao.insert(attachment);
 	}
 
 	@Transactional
 	public int delete(Long id) {
-		return attachmentDao.delete(id);
+		return attachmentDao.deleteById(id);
 	}
 
 	public Attachment get(Long id) {
-		return attachmentDao.get(id);
+		return attachmentDao.selectById(id);
 	}
 
 	@Transactional

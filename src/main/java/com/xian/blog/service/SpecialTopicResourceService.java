@@ -1,6 +1,6 @@
 package com.xian.blog.service;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.SpecialTopicResourceDao;
 import com.xian.blog.model.SpecialTopicResource;
@@ -20,24 +22,16 @@ public class SpecialTopicResourceService {
 	@Resource
 	private SpecialTopicResourceDao specialTopicResourceDao;
 
-	public List<SpecialTopicResource> list(Map<String, Object> map) {
-		return specialTopicResourceDao.list(map);
-	}
-
-	public Integer getTotal(Map<String, Object> map) {
-		return specialTopicResourceDao.getTotal(map);
+	public List<SpecialTopicResource> list(Wrapper<SpecialTopicResource> wrapper) {
+		return specialTopicResourceDao.selectList(wrapper);
 	}
 
 	public int update(SpecialTopicResource specialTopicResource) {
-		specialTopicResource.setModifyTime(new Date());
-		return specialTopicResourceDao.update(specialTopicResource);
+		return specialTopicResourceDao.updateById(specialTopicResource);
 	}
 
 	public int save(SpecialTopicResource specialTopicResource) {
-		Date now = new Date();
-		specialTopicResource.setCreateTime(new Date());
-		specialTopicResource.setModifyTime(now);
-		return specialTopicResourceDao.save(specialTopicResource);
+		return specialTopicResourceDao.insert(specialTopicResource);
 	}
 
 	public void save(Long topicId, Long[] ids) {
@@ -51,42 +45,26 @@ public class SpecialTopicResourceService {
 	}
 
 	public void delete(Long[] ids) {
-		for (Long id : ids) {
-			specialTopicResourceDao.delete(id);
-		}
+		specialTopicResourceDao.deleteBatchIds(Arrays.asList(ids));
 	}
 
 	public SpecialTopicResource get(Long id) {
-		return specialTopicResourceDao.get(id);
+		return specialTopicResourceDao.selectById(id);
 	}
 
-	public List<SpecialTopicResource> listRelate(Map<String, Object> map) {
-		return specialTopicResourceDao.listRelate(map);
-	}
-
-	public Integer getRelateTotal(Map<String, Object> map){
-		return specialTopicResourceDao.getRelateTotal(map);
-	}
-
-	public DataGridResult pageRelate(Map<String, Object> map) {
+	public DataGridResult pageRelate(Page<SpecialTopicResource> page, Map<String, Object> map) {
 		DataGridResult vo = new DataGridResult();
-		vo.setTotal(getRelateTotal(map));
-		vo.setRows(listRelate(map));
+		List<SpecialTopicResource> datas = specialTopicResourceDao.listRelate(page, map);
+		vo.setTotal(page.getTotal());
+		vo.setRows(datas);
 		return vo;
 	}
-	
-	public List<SpecialTopicResource> listUnRelate(Map<String, Object> map) {
-		return specialTopicResourceDao.listUnRelate(map);
-	}
-	
-	public Integer getUnRelateTotal(Map<String, Object> map){
-		return specialTopicResourceDao.getUnRelateTotal(map);
-	}
-	
-	public DataGridResult pageUnRelate(Map<String, Object> map) {
+
+	public DataGridResult pageUnRelate(Page<SpecialTopicResource> page, Map<String, Object> map) {
 		DataGridResult vo = new DataGridResult();
-		vo.setTotal(getUnRelateTotal(map));
-		vo.setRows(listUnRelate(map));
+		List<SpecialTopicResource> datas = specialTopicResourceDao.listUnRelate(page, map);
+		vo.setTotal(page.getTotal());
+		vo.setRows(datas);
 		return vo;
 	}
 }

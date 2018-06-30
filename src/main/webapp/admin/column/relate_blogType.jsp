@@ -90,7 +90,6 @@ function blogTypeAddRelateFunc(){
 		$.post(basePath + '/admin/columnResource/save',{'columnId': row.id, 'ids':ids},function(result){
             if (0 == result.status){
                 $('#blogTypeUnRelatedDataGrid').datagrid('reload');
-    			$("#blogTypeUnRelatedDataGrid").datagrid({selectOnCheck:true});
             } else {
             	$.messager.show({ title: '错误', msg: result.msg });
             }
@@ -110,7 +109,6 @@ function delRelateBlogTypeFunc(){
 		$.post(basePath + '/admin/columnResource/delete',{'ids':ids},function(result){
             if (0 == result.status){
                 $('#blogTypeRelatedDataGrid').datagrid('reload');
-            	$("#blogTypeRelatedDataGrid").datagrid({selectOnCheck:true});
             } else {
                 $.messager.show({ title: '错误', msg: result.msg });
             }

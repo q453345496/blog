@@ -1,8 +1,5 @@
 package com.xian.blog.controller.manager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -13,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.CommonResult;
 import com.xian.blog.common.DataGridResult;
-import com.xian.blog.common.Page;
 import com.xian.blog.model.BlogType;
 import com.xian.blog.service.BlogTypeService;
 
@@ -31,14 +29,10 @@ public class BlogTypeController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "rows", required = false) Integer rows, BlogType blogType) {
-		Page p = new Page(page, rows);
-		Map<String, Object> map = new HashMap<>();
-		map.put("name", blogType.getName());
-		map.put("start", p.getStart());
-		map.put("size", p.getPageSize());
-		return blogTypeService.page(map);
+	public DataGridResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(value = "rows", required = false, defaultValue = "20") Integer rows, BlogType blogType) {
+		return blogTypeService.page(new Page<>(page, rows), //
+				new EntityWrapper<BlogType>().like("name", blogType.getName()));
 	}
 
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)

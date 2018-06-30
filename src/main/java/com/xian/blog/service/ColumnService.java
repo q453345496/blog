@@ -1,14 +1,14 @@
 package com.xian.blog.service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.xian.blog.dao.ColumnDao;
 import com.xian.blog.exception.CheckException;
 import com.xian.blog.model.Column;
@@ -20,53 +20,49 @@ public class ColumnService {
 	@Resource
 	private ColumnDao columnDao;
 
-	public List<Column> list(Map<String, Object> map) {
-		return columnDao.list(map);
-	}
-
-	public Integer getTotal(Map<String, Object> map) {
-		return columnDao.getTotal(map);
+	public List<Column> list(Wrapper<Column> wrapper) {
+		return columnDao.selectList(wrapper);
 	}
 
 	public int update(Column column) {
-		column.setModifyTime(new Date());
-		return columnDao.update(column);
+		return columnDao.updateById(column);
 	}
 
 	public int save(Column column) {
-		Column parent = columnDao.get(column.getParentId());
-		if (!parent.getIsParent()) {
-			parent.setIsParent(true);
-			columnDao.update(parent);
+		Column parent = columnDao.selectById(column.getParentId());
+		if (!parent.getParent()) {
+			parent.setParent(true);
+			columnDao.updateById(parent);
 		}
-		column.setIsParent(false);
-		Date now = new Date();
-		column.setCreateTime(now);
-		column.setModifyTime(now);
-		return columnDao.save(column);
+		column.setParent(false);
+		return columnDao.insert(column);
 	}
 
 	public void delete(Long id) {
-		Column column = columnDao.get(id);
+		Column column = columnDao.selectById(id);
 		if (column != null) {
-			if (column.getIsParent()) {
+			if (column.getParent()) {
 				throw new CheckException("该节点存在子节点，无法删除");
 			}
 			if (-1 == column.getParentId()) {
 				throw new CheckException("根节点无法删除");
 			}
-			columnDao.delete(id);
-			int subCount = columnDao.getSubCount(column.getParentId());
+			columnDao.deleteById(id);
+			int subCount = getSubCount(column.getParentId());
 			if (subCount == 0) {
 				Column parent = new Column();
 				parent.setId(column.getParentId());
-				parent.setIsParent(false);
-				columnDao.update(parent);
+				parent.setParent(false);
+				columnDao.updateById(parent);
 			}
 		}
 	}
 
 	public Column get(Long id) {
-		return columnDao.get(id);
+		return columnDao.selectById(id);
+	}
+
+	public int getSubCount(Long parentId) {
+		return columnDao.selectCount(new EntityWrapper<Column>().eq("parent_id", parentId));
 	}
 }

@@ -32,7 +32,7 @@
 	</div>
 	<div>
 		<span class="blog">分类：</span>
-		<input id="blogTypeId" name="blogType.id" type="text" />
+		<input id="blogTypeId" name="typeId" type="text" />
 		<span class="blog">权限：</span>
 		<select id="rightType" name="rightType" class="easyui-combobox" data-options="editable:false">
 			<option value="0">公开</option>
@@ -51,14 +51,14 @@
 </div>
 <script>
 $(function() {
-    $.getJSON("<%=path%>/admin/blogType/list",function(result){
-    	if(result.rows.length > 0){
-    		result.rows[0].selected=true
+    $.getJSON("<%=path%>/admin/blogType/listAll",function(result){
+    	if(result.data.length > 0){
+    		result.data[0].selected=true
     	}
         $('#blogTypeId').combobox({
             valueField : 'id',
             textField : 'name',
-            data : result.rows,
+            data : result.data,
             editable : false
         });
     });
@@ -75,7 +75,9 @@ $(function() {
 	        		$("#status").val(blog.status);
 		        	$("#title").textbox('setValue',blog.title);
 		        	$("#keyWord").textbox('setValue',blog.keyWord);
-		        	$("#blogTypeId").combobox("setValue",blog.blogType.id);
+		        	if(blog.typeId){
+			        	$("#blogTypeId").combobox("setValue",blog.typeId || "");
+		        	}
 		        	$("#rightType").combobox("setValue",blog.rightType);
 		        	ue.setContent(blog.content);
 	        	}
@@ -106,7 +108,7 @@ function saveBlog(){
 					'id': $("#blogId").val(),
 					'status': $("#status").val(),
 					'title' : title,
-					'blogType.id' : blogTypeId,
+					'typeId' : blogTypeId,
 					'rightType' : rightType,
 					'content' : content,
 					'keyWord' : keyWord

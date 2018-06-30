@@ -2,13 +2,15 @@ package com.xian.blog.model;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Blog {
 	public static final int OFFLINE = -1;
 	public static final int DRAFT = 0;
 	public static final int ONLINE = 1;
-	
+	@TableId
 	private Long id;
 	private String title;// 标题
 	private String content;// 内容
@@ -23,11 +25,16 @@ public class Blog {
 	private Date modifyTime;
 
 	private String summary;// 摘要,内容的前n个字符
-
-	private BlogType blogType; // 博客类型
+	
+	@TableField(exist = false)
+	private String typeName;
+	
 	private Long typeId;
+	
+	@TableField(exist = false)
 	private String contentNoTag;// 内容无标签,方便分词
-
+	
+	@TableField(exist = false)
 	private String thumb;//缩略图
 
 	public Long getId() {
@@ -118,12 +125,12 @@ public class Blog {
 		this.modifyTime = modifyTime;
 	}
 
-	public BlogType getBlogType() {
-		return blogType;
+	public String getTypeName() {
+		return typeName;
 	}
 
-	public void setBlogType(BlogType blogType) {
-		this.blogType = blogType;
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 
 	public String getThumb() {

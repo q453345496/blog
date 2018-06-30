@@ -3,19 +3,13 @@ package com.xian.blog.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.model.Blog;
 
-public interface BlogDao {
+public interface BlogDao extends BaseMapper<Blog> {
 
-	public List<Blog> list(Map<String, Object> map);
+	public List<Blog> list(Page<Blog> page, Map<String, Object> map);
 
-	public Integer getTotal(Map<String, Object> map);
-
-	public int update(Blog blog);
-
-	public int save(Blog blog);
-
-	public int delete(Long id);
-
-	public Blog get(Long id);
+	public Blog detail(Long id);
 }

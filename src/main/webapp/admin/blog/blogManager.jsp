@@ -42,7 +42,7 @@ $(function() {
              {field : 'title',	title : '标题',	width:100,	align:'center'},
              {field : 'blogTypeName',	title : '分类',	width:30,	align:'center', 
             	formatter: function(value,row,index){
-            		return row.blogType ? row.blogType.name : "";
+            		return row.typeId ? row.typeName : "";
             	}
              },
              {field : 'createTime',	title : '发布时间',	width:100,	align:'center'},

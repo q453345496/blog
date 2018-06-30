@@ -2,20 +2,30 @@ package com.xian.blog.model;
 
 import java.util.Date;
 
-import org.apache.commons.lang3.StringUtils;
-
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.xian.blog.util.URLSerializer;
 
 public class BlogType {
+	@TableId
 	private Long id;
 	private String name;// 标题
 	private Integer rank;// 序号
+
+	@JsonSerialize(using = URLSerializer.class)
 	private String imgPath;
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
 	private Date createTime;
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	@TableField(value = "modify_time", fill = FieldFill.INSERT_UPDATE)
 	private Date modifyTime;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -64,10 +74,4 @@ public class BlogType {
 		this.modifyTime = modifyTime;
 	}
 
-	public String getImgURL() {
-		if(StringUtils.isBlank(imgPath)){
-			return imgPath;
-		}
-		return "http://192.168.15.165:80/xian_test/"+imgPath;
-	}
 }

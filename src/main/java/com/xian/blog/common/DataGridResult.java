@@ -7,22 +7,17 @@ import java.util.List;
  * 
  */
 public final class DataGridResult {
-	private int total;
+	private long total;
 	private List<?> rows;
 
 	public DataGridResult() {
 	}
 
-	public DataGridResult(int total, List<?> rows) {
-		this.total = total;
-		this.rows = rows;
-	}
-
-	public int getTotal() {
+	public long getTotal() {
 		return total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(long total) {
 		this.total = total;
 	}
 

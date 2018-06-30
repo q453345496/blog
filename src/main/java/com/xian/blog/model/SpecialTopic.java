@@ -2,9 +2,13 @@ package com.xian.blog.model;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SpecialTopic {
+	@TableId
 	private Long id;
 	private String name;
 	private Integer click;
@@ -12,8 +16,10 @@ public class SpecialTopic {
 	private Integer rank;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	@TableField(value = "modify_time", fill = FieldFill.INSERT_UPDATE)
 	private Date modifyTime;
 	
 	public Long getId() {

@@ -4,19 +4,10 @@
 
 	<resultMap type="Blog" id="BlogResult" autoMapping="true">
 		<id property="id" column="id" />
-<!-- 		<result property="title" column="title" /> -->
-<!-- 		<result property="keyWord" column="key_word" /> -->
-<!-- 		<result property="summary" column="summary" /> -->
-<!-- 		<result property="content" column="content" /> -->
-<!-- 		<result property="rightType" column="right_type" /> -->
-<!-- 		<result property="reply" column="reply" /> -->
-<!-- 		<result property="click" column="click" /> -->
-<!-- 		<result property="createTime" column="create_time" /> -->
-<!-- 		<result property="modifyTime" column="modify_time" /> -->
-		<association property="blogType" javaType="BlogType">
-			<id property="id" column="type_id"/>
-			<result property="name" column="type_name" />
-		</association>
+<!-- 		<association property="blogType" javaType="BlogType"> -->
+<!-- 			<id property="id" column="type_id"/> -->
+<!-- 			<result property="name" column="type_name" /> -->
+<!-- 		</association> -->
 	</resultMap>
 
 	<sql id="sql_select">
@@ -40,99 +31,28 @@
 		b.type_id = t.id
 	</sql>
 
-	<select id="get" parameterType="Long" resultMap="BlogResult">
-		<include refid="sql_select"></include>
-		WHERE b.id = #{id}
-	</select>
-
+	<sql id="sql_where">
+		<if test="title != null and title != '' ">
+			AND b.title LIKE CONCAT('%', #{title}, '%')
+		</if>
+		<if test="typeId != null">
+			AND b.type_id = #{typeId}
+		</if>
+		<if test="status != null">
+			AND b.`status` = #{status}
+		</if>
+	</sql>
+	
 	<select id="list" parameterType="Map" resultMap="BlogResult">
 		<include refid="sql_select"></include>
 		<where>
-			<if test="title != null and title != '' ">
-				AND b.title LIKE CONCAT('%', #{title}, '%')
-			</if>
-			<if test="typeId != null">
-				AND b.type_id = #{typeId}
-			</if>
-			<if test="status != null">
-				AND b.`status` = #{status}
-			</if>
-		</where>
-		<choose>
-			<when test="orderByCause != null and orderByCause != ''">
-				ORDER BY ${orderByCause}
-			</when>
-			<otherwise>
-				ORDER BY b.create_time DESC
-			</otherwise>
-		</choose>
-		<if test="start != null and size != null">
-			LIMIT #{start}, #{size}
-		</if>
-	</select>
-
-	<select id="getTotal" parameterType="Map" resultType="Integer">
-		SELECT COUNT(1) FROM t_blog b
-		<where>
-			<if test="title != null and title != '' ">
-				AND b.title LIKE CONCAT('%', #{title}, '%')
-			</if>
-			<if test="typeId != null">
-				AND b.type_id = #{typeId}
-			</if>
-			<if test="status != null">
-				AND b.`status` = #{status}
-			</if>
+			<include refid="sql_where"></include>
 		</where>
 	</select>
-
-	<insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO t_blog (title, type_id, key_word, summary, content, right_type, `status`, create_time, modify_time)
-		VALUES
-		(#{title}, #{blogType.id}, #{keyWord}, #{summary}, #{content}, #{rightType}, #{status}, #{createTime}, #{modifyTime})
-	</insert>
-
-	<update id="update" parameterType="Blog">
-		UPDATE t_blog
-		<set>
-			<if test="title != null and title != '' ">
-				title = #{title},
-			</if>
-			<if test="blogType.id != null ">
-				type_id = #{blogType.id},
-			</if>
-			<if test="status != null ">
-				`status` = #{status},
-			</if>
-			<if test="keyWord != null and keyWord != '' ">
-				key_word = #{keyWord},
-			</if>
-			<if test="summary != null and summary != '' ">
-				summary = #{summary},
-			</if>
-			<if test="content != null and content != '' ">
-				content = #{content},
-			</if>
-			<if test="rightType != null ">
-				right_type = #{rightType},
-			</if>
-			<if test="click != null ">
-				click = #{click},
-			</if>
-			<if test="reply != null ">
-				reply = #{reply},
-			</if>
-			<if test="createTime != null ">
-				create_time = #{createTime},
-			</if>
-			<if test="modifyTime != null ">
-				modify_time = #{modifyTime},
-			</if>
-		</set>
-		WHERE id = #{id}
-	</update>
-
-	<delete id="delete" parameterType="Long">
-		DELETE FROM t_blog WHERE id = #{id}
-	</delete>
+	
+	<select id="detail" parameterType="Long" resultMap="BlogResult">
+		<include refid="sql_select"></include>
+		WHERE b.id = #{id}
+	</select>
+	
 </mapper> 

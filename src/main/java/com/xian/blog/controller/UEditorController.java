@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +27,7 @@ public class UEditorController {
 	@Resource
 	private AttachmentService attachmentService;
 
-	@RequestMapping(value = "/uploadImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/uploadImage")
 	@ResponseBody
 	public UEditorResult uploadImage(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
 			@RequestParam("bizType") String bizType) {
@@ -40,7 +39,7 @@ public class UEditorController {
 		}
 	}
 
-	@RequestMapping(value = "/uploadVideo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/uploadVideo")
 	@ResponseBody
 	public UEditorResult uploadVideo(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
 			@RequestParam("bizType") String bizType) {
@@ -52,7 +51,7 @@ public class UEditorController {
 		}
 	}
 
-	@RequestMapping(value = "/uploadFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/uploadFile")
 	@ResponseBody
 	public UEditorResult uploadFile(@RequestParam("upfile") MultipartFile upfile, @RequestParam("bizId") String bizId,
 			@RequestParam("bizType") String bizType) {
@@ -64,13 +63,13 @@ public class UEditorController {
 		}
 	}
 
-	@RequestMapping(value = "/listFile", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/listFile")
 	@ResponseBody
 	public UEditorListResult listFile() {
 		return UEditorListResult.error();//不提供服务
 	}
 
-	@RequestMapping(value = "/listImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/listImage")
 	@ResponseBody
 	public UEditorListResult listImage() {
 		return UEditorListResult.error();//不提供服务
@@ -79,7 +78,7 @@ public class UEditorController {
 	/**
 	 * 不使用(@RequestParam("sources[]") String[] resources) 参数是因为地址中可能带有逗号，导致出现问题
 	 */
-	@RequestMapping(value = "/catchImage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/catchImage")
 	@ResponseBody
 	public UEditorCatchResult catchImage(@RequestParam("bizId") String bizId, @RequestParam("bizType") String bizType,
 			HttpServletRequest request) {

@@ -1,9 +1,8 @@
 package com.xian.blog.service;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.DataGridResult;
 import com.xian.blog.constants.FTPConstant;
 import com.xian.blog.dao.BlogTypeDao;
@@ -25,19 +26,16 @@ public class BlogTypeService {
 	@Resource
 	private BlogTypeDao blogTypeDao;
 
-	public List<BlogType> list(Map<String, Object> map) {
-		return blogTypeDao.list(map);
+	public List<BlogType> list(Wrapper<BlogType> wrapper) {
+		return blogTypeDao.selectList(wrapper);
 	}
 
-	public DataGridResult page(Map<String, Object> map) {
+	public DataGridResult page(Page<BlogType> page, Wrapper<BlogType> wrapper) {
 		DataGridResult vo = new DataGridResult();
-		vo.setTotal(getTotal(map));
-		vo.setRows(list(map));
+		List<BlogType> datas = blogTypeDao.selectPage(page, wrapper);
+		vo.setTotal(page.getTotal());
+		vo.setRows(datas);
 		return vo;
-	}
-
-	public Integer getTotal(Map<String, Object> map) {
-		return blogTypeDao.getTotal(map);
 	}
 
 	public int update(BlogType blogType, MultipartFile img) {
@@ -53,8 +51,7 @@ public class BlogTypeService {
 				FtpAdapter.close(ftpAdapter);
 			}
 		}
-		blogType.setModifyTime(new Date());
-		return blogTypeDao.update(blogType);
+		return blogTypeDao.updateById(blogType);
 	}
 
 	public int save(BlogType blogType, MultipartFile img) {
@@ -68,23 +65,19 @@ public class BlogTypeService {
 				throw new FtpException("上传失败", e);
 			}
 		}
-		Date now = new Date();
-		blogType.setCreateTime(now);
-		blogType.setModifyTime(now);
-		return blogTypeDao.save(blogType);
+		return blogTypeDao.insert(blogType);
 	}
 
 	public int delete(Long id) {
-		return blogTypeDao.delete(id);
+		return blogTypeDao.deleteById(id);
 	}
 
 	public BlogType get(Long id) {
-		return blogTypeDao.get(id);
+		return blogTypeDao.selectById(id);
 	}
 	
 	public void delete(Long[] ids) {
-		for (Long id : ids) {
-			blogTypeDao.delete(id);
-		}
+		blogTypeDao.deleteBatchIds(Arrays.asList(ids));
 	}
+	
 }

@@ -1,9 +1,5 @@
 package ${packageName}.controller${manager ? ".manager" : "" };
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -13,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import ${packageName}.common.CommonResult;
 <%if(!isTree){%>
 import ${packageName}.common.DataGridResult;
-import ${packageName}.common.Page;
 <%}%>
 import ${packageName}.model.${Model};
 import ${packageName}.service.${ModelService};
@@ -31,21 +28,15 @@ public class ${ModelController} {
 	@RequestMapping(value = "/tree", method = RequestMethod.GET)
 	@ResponseBody
 	public List<${Model}> tree(@RequestParam(value = "id", required = false, defaultValue = "-1") Long parentId) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("parentId", parentId);
-		List<${Model}> list = ${modelService}.list(map);
+		List<${Model}> list = ${modelService}.list(new EntityWrapper<${Model}>().eq("parent_id", parentId));
 		return list;
 	}
 	<%} else {%>
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "rows", required = false) Integer rows, ${Model} ${model}) {
-		Page p = new Page(page, rows);
-		Map<String, Object> map = new HashMap<>();
-		map.put("start", p.getStart());
-		map.put("size", p.getPageSize());
-		return ${modelService}.page(map);
+	public DataGridResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(value = "rows", required = false, defaultValue = "20") Integer rows, ${Model} ${model}) {
+		return ${modelService}.page(new Page<${Model}>(page, rows), new EntityWrapper<${Model}>(${model}));
 	}
 	<%}%>
 

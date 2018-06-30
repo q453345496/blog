@@ -17,10 +17,10 @@ public class ${Model} {
 	private Boolean parent;
 	<%}%>
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	@TableField(value = "create_time", fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT)
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	@TableField(value = "modify_time", fill = FieldFill.INSERT_UPDATE)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date modifyTime;
 	
 	public Long getId() {

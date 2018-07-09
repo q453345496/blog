@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,10 +71,15 @@ public class BlogService {
 			blog = new Blog();
 			blog.setTitle("");
 			blog.setStatus(Blog.DRAFT);
+			blog.setContent("");
 			blogDao.insert(blog);
 			return blog.getId();
 		} else {
 			return blog.getId();
 		}
+	}
+
+	public void delete(Long[] ids) {
+		blogDao.deleteBatchIds(Arrays.asList(ids));
 	}
 }

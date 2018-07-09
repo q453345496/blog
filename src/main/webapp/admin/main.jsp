@@ -21,13 +21,13 @@
 				<a href="#" onclick="openTab('参数管理','<%=path%>/admin/param/param.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">参数管理</a>
 				<a href="#" onclick="openTab('参数类型管理','<%=path%>/admin/param/paramType.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">参数类型管理</a>
 			</div>
-			<div title="权限管理" style="padding:10px">
-				<a href="#" onclick="openTab('角色管理','<%=path%>/admin/role/role.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">角色管理</a>
-			</div>
-			<div title="理财管理" style="padding:10px">
-				<a href="#" onclick="openTab('支出分类','<%=path%>/admin/journalCategory/journalCategory.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">支出分类</a>
-				<a href="#" onclick="openTab('收入分类','<%=path%>/admin/incomeCategoryManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">收入分类</a>
-			</div>
+<!-- 			<div title="权限管理" style="padding:10px"> -->
+<%-- 				<a href="#" onclick="openTab('角色管理','<%=path%>/admin/role/role.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">角色管理</a> --%>
+<!-- 			</div> -->
+<!-- 			<div title="理财管理" style="padding:10px"> -->
+<%-- 				<a href="#" onclick="openTab('支出分类','<%=path%>/admin/journalCategory/journalCategory.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">支出分类</a> --%>
+<%-- 				<a href="#" onclick="openTab('收入分类','<%=path%>/admin/incomeCategoryManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">收入分类</a> --%>
+<!-- 			</div> -->
 			<div title="博客管理" style="padding:10px">
 				<a href="#" onclick="openTab('文章列表','<%=path%>/admin/blog/blogManager.jsp','fa fa-file-word-o')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-word-o'">文章列表</a>
 				<a href="#" onclick="openTab('文章分类管理','<%=path%>/admin/blogType/blogTypeManager.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">文章分类管理</a>

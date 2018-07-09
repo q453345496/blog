@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,8 +51,8 @@ public class ParamTypeService {
 		return paramTypeDao.insert(paramType);
 	}
 
-	public int delete(Long id) {
-		return paramTypeDao.deleteById(id);
+	public int delete(Long[] ids) {
+		return paramTypeDao.deleteBatchIds(Arrays.asList(ids));
 	}
 
 	public ParamType get(Long id) {

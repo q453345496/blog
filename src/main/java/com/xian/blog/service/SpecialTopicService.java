@@ -1,5 +1,6 @@
 package com.xian.blog.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -40,8 +41,8 @@ public class SpecialTopicService {
 		return specialTopicDao.insert(specialTopic);
 	}
 
-	public int delete(Long id) {
-		return specialTopicDao.deleteById(id);
+	public int delete(Long[] ids) {
+		return specialTopicDao.deleteBatchIds(Arrays.asList(ids));
 	}
 
 	public SpecialTopic get(Long id) {

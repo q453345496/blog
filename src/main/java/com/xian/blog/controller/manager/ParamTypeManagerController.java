@@ -56,7 +56,7 @@ public class ParamTypeManagerController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {
+	public CommonResult delete(Long[] id) {
 		paramTypeService.delete(id);
 		return CommonResult.success();
 	}

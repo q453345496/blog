@@ -45,7 +45,7 @@
 						<tr>
 							<td>简介:</td>
 							<td>
-								<textarea  name="summary" class="easyui-textbox" data-options="required:true,multiline:true" style="width:100%"></textarea>
+								<textarea  name="summary" class="easyui-textbox" data-options="required:false,multiline:true" style="width:100%"></textarea>
 							</td>
 						</tr>
 					</table>
@@ -88,6 +88,7 @@
 						},
 						method : 'GET',
 						columns : [[ 
+							{field : 'ck',	checkbox : true}, 
 							{
 	  							field : 'key',
 	  							title : '参数key',
@@ -111,7 +112,7 @@
 	  						},
 						]],
 						toolbar : '#paramDataGridToolbar',
-						singleSelect : true,
+						singleSelect : false,
 						pagination : true,
 						rownumbers : true,
 						fitColumns : true,
@@ -129,6 +130,7 @@
 		}
 
 		function paramEditFunc(index){
+			$('#paramDataGrid').datagrid('unselectAll');
 			$('#paramDataGrid').datagrid('selectRow', index);
 			var row = $('#paramDataGrid').datagrid('getSelected');
 			if (row){
@@ -136,6 +138,7 @@
 				$('#paramForm').form('load',row);
 				paramSubmitUrl = basePath + "/admin/param/update";
 			}
+			event.stopPropagation();
 		}
 		function paramSaveFunc(){
 			$('#paramForm').form('submit',{
@@ -161,11 +164,11 @@
 			});
 		}
 		function paramDeleteFunc(){
-			var row = $('#paramDataGrid').datagrid('getSelected');
-			if (row){
+			var ids = concatIds('#paramDataGrid');
+			if (ids != ''){
 				$.messager.confirm('提示','真的要删除这个参数吗?',function(r){
 					if (r){
-						$.post(basePath + '/admin/param/delete',{id:row.id},function(result){
+						$.post(basePath + '/admin/param/delete',{id:ids},function(result){
 							if (result.status == 0){
 								$('#paramDataGrid').datagrid('reload');
 							} else {

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Blog {
@@ -20,8 +21,10 @@ public class Blog {
 	private Integer reply;
 	private Integer status;//-1草稿,1正式
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	@TableField(value = "create_time", fill = FieldFill.INSERT)
 	private Date createTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+	@TableField(value = "modify_time", fill = FieldFill.INSERT_UPDATE)
 	private Date modifyTime;
 
 	private String summary;// 摘要,内容的前n个字符

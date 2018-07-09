@@ -55,7 +55,7 @@ public class SpecialTopicManagerController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult delete(@RequestParam(value = "id", required = true) Long id) {
+	public CommonResult delete(Long[] id) {
 		specialTopicService.delete(id);
 		return CommonResult.success();
 	}

@@ -47,7 +47,7 @@ $(function() {
 		title : '专题列表',
 		url : basePath + '/admin/specialTopic/list',
 		columns : [[ 
-//			{field : 'ck',	checkbox : true}, 
+			{field : 'ck',	checkbox : true}, 
 			{
 				field : 'id',
 				title : '编号',
@@ -99,7 +99,7 @@ $(function() {
 		]],
 		toolbar : '#specialTopicDataGridToolbar',
 		method : 'GET',
-		singleSelect : true,
+		singleSelect : false,
 		pagination : true,
 		rownumbers : true,
 		fitColumns : true,
@@ -116,6 +116,7 @@ function specialTopicOpenDialogFunc(){
 }
 
 function specialTopicEditFunc(index){
+	$('#specialTopicDataGrid').datagrid('unselectAll');
 	$('#specialTopicDataGrid').datagrid('selectRow', index);
 	var row = $('#specialTopicDataGrid').datagrid('getSelected');
 	if (row){
@@ -123,6 +124,7 @@ function specialTopicEditFunc(index){
 		$('#specialTopicForm').form('load',row);
 		specialTopicSubmitUrl = basePath + "/admin/specialTopic/update";
 	}
+	event.stopPropagation();
 }
 function specialTopicSaveFunc(){
 	$('#specialTopicForm').form('submit',{
@@ -145,11 +147,11 @@ function specialTopicSaveFunc(){
 	});
 }
 function specialTopicDeleteFunc(){
-	var row = $('#specialTopicDataGrid').datagrid('getSelected');
-	if (row){
+	var ids = concatIds('#specialTopicDataGrid');
+	if (ids != ''){
 		$.messager.confirm('提示','真的要删除这个专题吗?',function(r){
 			if (r){
-				$.post(basePath + '/admin/specialTopic/delete',{id:row.id},function(result){
+				$.post(basePath + '/admin/specialTopic/delete',{id:ids},function(result){
 					if (result.status == 0){
 						$('#specialTopicDataGrid').datagrid('reload');
 					} else {

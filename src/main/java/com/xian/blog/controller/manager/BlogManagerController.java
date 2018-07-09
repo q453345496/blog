@@ -76,4 +76,11 @@ public class BlogManagerController {
 		mv.addObject("id", id);
 		return mv;
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult delete(Long[] id) {
+		blogService.delete(id);
+		return CommonResult.success();
+	}
 }

@@ -47,7 +47,7 @@ $(function() {
 		title : '参数类型列表',
 		url : basePath + '/admin/paramType/list',
 		columns : [[ 
-//			{field : 'ck',	checkbox : true}, 
+			{field : 'ck',	checkbox : true}, 
 // 			{
 // 				field : 'id',
 // 				title : '编号',
@@ -72,7 +72,7 @@ $(function() {
 		]],
 		toolbar : '#paramTypeDataGridToolbar',
 		method : 'GET',
-		singleSelect : true,
+		singleSelect : false,
 		pagination : true,
 		rownumbers : true,
 		fitColumns : true,
@@ -89,6 +89,7 @@ function paramTypeOpenDialogFunc(){
 }
 
 function paramTypeEditFunc(index){
+	$('#paramTypeDataGrid').datagrid('unselectAll');
 	$('#paramTypeDataGrid').datagrid('selectRow', index);
 	var row = $('#paramTypeDataGrid').datagrid('getSelected');
 	if (row){
@@ -96,6 +97,7 @@ function paramTypeEditFunc(index){
 		$('#paramTypeForm').form('load',row);
 		paramTypeSubmitUrl = basePath + "/admin/paramType/update";
 	}
+	event.stopPropagation();
 }
 function paramTypeSaveFunc(){
 	$('#paramTypeForm').form('submit',{
@@ -118,11 +120,11 @@ function paramTypeSaveFunc(){
 	});
 }
 function paramTypeDeleteFunc(){
-	var row = $('#paramTypeDataGrid').datagrid('getSelected');
-	if (row){
+	var ids = concatIds('#paramTypeDataGrid');
+	if (ids != ''){
 		$.messager.confirm('提示','真的要删除这个参数类型吗?',function(r){
 			if (r){
-				$.post(basePath + '/admin/paramType/delete',{id:row.id},function(result){
+				$.post(basePath + '/admin/paramType/delete',{id:ids},function(result){
 					if (result.status == 0){
 						$('#paramTypeDataGrid').datagrid('reload');
 					} else {

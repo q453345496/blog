@@ -45,7 +45,7 @@ public class RegexUtils {
 		}
 		return Collections.emptyList();
 	}
-	
+
 	public static List<String> getAllImg(String text) {
 		if (StringUtils.isNotBlank(text)) {
 			Matcher matcher = IMG_PATTERN.matcher(text);
@@ -57,7 +57,19 @@ public class RegexUtils {
 		}
 		return Collections.emptyList();
 	}
-	
+
+	public static List<String> getAllImgFromMarkdown(String text) {
+		if (StringUtils.isNotBlank(text)) {
+			List<String> imgs = new ArrayList<>();
+			Matcher matcher = Pattern.compile("\\!\\[.*]\\((.+?)(\\s+\".*?\")?\\)").matcher(text);
+			while (matcher.find()) {
+				imgs.add(matcher.group(1));
+			}
+			return imgs;
+		}
+		return Collections.emptyList();
+	}
+
 	public static String getSrc(String text) {
 		if (StringUtils.isNotBlank(text)) {
 			Matcher matcher = SRC_PATTERN.matcher(text);
@@ -80,12 +92,22 @@ public class RegexUtils {
 		return sb.toString();
 	}
 
+	public static String getNoTagMarkdownContent(String content) {
+		if (StringUtils.isBlank(content)) {
+			return content;
+		}
+		return content.replaceAll("#|\\*", "")//标题、粗体
+				.replaceAll("\r|\n|\t|\\s{2,}", "")//代码缩进留空格
+				.replaceAll("\\|.*\\|", "")//表格内容,虽然是贪婪匹配,但是对于摘要来说一般不影响
+				.replaceAll("\\[TOC\\]", "");//TOC
+	}
+
 	public static void main(String[] args) {
+
 		try {
-			String text = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\Desktop\\test.html"));
-			System.out.println("==========");
+			String text = FileUtils.readFileToString(new File("C:\\Users\\Administrator\\Desktop\\name.html"));
 			System.out.println(getNoTagContent(text));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

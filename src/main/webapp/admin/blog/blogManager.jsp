@@ -57,7 +57,7 @@ $(function() {
              	}
              },
         ]],
-        blogDataGridToolbar: '#blogDataGridToolbar',
+        toolbar: '#blogDataGridToolbar',
         method : 'GET',
         singleSelect : false,
         pagination : true,

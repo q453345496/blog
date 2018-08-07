@@ -1,7 +1,6 @@
 package com.xian.blog.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

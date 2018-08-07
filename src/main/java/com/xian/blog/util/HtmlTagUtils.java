@@ -39,7 +39,7 @@ public class HtmlTagUtils {
 		if (currentPage == totalPage) {
 			createPageLi(sb, "下一页", totalPage, otherParam, DISABLED);
 		} else {
-			createPageLi(sb, "下" + "一页", currentPage + 1, otherParam, EMPTY);
+			createPageLi(sb, "下一页", currentPage + 1, otherParam, EMPTY);
 		}
 		createPageLi(sb, "尾页", totalPage, otherParam, EMPTY);
 		return sb.toString();

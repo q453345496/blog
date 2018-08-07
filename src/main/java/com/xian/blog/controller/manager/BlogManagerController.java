@@ -44,8 +44,10 @@ public class BlogManagerController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult save(Blog blog) {
-		String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
-		blog.setSummary(StringUtils.substring(contentNoTag, 0, 200));
+		if (StringUtils.isBlank(blog.getSummary())) {
+			String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
+			blog.setSummary(StringUtils.substring(contentNoTag, 0, 200));
+		}
 		if (Blog.DRAFT == blog.getStatus()) {//草稿的保存后成为正式使用
 			blog.setStatus(Blog.ONLINE);
 		}
@@ -72,7 +74,7 @@ public class BlogManagerController {
 	@RequestMapping(value = "/toEdit/{id}")
 	public ModelAndView toEditPage(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/admin/blog/modifyBlog");
+		mv.setViewName("/admin/blog/modifyBlog2");
 		mv.addObject("id", id);
 		return mv;
 	}

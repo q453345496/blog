@@ -1,6 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	String path = request.getContextPath();
+%>
 <style>
 .blog-detail{
 	background:#fff;
@@ -36,9 +39,34 @@
 				<span class="muted"><i class="fa fa-eye"></i>浏览（${blog.click }）</span>
 			</div>
 		</div>
-		<div class="content">
-			${blog.content }
+		<div id="doc-content" class="content">
+			<textarea style="display:none;">${blog.content }</textarea>
 		</div>
 		<div class="keyword"></div>
 	</div>
 </div>
+<link rel="stylesheet" href="<%=path%>/resources/editor/css/editormd.min.css" />
+<script src="<%=path%>/resources/editor/editormd.js"></script>
+<script src="<%=path%>/resources/editor/lib/marked.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/prettify.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/raphael.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/underscore.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/sequence-diagram.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>
+
+<script type="text/javascript">
+    var testEditor;
+    $(function () {
+        testEditor = editormd.markdownToHTML("doc-content",{
+// 			htmlDecode : true,
+			htmlDecode : "style,script,sub,sup|on*",
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+        });
+    });
+ </script>

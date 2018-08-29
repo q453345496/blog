@@ -9,7 +9,7 @@
 body {
 	background-color: #f6f6f6;
 	font: 14px/1.8 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53';
-    color: #666;
+    color: #555;
 }
 .header{
 	background-color: #fff;
@@ -110,6 +110,7 @@ body {
         
         </div>
 	</div>
+	
 	<footer class="footer">
 		<p>
 			Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a>
@@ -119,37 +120,6 @@ body {
 			<a href="#">Back to top</a>
 		</p>
 	</footer>
-	<script type="text/javascript">
-	
-	$(window).scroll(function(){
-		var lastElement = $(".widget:last");
-		var sideHeight = lastElement.outerHeight();//侧边栏的高度
-		var sideWidth = lastElement.outerWidth();//侧边栏的宽度
-		var position = lastElement.offset();
-		
-		var scrollTop = $(window).scrollTop();//滚动高度
-		if(scrollTop > sideHeight + position.top + 15){
-			var ads = $(".widget-ad");
-			var fromTop = 0;
-			for(var i = 0 ; i < ads.length; i++){
-				$(ads[i]).css({
-					"position":"fixed",
-					"left": position.left,
-					"top": i == 0 ? 10 : 10 + fromTop,
-					"width": sideWidth,
-				});
-				console.log($(ads[i]).height())
-				fromTop += $(ads[i]).height() + 15;
-			}
-		} else {
-			var ads = $(".widget-ad");
-			for(var i = 0 ; i < ads.length; i++){
-				$(ads[i]).css({
-					"position":"static",
-				});
-			}
-		}
-	})
-	</script>
+
 </body>
 </html>

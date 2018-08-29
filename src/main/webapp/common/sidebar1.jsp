@@ -7,7 +7,6 @@
 	margin-bottom: 15px;
 	border: none;
 	border-radius: 4px;
- 	border: 1px solid #eaeaea;
 }
 .widget a{
 	text-decoration: none;
@@ -87,6 +86,9 @@
     margin-bottom: 0;
 }
 
+.widget-post{
+ 	border: 1px solid #eaeaea;
+}
 .widget-post li{
 	line-height: 30px;
 }
@@ -193,3 +195,35 @@
 		</li>
 	</ul>
 </div>
+
+<script type="text/javascript">
+
+// $(window).scroll(function(){
+// 	var lastElement = $(".widget:last");
+// 	var sideHeight = lastElement.outerHeight();//侧边栏的高度
+// 	var sideWidth = lastElement.outerWidth();//侧边栏的宽度
+// 	var position = lastElement.offset();
+	
+// 	var scrollTop = $(window).scrollTop();//滚动高度
+// 	if(scrollTop > sideHeight + position.top){
+// 		var ads = $(".widget-ad");
+// 		var fromTop = 0;
+// 		for(var i = 0 ; i < ads.length; i++){
+// 			$(ads[i]).css({
+// 				"position":"fixed",
+// 				"left": position.left,
+// 				"top": i == 0 ? 10 : 10 + fromTop,
+// 				"width": sideWidth,
+// 			});
+// 			fromTop += $(ads[i]).height() + 15;
+// 		}
+// 	} else {
+// 		var ads = $(".widget-ad");
+// 		for(var i = 0 ; i < ads.length; i++){
+// 			$(ads[i]).css({
+// 				"position":"static",
+// 			});
+// 		}
+// 	}
+// })
+</script>

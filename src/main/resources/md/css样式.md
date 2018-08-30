@@ -94,3 +94,46 @@ html片段
 	</a>
 ```
 此时aaa显示蓝色，bbb显示绿色，当鼠标悬停时在a标签的任意位置，aaa显示为红色，而bbb依旧是绿色
+
+#关于清楚浮动效果
+可以通过添加伪类来控制
+```
+.container:before,.container:after{
+
+display:table;
+
+content:"";
+
+clear: both;
+
+}
+```
+
+#导航栏
+1. 传统使用float来实现导航栏
+```
+li {
+    list-style-type: none;
+    width:100px;
+    background: pink;
+    margin:10px;
+    text-align: center;
+    **float:left**;
+}
+```
+
+2. 使用flex来实现导航栏
+```
+ul {
+    **display:flex**;
+    align-content:center;
+    margin:10px;
+}
+li {
+    list-style-type: none;
+    width:100px;
+    background: pink;
+    margin:10px;
+    text-align: center;
+}
+```

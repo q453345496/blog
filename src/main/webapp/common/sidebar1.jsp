@@ -93,7 +93,7 @@
 	line-height: 30px;
 }
 .widget-post li a{
-	color: #888;
+	color: #999;
 	font-size: 14px;
 	padding: 10px 15px;
 }
@@ -103,12 +103,14 @@
 .widget-post a:hover {
     color: #ea4c89;
 }
+
 </style>
-<div class="widget widget-ad widget-ad-img">
-	<div class="item">
-		<a href="http://www.daqianduan.com/go/keqqnext" target="_blank"><img src="http://www.daqianduan.com/wp-content/uploads/2018/08/next-1.png"></a>
-	</div>
-</div>
+
+<!-- <div class="widget widget-ad widget-ad-img"> -->
+<!-- 	<div class="item"> -->
+<!-- 		<a href="http://www.daqianduan.com/go/keqqnext" target="_blank"><img src="http://www.daqianduan.com/wp-content/uploads/2018/08/next-1.png"></a> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 <div class="widget widget-ad widget-ad-text">
 	<div class="item">

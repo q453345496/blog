@@ -11,11 +11,18 @@ body {
 	font: 14px/1.8 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53';
     color: #555;
 }
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+}
 .header{
 	background-color: #fff;
 	margin-bottom: 15px;
 	border-bottom: 1px solid #EAEAEA;
 }
+
 .footer {
 	padding: 2.5rem 0;
 	background-color: #f9f9f9;
@@ -41,35 +48,67 @@ body {
 	font-size: 26px;
     line-height: 36px;
 }
+
+.header-nav{
+	font-size: 18px;
+}
+.header-nav a{
+	color: #666;
+}
+.header-nav a:hover {
+    color: #45B6F7;
+    text-decoration: none;
+}
+
+.header-nav ul{
+	display:flex;
+	margin-bottom: 0px;
+}
+
+.header-nav ul li{
+	list-style: none;
+	padding: 20px;
+
+}
+
 </style>
 </head>
 <body>
 	<header class="header">
 		<div class="container">
-			<h1>The Blog</h1>
-			<div class=""></div>
-			<nav class="navbar navbar-expand-md">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="#">首页</a>
-				</li>
-				
-				<li class="nav-item">
-					<a class="nav-link" href="#">Link 2</a>
-				</li>
-				
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					  Dropdown link
-					</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Link 1</a>
-						<a class="dropdown-item" href="#">Link 2</a>
-						<a class="dropdown-item" href="#">Link 3</a>
-					</div>
-				</li>
-			</ul>
-			</nav>
+			<div>
+				<nav class="header-nav">
+					<ul>
+						<li class="">
+							<a class="" href="#">首页</a>
+						</li>
+						
+						<li class="">
+							<a class="" href="#">前端开发</a>
+						</li>
+						<li class="">
+							<a class="" href="#">后台开发</a>
+						</li>
+						<li class="">
+							<a class="" href="#">html</a>
+						</li>
+						<li class="">
+							<a class="" href="#">css</a>
+						</li>
+						
+						<li class="dropdown">
+							<a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+							  其它
+							</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">Link 1</a>
+								<a class="dropdown-item" href="#">Link 2</a>
+								<a class="dropdown-item" href="#">Link 3</a>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div>
 		</div>
 	</header>
 	<div role="main" class="container">

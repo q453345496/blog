@@ -60,6 +60,14 @@ flex-wrap 属性用于指定弹性盒子的子元素换行方式
 
 ###flex属性
 flex 属性用于指定弹性子元素如何分配空间
+语法:`flex: auto | initial | none | inherit |  [ flex-grow ] || [ flex-shrink ] || [ flex-basis ]`
+- `auto`: 计算值为 1 1 auto
+- `initial`: 计算值为 0 1 auto
+- `none`：计算值为 0 0 auto
+- `inherit`：从父元素继承
+- `flex-grow`：定义弹性盒子元素的扩展比率。
+- `flex-shrink`：定义弹性盒子元素的收缩比率。
+- `flex-basis`：定义弹性盒子元素的默认基准值。
 
 ```
 .item1 {

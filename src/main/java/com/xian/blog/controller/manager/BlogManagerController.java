@@ -66,7 +66,7 @@ public class BlogManagerController {
 	public ModelAndView toAddPage() {
 		Long draftId = blogService.getDraftId();
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/admin/blog/modifyBlog");
+		mv.setViewName("/admin/blog/modifyBlog2");
 		mv.addObject("id", draftId);
 		return mv;
 	}

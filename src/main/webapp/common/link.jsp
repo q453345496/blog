@@ -5,7 +5,7 @@
 	String path = request.getContextPath();
 %>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
 
 <%-- <link rel="stylesheet" type="text/css" href="<%=path%>/resources/bootstrap/css/bootstrap.min.css"> --%>
 <link rel="stylesheet" type="text/css" href="<%=path%>/resources/bootstrap4/css/bootstrap.min.css">

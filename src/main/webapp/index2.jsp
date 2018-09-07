@@ -11,13 +11,14 @@ body {
 	font: 14px/1.8 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53';
     color: #555;
 }
-a{
+a {
+	color: #666;
 	text-decoration: none;
 }
-a:hover{
+a:hover {
 	text-decoration: none;
 }
-.container{
+.container {
 	padding-right: 0px;
 	padding-left: 0px;
 }
@@ -30,24 +31,48 @@ a:hover{
 .blog-post {
 	background-color: #fff;
 }
-.blog-post-header{
+.blog-post-header {
     margin-bottom: 20px;
     padding: 25px 0;
     border-bottom: 1px solid #eee;
     text-align: center;
 }
-.blog-post-meta{
+.blog-post-meta {
     font-size: 12px;
     color: #999;
 }
-.blog-post-meta .item{
+.blog-post-meta .item {
 	margin-right: 20px;
 }
-.blog-post-title{
+.blog-post-title {
 	font-size: 26px;
     line-height: 36px;
 }
+.post-ad-footer strong {
+	color: #FD6A5E;
+}
+.post-ad-footer a{
+	border-bottom: solid 2px #eee;
+}
+.post-copyright {
+    background-color: #eee;
+    color: #aaa;
+    margin-top: 15px;
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+.post-copyright:hover{
+    background-color: #45B6F7;
+    color: #fff
+}
 
+.post-copyright:hover a{
+    color: #fff
+}
+.post-copyright a{
+    color: #aaa;
+}
 </style>
 </head>
 <body>
@@ -80,8 +105,16 @@ a:hover{
 <!-- <p class="picIntro"><span>vivo X9s活力蓝</span></p> -->
 <!-- <p>配置上，vivo X9s搭载高通MSM8976八核处理器，采用了5.5英寸1080P AMOLED屏幕，4GB+64GB大容量内存组合，升级的3320mAH的大容量电池，配合上vivo的双引擎闪充，全面保障了vivo X9s活力蓝的性能与续航能力。除此之外，vivo X9s活力蓝同样采用了AK4376方案，不仅传承了vivo经典的Hi-Fi风格，在功耗上更低但能够真实还原音乐效果。<span class="ifengLogo"><a href="http://www.ifeng.com/" target="_blank"><img src="http://p2.ifengimg.com/a/2016/0810/204c433878d5cf9size1_w16_h16.png" /></a></span></p>  -->
 					</div><!-- blog-post-content -->
+					
+					<div class="post-ad-footer">
+						<b>AD：</b><strong>【专业网站开发】</strong>
+						<a target="_blank" href="#">7年网站开发经验 / 高端大气用户体验 / 全设备自适应兼容 / 免费靠谱工单售后</a>
+					</div>
+					
+					<div class="post-copyright">
+						未经允许不得转载：<a href="#">大前端</a> » <a href="#">蓝色够清凉vivo X9s活力蓝今日开启预售</a>
+					</div>
 				</div><!-- blog-post -->
-				
         	</div><!-- main-end -->
         	
         	<aside class="col-md-4">

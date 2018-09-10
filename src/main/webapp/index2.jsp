@@ -55,23 +55,15 @@ a:hover {
 	border-bottom: solid 2px #eee;
 }
 .post-copyright {
-    background-color: #eee;
-    color: #aaa;
+    background-color: #45B6F7;
+    color: #fff;
     margin-top: 15px;
     padding: 5px;
     font-size: 12px;
     text-align: center;
 }
-.post-copyright:hover{
-    background-color: #45B6F7;
-    color: #fff
-}
-
-.post-copyright:hover a{
-    color: #fff
-}
 .post-copyright a{
-    color: #aaa;
+    color: #fff;
 }
 </style>
 </head>

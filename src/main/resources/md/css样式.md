@@ -67,6 +67,8 @@ b会往下移动20px，并覆盖在c上面，但是c元素不会往下移动偏�
 #关于border-radius
 父子元素必须设置一样的`border-radius`值，否则在父子元素颜色不一样或者子元素有其他边框颜色时，会出现空白填充
 
+#关于相邻元素的border边框重叠变粗
+设置margin为负值即可,比如border为1px时，设置margin为-1px
 #关于a:hover等伪元素
 a下的元素如果没有指定自己的`color`，则默认会被继承`a:hover`时的`color`
 例如：

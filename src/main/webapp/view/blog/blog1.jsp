@@ -78,7 +78,7 @@
 .post-recommend .title{
     border-bottom: 1px solid #eaeaea;
 }
-.title h3{
+.post-recommend .title h3{
 	font-size: 1.3rem;
 }
 .post-recommend ul{

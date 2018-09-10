@@ -16,6 +16,7 @@ a {
 	text-decoration: none;
 }
 a:hover {
+	color: #45B6F7;
 	text-decoration: none;
 }
 .container {
@@ -58,12 +59,55 @@ a:hover {
     background-color: #45B6F7;
     color: #fff;
     margin-top: 15px;
+    margin-bottom: 30px;
     padding: 5px;
     font-size: 12px;
     text-align: center;
 }
 .post-copyright a{
     color: #fff;
+}
+.post-nav{
+	margin-bottom:30px;
+	display: flex;
+	justify-content: space-between;
+	overflow: hidden;
+}
+.post-nav a{
+	display:block;
+	position: relative;
+	width: 50%;
+	color: #aaa;
+}
+.post-nav a:hover{
+	color: #45B6F7;
+}
+.post-nav-pre{
+	text-align: left;
+}
+.post-nav-next{
+	text-align: right;
+}
+.post-nav-next:before{
+	content: '';
+    position: absolute;
+    height: 100%;
+    display: block;
+    width: 1px;
+    background-color: #eee;
+}
+.post-recommend .title{
+    border-bottom: 1px solid #eaeaea;
+}
+.post-recommend .title{
+    border-bottom: 1px solid #eaeaea;
+}
+.title h3{
+	font-size: 1.3rem;
+}
+.post-recommend ul{
+	padding: 12px 20px;
+	color: #bbb;
 }
 </style>
 </head>
@@ -105,6 +149,27 @@ a:hover {
 					
 					<div class="post-copyright">
 						未经允许不得转载：<a href="#">大前端</a> » <a href="#">蓝色够清凉vivo X9s活力蓝今日开启预售</a>
+					</div>
+					
+					<div class="post-nav">
+						<a class="post-nav-pre" href="#">上一篇<br>HTML5-语义化</a>
+						<a class="post-nav-next" href="#">下一篇<br>干货【从入门到精通前端系列视频教程】免费赠送</a>
+					</div>
+					
+					<div class="post-recommend">
+						<div class="title">
+							<h3>相关推荐</h3>
+						</div>
+						<ul>
+							<li><a href="http://www.daqianduan.com/6653.html">中国首届React开发者大会 8月18日 广州举行</a></li>
+							<li><a href="http://www.daqianduan.com/6549.html">HTML5-语义化</a></li>
+							<li><a href="http://www.daqianduan.com/6554.html">Windows node版本管理器–nvm</a></li>
+							<li><a href="http://www.daqianduan.com/6531.html">canvas小tip–下载二维码、图片加水印</a></li>
+							<li><a href="http://www.daqianduan.com/6518.html">分享一个生成二维码的插件–QRCode.js</a></li>
+							<li><a href="http://www.daqianduan.com/6408.html">图表库ECharts的使用</a></li>
+							<li><a href="http://www.daqianduan.com/6399.html">git常用命令</a></li>
+							<li><a href="http://www.daqianduan.com/6370.html">css print</a></li>
+						</ul>
 					</div>
 				</div><!-- blog-post -->
         	</div><!-- main-end -->

@@ -16,6 +16,7 @@
 <%-- <script src="<%=path%>/resources/bootstrap/js/bootstrap.min.js"></script> --%>
 <script src="<%=path%>/resources/bootstrap4/js/popper.min.js"></script>
 <script src="<%=path%>/resources/bootstrap4/js/bootstrap.min.js"></script>
+<script src="<%=path%>/resources/js/jqpaginator.min.js"></script>
 <script type="text/javascript">
 	var basePath = "<%=path%>";
 	$(function(){

@@ -24,25 +24,13 @@ a:hover {
 	padding-left: 0px;
 }
 
-
-
 </style>
 </head>
 <body>
 	<%@include file="common/header.jsp" %>
 	
 	<div role="main" class="container">
-		<div class="row">
-        	<div class="col-md-8">
-				<jsp:include page="view/blog/list1.jsp"></jsp:include>
-<%-- 				<jsp:include page="view/blog/blog1.jsp"></jsp:include> --%>
-        	</div><!-- main-end -->
-        	
-        	<aside class="col-md-4">
-        		<%@include file="common/sidebar1.jsp" %>
-			</aside>
-        
-        </div>
+		<jsp:include page="404.jsp"></jsp:include>
 	</div>
 	
 	<%@include file="common/footer.jsp" %>

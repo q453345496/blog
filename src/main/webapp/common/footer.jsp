@@ -1,8 +1,17 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-
-<footer class="main-footer">
-	<div class="copyright">
-		<span>Copyright © 2014-2016 <a href="#" title="test" target="_blank">test</a>版权所有
-		</span>
-	</div>
+<style>
+.footer {
+	padding: 2.5rem 0;
+	background-color: #f9f9f9;
+	text-align: center;
+}
+</style>
+<footer class="footer">
+	<p>
+		Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a>
+		by <a href="https://twitter.com/mdo">@mdo</a>.
+	</p>
+	<p>
+		<a href="#">Back to top</a>
+	</p>
 </footer>

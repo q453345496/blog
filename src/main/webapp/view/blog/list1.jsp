@@ -93,14 +93,22 @@
 	</div>
 </div>
 <div class="post-pagination">
-	<ul class="pagination">
-		<li class="page-item"><a class="page-link" href="#">上一页</a></li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item active"><a class="page-link" href="#">3</a></li>
-		<li class="page-item"><a class="page-link" href="#">4</a></li>
-		<li class="page-item"><a class="page-link" href="#">...</a></li>
-		<li class="page-item"><a class="page-link" href="#">下一页</a></li>
-		<li class="page-item"><a class="page-link" href="#">共 13 页</a></li>
+	<ul id="pagination" class="pagination">
 	</ul>
 </div>
+<script type="text/javascript">
+$('#pagination').jqPaginator({
+    //totalPages: 100,
+    pageSize: 10,
+    totalCounts: 11,
+    visiblePages: 10,
+    currentPage: 1,
+    first: '<li class="page-item"><a class="page-link" href="/s?page={{page}}">首页</a></li>',
+    last: '<li class="page-item"><a class="page-link" href="/s?&page={{page}}">尾页</a></li>',
+    prev: '<li class="page-item"><a class="page-link" href="/s?&page={{page}}">上一页</a></li>',
+    next: '<li class="page-item""><a class="page-link" href="/s?&page={{page}}">下一页</a></li>',
+    page: '<li class="page-item""><a class="page-link" href="/s?&page={{page}};">{{page}}</a></li>',
+    onPageChange: function (num, type) {
+    }
+});
+</script>

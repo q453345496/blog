@@ -139,3 +139,24 @@ li {
     text-align: center;
 }
 ```
+
+#箭头的css实现
+css代码
+```
+<style>
+    .colored-border-empty-retangle {
+        margin: 50px auto;
+		width: 0;
+        height: 0;
+        border-top: 40px solid coral;
+        border-right: 40px solid lightblue;
+        border-bottom: 40px solid lightgreen;
+        border-left: 40px solid mediumpurple;
+    }
+</style>
+```
+html代码
+```
+<div class="colored-border-empty-retangle"></div>
+```
+然后将其他方向设置成透明即可，**如果不行，需要设置成块级元素**

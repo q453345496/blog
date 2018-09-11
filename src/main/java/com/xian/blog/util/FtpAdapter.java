@@ -28,7 +28,10 @@ public final class FtpAdapter {
 	public static final String ROOT_PATH = "xian_test";
 	public static final String TMP_PATH = "tmp";
 	public static final String BLOG_PATH = "blog";
-	public static final String POSTER_SERVER = AT_HOME ? "http://127.0.0.1:81/" : "http://192.168.15.165:80/";
+	public static final String POSTER_SERVER_HOME = "http://127.0.0.1:81/" + ROOT_PATH;
+	public static final String POSTER_SERVER_OTHER = "http://192.168.15.165:80/" + ROOT_PATH;
+
+	public static final String POSTER_SERVER = AT_HOME ? POSTER_SERVER_HOME : POSTER_SERVER_OTHER;
 
 	private FTPClient ftpClient = null;
 
@@ -181,4 +184,10 @@ public final class FtpAdapter {
 		return ftpClient;
 	}
 
+	public static String getImgURL(String path) {
+		if (StringUtils.isBlank(path)) {
+			return "";
+		}
+		return POSTER_SERVER + "/" + path;
+	}
 }

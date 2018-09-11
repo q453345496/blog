@@ -6,8 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.xian.blog.util.URLSerializer;
+import com.xian.blog.util.FtpAdapter;
 
 public class Attachment {
 	@TableId
@@ -15,7 +14,6 @@ public class Attachment {
 	private String name;
 	@TableField(value="source_url")
 	private String sourceURL;
-	@JsonSerialize(using = URLSerializer.class)
 	private String path;
 	private Integer height;
 	private Integer width;
@@ -127,4 +125,7 @@ public class Attachment {
 		this.bizType = bizType;
 	}
 
+	public String getPathURL() {
+		return FtpAdapter.getImgURL(path);
+	} 
 }

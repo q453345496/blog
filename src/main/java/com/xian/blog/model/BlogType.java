@@ -6,8 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.xian.blog.util.URLSerializer;
+import com.xian.blog.util.FtpAdapter;
 
 public class BlogType {
 	@TableId
@@ -15,7 +14,6 @@ public class BlogType {
 	private String name;// 标题
 	private Integer rank;// 序号
 
-	@JsonSerialize(using = URLSerializer.class)
 	private String imgPath;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
@@ -74,4 +72,8 @@ public class BlogType {
 		this.modifyTime = modifyTime;
 	}
 
+	public String getImgPathURL() {
+		return FtpAdapter.getImgURL(imgPath);
+	}
+	
 }

@@ -102,7 +102,6 @@ function saveBlog(){
 	var blogTypeId = $("#blogTypeId").combobox("getValue");
 	var rightType = $("#rightType").combobox("getValue");
 	var content = testEditor.getMarkdown();
-	console.log(testEditor.getHTML())
 	var keyWord=$("#keyWord").val();
 	
 	if(title==null || title==''){

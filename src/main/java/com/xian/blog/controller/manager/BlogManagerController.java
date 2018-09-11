@@ -5,7 +5,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +22,9 @@ import com.xian.blog.common.CommonResult;
 import com.xian.blog.common.DataGridResult;
 import com.xian.blog.model.Blog;
 import com.xian.blog.service.BlogService;
-import com.xian.blog.util.RegexUtils;
+import com.xian.blog.service.BlogTypeService;
+import com.xian.blog.util.JsoupUtil;
+import com.xian.blog.util.MarkdownUtil;
 
 /**
  * Date:2016年7月29日下午9:35:11
@@ -30,7 +35,9 @@ import com.xian.blog.util.RegexUtils;
 public class BlogManagerController {
 	@Resource
 	private BlogService blogService;
-
+	@Resource
+	private BlogTypeService blogTypeService;
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public DataGridResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
@@ -44,13 +51,19 @@ public class BlogManagerController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult save(Blog blog) {
+		String html = MarkdownUtil.toHtml(blog.getContent());
+		Document htmlDoc = Jsoup.parse(html);
 		if (StringUtils.isBlank(blog.getSummary())) {
-			String contentNoTag = RegexUtils.getNoTagContent(blog.getContent());
-			blog.setSummary(StringUtils.substring(contentNoTag, 0, 200));
+			blog.setSummary(StringUtils.substring(StringEscapeUtils.escapeHtml4(htmlDoc.text()), 0, 200));
 		}
 		if (Blog.DRAFT == blog.getStatus()) {//草稿的保存后成为正式使用
 			blog.setStatus(Blog.ONLINE);
 		}
+		String thumb = JsoupUtil.getFirstImgURL(htmlDoc);
+		if (StringUtils.isBlank(thumb)) {
+			thumb = blogTypeService.get(blog.getTypeId()).getImgPathURL();
+		}
+		blog.setThumb(thumb);
 		blogService.update(blog);
 		return CommonResult.success(blog.getId());
 	}

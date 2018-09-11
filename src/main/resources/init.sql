@@ -6,6 +6,7 @@ CREATE TABLE `t_blog` (
 `type_id` int(11),
 `key_word` varchar(255),
 `summary` varchar(400),
+`thumb` varchar(255),
 `content` text,
 `right_type` int(11) DEFAULT 0,
 `click` int(11) DEFAULT 0,

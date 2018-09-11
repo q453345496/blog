@@ -92,6 +92,7 @@ function blogTypeOpenDialogFunc(){
 	$('#blogTypeDialog').dialog('open').dialog('center').dialog('setTitle','添加文章分类信息');
 	$('#blogTypeForm').form('clear');
 	$('#img_preview').html('');
+	$('#img_preview').attr('src', basePath + '/resources/images/default.png');
 	blogTypeSubmitUrl = basePath + "/admin/blogType/save";
 }
 
@@ -103,8 +104,10 @@ function blogTypeEditFunc(index){
 		$('#blogTypeDialog').dialog('open').dialog('center').dialog('setTitle','修改文章分类信息');
 		$('#blogTypeForm').form('load',row);
 		$('#img_preview').html('');
-		if(row.imgURL){
-			$('#img_preview').attr('src',row.imgURL);
+		if(row.imgPathURL){
+			$('#img_preview').attr('src',row.imgPathURL);
+		}else{
+			$('#img_preview').attr('src', basePath + '/resources/images/default.png');
 		}
 		blogTypeSubmitUrl = basePath + "/admin/blogType/update";
 	}

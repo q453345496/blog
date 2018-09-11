@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xian.blog.constants.FTPConstant;
+import com.xian.blog.model.Attachment;
 import com.xian.blog.service.AttachmentService;
 
 @RequestMapping("/editorMd")
@@ -25,9 +27,9 @@ public class EditorMdController {
 			@RequestParam(name = "bizId", required = false) String bizId, @RequestParam("bizType") String bizType) {
 		Map<String, Object> map = new HashMap<>();
 		try {
-			//		Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.PATH_IMAGE);
+			Attachment attachment = attachmentService.upload(upfile, bizId, "blog", FTPConstant.PATH_IMAGE);
 			map.put("success", 1);
-			map.put("url", "http://192.168.15.165/rem/material/oUYs25e9yiZ0/2018/06/27/BiWCERSGqio4.jpg");
+			map.put("url", attachment.getPathURL());
 		} catch (Exception e) {
 			map.put("success", 0);
 			map.put("message", "upload error");

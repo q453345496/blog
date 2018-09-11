@@ -12,7 +12,18 @@
 <script src="<%=path%>/resources/jquery-easyui/easyui-lang-zh_CN.js"></script>
 <script src="<%=path%>/resources/easyui-common.js"></script>
 <script type="text/javascript">
-	var basePath = "<%=path%>";
+var basePath = "<%=path%>";
+
+$(document).keydown(function(e) {
+	e = e || window.event;
+	var code = e.keyCode ? e.keyCode : e.which;
+	if (code == 27) {
+		var dialog = $(".easyui-dialog:visible:last");
+		if(dialog.length > 0) {		
+			dialog.dialog("close");
+		}
+	}
+});
 </script>
 <style>
 table.input tr td:nth-child(1){

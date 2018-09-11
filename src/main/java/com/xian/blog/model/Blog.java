@@ -37,8 +37,7 @@ public class Blog {
 	@TableField(exist = false)
 	private String contentNoTag;// 内容无标签,方便分词
 	
-	@TableField(exist = false)
-	private String thumb;//缩略图
+	private String thumb;//缩略图,这里存的是完整路径
 
 	public Long getId() {
 		return id;

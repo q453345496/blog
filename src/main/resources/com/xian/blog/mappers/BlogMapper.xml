@@ -24,6 +24,7 @@
 		b.create_time,
 		b.modify_time,
 		b.`status`,
+		b.thumb,
 		t.NAME AS type_name
 		FROM
 		t_blog b

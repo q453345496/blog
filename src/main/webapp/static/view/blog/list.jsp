@@ -16,6 +16,7 @@
 .post-item .thumb img{
 	width: 220px;
 	min-width: 220px;
+	height: 150px;
 }
 .post-item .title{
 	margin-bottom: 10px;

@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	String path = request.getContextPath();
 %>
@@ -98,7 +99,7 @@
 		</div>
 	</div><!-- post-header -->
 	<div id="doc-content" class="post-content">
-		<textarea style="display:none;">${blog.content }</textarea>
+		<textarea style="display:none;">${fn:replace(blog.content, "&#124;", "&amp;#124;") }</textarea>
 	</div><!-- post-content -->
 	
 	<div class="post-ad-footer">
@@ -132,7 +133,7 @@
 	</div>
 </div><!-- post -->
 <link rel="stylesheet" href="<%=path%>/resources/editor/css/editormd.min.css" />
-<script src="<%=path%>/resources/editor/editormd.js"></script>
+<script src="<%=path%>/resources/editor/editormd.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/marked.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/prettify.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
@@ -143,16 +144,20 @@
 <script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>
 
 <script type="text/javascript">
-    var testEditor;
-    $(function () {
-        testEditor = editormd.markdownToHTML("doc-content",{
-// 			htmlDecode : true,
+var testEditor;
+$(function () {
+// 	$.get("/admin/blog/${blog.id }",function(res){
+		
+		testEditor = editormd.markdownToHTML("doc-content",{
+// 			markdown: res.data.content,
+			//htmlDecode : true,
 			htmlDecode : "style,script,sub,sup|on*",
-            emoji           : true,
-            taskList        : true,
-            tex             : true,  // 默认不解析
-            flowChart       : true,  // 默认不解析
-            sequenceDiagram : true,  // 默认不解析
-        });
-    });
- </script>
+			emoji : true,
+			taskList : true,
+			tex : true, // 默认不解析
+			flowChart : true, // 默认不解析
+			sequenceDiagram : true, // 默认不解析
+		});
+// 	})
+});
+</script>

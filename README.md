@@ -16,36 +16,6 @@
 问题:数据库应该为`is_root`,`pojo`字段不能带有`is`,则为`root`
 解决:通过映射文件以及`@TableField`进行映射
 
-#集成editormd.js
-1. 数学公式开启需要修改js中的 
-```
-editormd.katexURL  = {
-    css : "//cdn.bootcss.com/KaTeX/0.9.0/katex.min",
-    js  : "//cdn.bootcss.com/KaTeX/0.9.0/katex.min"
-};
-```
-2. 显示html需要引入一下js,否则会报错
-```
-<script src="<%=path%>/resources/editor/lib/marked.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/prettify.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/raphael.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/underscore.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/sequence-diagram.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>
-```
-3. 显示html时在div下需要有一个textarea
-
-4. 显示html时
-`htmlDecode : "style,script,sub,sup|on*"`,//表示这些标签不进行解析,|后为属性
-`htmlDecode : true`,则不过滤
-注意，优酷视频复制出来的连接有问题,allowfullscreen带有引号导致报错
-```
-<iframe height=498 width=510 src='http://player.youku.com/embed/XMzY3NTIxMjgwOA==' frameborder=0 'allowfullscreen'></iframe>
-```
-5.图片上传表单参数为`editormd-image-file`
-
 #集成ueditor
 1. 注意预览时，如果有代码，则需要ueditor.parse.js文件,或者修改preview.html里面的js引用
 

@@ -7,7 +7,7 @@
 <head>
 <jsp:include page="/common/adminLink.jsp"></jsp:include>
 <link rel="stylesheet" href="<%=path%>/resources/editor/css/editormd.min.css" />
-<script src="<%=path%>/resources/editor/editormd.js"></script>
+<script src="<%=path%>/resources/editor/editormd.min.js"></script>
 <title>写博客</title>
 <style>
 .blog{
@@ -67,9 +67,9 @@ $(function() {
 		path : '<%=path%>/resources/editor/lib/',
 		htmlDecode : "style,script,sub,sup|on*",
 		saveHTMLToTextarea : true,
-		flowChart: false,//开启流程图支持，默认关闭
+		flowChart: true,//开启流程图支持，默认关闭
 		tex: true,// 开启科学公式TeX语言支持，默认关闭
-		sequenceDiagram: false,//开启时序/序列图支持，默认关闭,
+		sequenceDiagram: true,//开启时序/序列图支持，默认关闭,
 		imageUpload : true,
 		imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
 		imageUploadURL : "<%=path%>/editorMd/uploadImage?bizId=${id}&bizType=blog",

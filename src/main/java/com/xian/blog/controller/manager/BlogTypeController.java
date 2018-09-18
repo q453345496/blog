@@ -32,7 +32,9 @@ public class BlogTypeController {
 	public DataGridResult list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
 			@RequestParam(value = "rows", required = false, defaultValue = "20") Integer rows, BlogType blogType) {
 		return blogTypeService.page(new Page<>(page, rows), //
-				new EntityWrapper<BlogType>().like("name", blogType.getName()));
+				new EntityWrapper<BlogType>()//
+						.like("name", blogType.getName())//
+						.like("code", blogType.getCode()));
 	}
 
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)

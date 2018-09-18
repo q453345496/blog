@@ -14,6 +14,7 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-plus',plain:true" onclick="blogTypeOpenDialogFunc()">添加</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-minus',plain:true" onclick="blogTypeDeleteFunc()">删除</a>
 			名称:<input id="blogTypeNameQ" type="text" class="easyui-textbox"/>
+			编码:<input id="blogTypeCodeQ" type="text" class="easyui-textbox"/>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-search',plain:true" onclick="blogTypeSearchFunc()">查询</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'fa fa-trash',plain:true" onclick="clearSearch('#blogTypeDataGridToolbar')">清空</a>
 	</div>
@@ -25,6 +26,12 @@
 					<td>
 						<input name="id" type="hidden"/>
 						<input name="name" class="easyui-textbox" data-options="required:true"/>
+					</td>
+				</tr>
+				<tr>
+					<td width="30%">编码:</td>
+					<td>
+						<input name="code" class="easyui-textbox" data-options="required:true"/>
 					</td>
 				</tr>
 				<tr>
@@ -69,6 +76,12 @@ $(function() {
 					return '<a href="#" onclick="blogTypeEditFunc(\'' + index + '\')">'+value+'</a>';
 				}
 			}, 
+			{
+				field : 'code',
+				title : '编码',
+				width:100,
+				align:'center'
+			},
 			{
 				field : 'rank',
 				title : '排序',
@@ -157,6 +170,7 @@ function blogTypeSearchFunc(){
 	$('#blogTypeDataGrid').datagrid({
 		queryParams: {
 			name: $("#blogTypeNameQ").val(),
+			code: $("#blogTypeCodeQ").val(),
 		}
 	});
 }

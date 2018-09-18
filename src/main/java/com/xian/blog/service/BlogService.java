@@ -69,7 +69,7 @@ public class BlogService {
 		Blog blog = blogDao.selectOne(query);
 		if (blog == null) {
 			blog = new Blog();
-			blog.setTitle("");
+			blog.setTitle("草稿");
 			blog.setStatus(Blog.DRAFT);
 			blog.setContent("");
 			blogDao.insert(blog);

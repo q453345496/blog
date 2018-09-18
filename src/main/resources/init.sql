@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS `t_blog`;
 CREATE TABLE `t_blog` (
 `id`  bigint(20) NOT NULL AUTO_INCREMENT ,
-`title`  varchar(255) NOT NULL ,
+`title`  varchar(128) NOT NULL ,
 `type_id` int(11),
 `key_word` varchar(255),
 `summary` varchar(400),
@@ -24,7 +24,8 @@ DEFAULT CHARACTER SET=utf8
 DROP TABLE IF EXISTS `t_blog_type`;
 CREATE TABLE `t_blog_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
-`name` varchar(255) NOT NULL ,
+`name` varchar(32) NOT NULL ,
+`code` varchar(32) NOT NULL ,
 `img_path` varchar(255) ,
 `rank` int(11),
 `create_time` datetime NOT NULL,
@@ -39,7 +40,7 @@ DEFAULT CHARACTER SET=utf8
 DROP TABLE IF EXISTS `t_journal_category`;
 CREATE TABLE `t_journal_category` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
-`name`  varchar(255) NOT NULL ,
+`name`  varchar(32) NOT NULL ,
 `rank` int(11),
 `parent_id` int(11) NOT NULL,
 `is_parent` tinyint(1) DEFAULT false,
@@ -57,8 +58,8 @@ VALUES ('1', '根分类', '-1', '1', '0', NOW(), NOW());
 DROP TABLE IF EXISTS `t_param_type`;
 CREATE TABLE `t_param_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
-`name`  varchar(255) NOT NULL ,
-`code` varchar(255) ,
+`name`  varchar(32) NOT NULL ,
+`code` varchar(32) ,
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
@@ -71,7 +72,7 @@ DEFAULT CHARACTER SET=utf8
 DROP TABLE IF EXISTS `t_param`;
 CREATE TABLE `t_param` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
-`key`  varchar(255) NOT NULL ,
+`key`  varchar(32) NOT NULL ,
 `value` varchar(255) ,
 `type_code` varchar(255) NOT NULL,
 `summary` varchar(255) ,
@@ -87,7 +88,7 @@ DEFAULT CHARACTER SET=utf8
 DROP TABLE IF EXISTS `t_special_topic`;
 CREATE TABLE `t_special_topic` (
 `id` int(11) NOT NULL AUTO_INCREMENT ,
-`name`  varchar(255) NOT NULL ,
+`name`  varchar(32) NOT NULL ,
 `click` int(11) DEFAULT 0,
 `relate_count` int(11) DEFAULT 0,
 `rank` int(11),
@@ -117,8 +118,8 @@ DEFAULT CHARACTER SET=utf8
 DROP TABLE IF EXISTS `t_column`;
 CREATE TABLE `t_column` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
-`name`  varchar(255) NOT NULL ,
-`code`  varchar(255) NOT NULL ,
+`name`  varchar(32) NOT NULL ,
+`code`  varchar(32) NOT NULL ,
 `parent_id` int(11) NOT NULL,
 `status` int(11) NOT NULL,
 `rank` int(11),
@@ -158,9 +159,9 @@ CREATE TABLE `t_attachment` (
 `height` int(11) NULL ,
 `width` int(11) NULL ,
 `size` bigint(20) NOT NULL ,
-`type` varchar(255) NOT NULL ,
-`biz_id` varchar(255) NOT NULL ,
-`biz_type` varchar(255) NOT NULL ,
+`type` varchar(32) NOT NULL ,
+`biz_id` varchar(64) NOT NULL ,
+`biz_type` varchar(32) NOT NULL ,
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)

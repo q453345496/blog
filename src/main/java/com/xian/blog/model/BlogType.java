@@ -12,6 +12,7 @@ public class BlogType {
 	@TableId
 	private Long id;
 	private String name;// 标题
+	private String code;//编码
 	private Integer rank;// 序号
 
 	private String imgPath;
@@ -38,6 +39,14 @@ public class BlogType {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Integer getRank() {

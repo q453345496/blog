@@ -80,4 +80,9 @@ public class BlogTypeService {
 		blogTypeDao.deleteBatchIds(Arrays.asList(ids));
 	}
 	
+	public BlogType getByCode(String code) {
+		BlogType blogType = new BlogType();
+		blogType.setCode(code);
+		return blogTypeDao.selectOne(blogType);
+	}
 }

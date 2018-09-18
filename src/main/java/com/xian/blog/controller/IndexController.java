@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xian.blog.constants.Constants;
 import com.xian.blog.model.Blog;
 import com.xian.blog.service.BlogService;
 
@@ -28,8 +29,13 @@ public class IndexController {
 		Page<Blog> pageInfo = new Page<Blog>(page, 10);
 		List<Blog> list = blogService.list(pageInfo, map);
 		ModelAndView view = new ModelAndView("index");
-		view.addObject("blogs", list);
-		view.addObject("mainPage", "view/blog/list.jsp");
+		if (list.isEmpty()) {
+			view.addObject("mainPage", Constants.PAGE_404);
+		} else {
+			view.addObject("blogs", list);
+			view.addObject("mainPage", "view/blog/list.jsp");
+			view.addObject("page", pageInfo);
+		}
 		return view;
 	}
 

@@ -16,6 +16,12 @@
 问题:数据库应该为`is_root`,`pojo`字段不能带有`is`,则为`root`
 解决:通过映射文件以及`@TableField`进行映射
 
+4. 条件查询
+使用Wrapper时，eq需要自己判断值为空，否则条件会添加sql中，除了`like`，`in`
+
+5. 单个查询selectOne
+**为防止使用该方法查询出问题，实体对象不应该有默认值**
+
 #集成ueditor
 1. 注意预览时，如果有代码，则需要ueditor.parse.js文件,或者修改preview.html里面的js引用
 

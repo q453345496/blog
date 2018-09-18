@@ -1,8 +1,6 @@
 package com.xian.blog.constants;
-/** 
- * Date:2016年7月27日下午10:31:16
- * 
- */
-public class Constants {
 
+public class Constants {
+	public static final String PAGE_404 = "404.jsp";
+	public static final String PAGE_500 = "error.jsp";
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xian.blog.common.CommonResult;
+import com.xian.blog.constants.Constants;
 import com.xian.blog.exception.CheckException;
 
 @ControllerAdvice
@@ -29,7 +30,7 @@ public class GlobalDefaultExceptionHandler {
 		return CommonResult.fail(ex);
 	}
 
-	@ExceptionHandler({ DataAccessException.class})
+	@ExceptionHandler({ DataAccessException.class })
 	@ResponseBody
 	public CommonResult runtime(Exception ex) {
 		LOG.error("SQL异常", ex);
@@ -41,10 +42,10 @@ public class GlobalDefaultExceptionHandler {
 		LOG.error("空指针", ex);
 		return CommonResult.fail(ex);
 	}
-	
+
 	@ExceptionHandler()
 	public ModelAndView all(Exception ex) {
 		LOG.error("服务异常", ex);
-		return new ModelAndView("error/500").addObject("error", ex.getMessage());
+		return new ModelAndView(Constants.PAGE_500);
 	}
 }

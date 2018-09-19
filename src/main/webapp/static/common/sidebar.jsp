@@ -93,15 +93,20 @@
 	line-height: 30px;
 }
 .widget-post li a{
-	color: #999;
 	font-size: 14px;
 	padding: 10px 15px;
+	display: block;
+    border-bottom: solid 1px #eee;
 }
 .widget-post .text{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .widget-post a:hover {
-    color: #ea4c89;
+    color: #45B6F7;
 }
 
 </style>

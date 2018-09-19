@@ -93,15 +93,20 @@
 	line-height: 30px;
 }
 .widget-post li a{
-	color: #999;
 	font-size: 14px;
 	padding: 10px 15px;
+	display: block;
+    border-bottom: solid 1px #eee;
 }
 .widget-post .text{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
 }
 
 .widget-post a:hover {
-    color: #ea4c89;
+    color: #45B6F7;
 }
 
 </style>
@@ -135,66 +140,25 @@
 <div class="widget widget-post">
 	<h4 class="widget-title">最新发布</h4>
 	<ul>
+		<c:forEach var="blog" items="${lastBlogList }">
 		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">CSS实现单行、多行文本溢出显示省略号（…）</span>
+			<a href="/blog/${blog.id }.html">
+				<span class="text">${blog.title }</span>
 			</a>
 		</li>
-		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">解读浮动闭合最佳方案：clearfix</span>
-			</a>
-		</li>
-		<li>
-			<a href="http://www.daqianduan.com/2959.html">
-				<span class="text">CSS3详解：transform</span>
-			</a>
-		</li>
-		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">CSS实现单行、多行文本溢出显示省略号（…）</span>
-			</a>
-		</li>
-		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">解读浮动闭合最佳方案：clearfix</span>
-			</a>
-		</li>
-		<li>
-			<a href="http://www.daqianduan.com/2959.html">
-				<span class="text">CSS3详解：transform</span>
-			</a>
-		</li>
+		</c:forEach>
 	</ul>
 </div>
 <div class="widget widget-post">
 	<h4 class="widget-title">推荐文章</h4>
 	<ul>
+		<c:forEach var="blog" items="${hotBlogList }">
 		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">中文正则表达式匹配-正则中文匹配</span>
+			<a href="/blog/${blog.id }.html">
+				<span class="text">${blog.title }</span>
 			</a>
 		</li>
-		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">长连接、短连接、长轮询和WebSocket</span>
-			</a>
-		</li>
-		<li>
-			<a href="http://www.daqianduan.com/2959.html">
-				<span class="text">Javascript定时器的4种写法及介绍</span>
-			</a>
-		</li>
-		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">fetch API的实际用法对比</span>
-			</a>
-		</li>
-		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">jquery滚动条美化插件niceScroll</span>
-			</a>
-		</li>
+		</c:forEach>
 	</ul>
 </div>
 

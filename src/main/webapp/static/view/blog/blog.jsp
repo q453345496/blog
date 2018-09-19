@@ -19,7 +19,14 @@
     color: #999;
 }
 .post-meta .item {
+	display: inline-block;
 	margin-right: 20px;
+}
+.post-meta .item i{
+	margin-right: 4px;
+}
+.post-meta a{
+	text-decoration: underline;
 }
 .post-title {
 	font-size: 26px;
@@ -91,10 +98,15 @@
 	<div class="post-header">
 		<h2 class="post-title">蓝色够清凉vivo X9s活力蓝今日开启预售</h2>
 		<div class="post-meta">
-			<span class="item">发布时间：2018-03-30</span>
-			<span class="item">分类：<a href="http://www.daqianduan.com/front/htmlcss">HTML/CSS</a> / <a href="http://www.daqianduan.com/front">前端开发</a></span>
-			<span class="item">阅读(7802)</span>
-			<span class="item"></span>
+			<div class="item">
+				<i class="fa fa-calendar"></i><span>发布时间：2018-03-30</span>
+			</div>
+			<div class="item">
+				<i class="fa fa-folder-open"></i><span>分类：<a href="http://www.daqianduan.com/front/htmlcss">HTML/CSS</a> / <a href="http://www.daqianduan.com/front">前端开发</a></span>
+			</div>
+			<div class="item">
+				<i class="fa fa-eye"></i><span>阅读(7802)</span>
+			</div>
 		</div>
 	</div><!-- post-header -->
 	<div class="post-content">

@@ -20,7 +20,14 @@
     color: #999;
 }
 .post-meta .item {
+	display: inline-block;
 	margin-right: 20px;
+}
+.post-meta .item i{
+	margin-right: 4px;
+}
+.post-meta a{
+	text-decoration: underline;
 }
 .post-title {
 	font-size: 26px;
@@ -92,10 +99,15 @@
 	<div class="post-header">
 		<h2 class="post-title">${blog.title }</h2>
 		<div class="post-meta">
-			<span class="item">发布时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
-			<span class="item">分类：<a href="/${blog.typeId }">${blog.typeName }</a></span>
-			<span class="item">阅读(${blog.click })</span>
-			<span class="item"></span>
+			<div class="item">
+				<i class="fa fa-calendar"></i><span>发布时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
+			</div>
+			<div class="item">
+				<i class="fa fa-folder-open"></i><span>分类：<a href="/${blog.typeId }">${blog.typeName }</a></span>
+			</div>
+			<div class="item">
+				<i class="fa fa-eye"></i><span>阅读(${blog.click })</span>
+			</div>
 		</div>
 	</div><!-- post-header -->
 	<div id="doc-content" class="post-content">

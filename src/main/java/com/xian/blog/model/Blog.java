@@ -31,6 +31,8 @@ public class Blog {
 	
 	@TableField(exist = false)
 	private String typeName;
+	@TableField(exist = false)
+	private String typeCode;
 	
 	private Long typeId;
 	
@@ -157,6 +159,14 @@ public class Blog {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getTypeCode() {
+		return typeCode;
+	}
+
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
 	}
 
 }

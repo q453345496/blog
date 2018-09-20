@@ -103,7 +103,7 @@
 				<i class="fa fa-calendar"></i><span>发布时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
 			</div>
 			<div class="item">
-				<i class="fa fa-folder-open"></i><span>分类：<a href="/${blog.typeId }">${blog.typeName }</a></span>
+				<i class="fa fa-folder-open"></i><span>分类：<a href="/${blog.typeCode }">${blog.typeName }</a></span>
 			</div>
 			<div class="item">
 				<i class="fa fa-eye"></i><span>阅读(${blog.click })</span>
@@ -114,10 +114,10 @@
 		<textarea style="display:none;">${fn:replace(blog.content, "&#124;", "&amp;#124;") }</textarea>
 	</div><!-- post-content -->
 	
-	<div class="post-ad-footer">
-		<b>AD：</b><strong>【专业网站开发】</strong>
-		<a target="_blank" href="#">7年网站开发经验 / 高端大气用户体验 / 全设备自适应兼容 / 免费靠谱工单售后</a>
-	</div>
+<!-- 	<div class="post-ad-footer"> -->
+<!-- 		<b>AD：</b><strong>【专业网站开发】</strong> -->
+<!-- 		<a target="_blank" href="#">7年网站开发经验 / 高端大气用户体验 / 全设备自适应兼容 / 免费靠谱工单售后</a> -->
+<!-- 	</div> -->
 	
 	<div class="post-copyright">
 		未经允许不得转载：<a href="/blog/${blog.id }.html">${blog.title }</a>

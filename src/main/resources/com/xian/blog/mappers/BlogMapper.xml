@@ -25,7 +25,8 @@
 		b.modify_time,
 		b.`status`,
 		b.thumb,
-		t.NAME AS type_name
+		t.NAME AS type_name,
+		t.code AS type_code
 		FROM
 		t_blog b
 		LEFT JOIN t_blog_type t ON

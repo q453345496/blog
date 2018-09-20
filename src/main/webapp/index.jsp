@@ -23,7 +23,10 @@ a:hover {
 	padding-right: 0px;
 	padding-left: 0px;
 }
-
+.col-md-8, .col-md-4{
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
 
 </style>

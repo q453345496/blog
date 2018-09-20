@@ -63,7 +63,7 @@
 	<div class="info">
 		<div class="title">
 			<h2>
-				<a href="/blog/${blog.id }.html" title="${blog.title }">${blog.title }</a>
+				<a href="/blog/${blog.id }.html" title="${blog.title }" target="_blank">${blog.title }</a>
 			</h2>
 		</div>
 		<div class="meta">

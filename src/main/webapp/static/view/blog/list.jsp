@@ -59,7 +59,7 @@
 	<div class="info">
 		<div class="title">
 			<h2>
-				<a href="#" title="HTML5-语义化">chrome  transition闪烁BUG</a>
+				<a href="#" title="HTML5-语义化" target="_blank">chrome  transition闪烁BUG</a>
 			</h2>
 		</div>
 		<div class="meta">
@@ -80,7 +80,7 @@
 	<div class="info">
 		<div class="title">
 			<h2>
-				<a href="#" title="HTML5-语义化">HTML5-语义化</a>
+				<a href="#" title="HTML5-语义化" target="_blank">HTML5-语义化</a>
 			</h2>
 		</div>
 		<div class="meta">

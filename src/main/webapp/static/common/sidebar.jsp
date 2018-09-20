@@ -89,26 +89,39 @@
 .widget-post{
  	border: 1px solid #eaeaea;
 }
-.widget-post li{
-	line-height: 30px;
-}
+
 .widget-post li a{
 	font-size: 14px;
 	padding: 10px 15px;
-	display: block;
+	display: flex;
     border-bottom: solid 1px #eee;
 }
-.widget-post .text{
+
+
+.widget-post li a .thumb img{
+	width: 120px;
+	height: 80px;
+}
+.widget-post li a .content{
+	padding: 10px;
 	overflow: hidden;
-    text-overflow: ellipsis;
+	text-overflow: ellipsis;
     white-space: nowrap;
+}
+.widget-post li a .content .title{
     display: inline-block;
 }
-
+.widget-post li a .content .time{
+	color: #999;
+	font-size: 10px;
+	display: block;
+}
 .widget-post a:hover {
     color: #45B6F7;
 }
-
+.widget-post p{
+	margin-bottom: 0;
+}
 </style>
 
 <!-- <div class="widget widget-ad widget-ad-img"> -->
@@ -141,33 +154,69 @@
 	<h4 class="widget-title">最新发布</h4>
 	<ul>
 		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">CSS实现单行、多行文本溢出显示省略号（…）</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">CSS实现单行、多行文本溢出显示省略号（…）</p>
+					<p class="time">2018-09-20</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">解读浮动闭合最佳方案：clearfix</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">解读浮动闭合最佳方案：clearfix</p>
+					<p class="time">2018-09-20</p>
+				</div>
 			</a>
 		</li>
 		<li>
 			<a href="http://www.daqianduan.com/2959.html">
-				<span class="text">CSS3详解：transform</span>
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">CSS3详解：transform</p>
+					<p class="time">2018-09-11</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">CSS实现单行、多行文本溢出显示省略号（…）</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">CSS实现单行、多行文本溢出显示省略号（…）</p>
+					<p class="time">2018-09-20</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">解读浮动闭合最佳方案：clearfix</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">解读浮动闭合最佳方案：clearfix</p>
+					<p class="time">2018-09-20</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/2959.html">
-				<span class="text">CSS3详解：transform</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">CSS3详解：transform</p>
+					<p class="time">2018-09-11</p>
+				</div>
 			</a>
 		</li>
 	</ul>
@@ -176,28 +225,58 @@
 	<h4 class="widget-title">推荐文章</h4>
 	<ul>
 		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">中文正则表达式匹配-正则中文匹配</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">中文正则表达式匹配-正则中文匹配</p>
+					<p class="time">2018-09-11</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">长连接、短连接、长轮询和WebSocket</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">长连接、短连接、长轮询和WebSocket</p>
+					<p class="time">2018-09-11</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/2959.html">
-				<span class="text">Javascript定时器的4种写法及介绍</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">Javascript定时器的4种写法及介绍</p>
+					<p class="time">2018-09-21</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/6179.html">
-				<span class="text">fetch API的实际用法对比</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">fetch API的实际用法对比</p>
+					<p class="time">2018-09-21</p>
+				</div>
 			</a>
 		</li>
 		<li>
-			<a href="http://www.daqianduan.com/3606.html">
-				<span class="text">jquery滚动条美化插件niceScroll</span>
+			<a href="#">
+				<div class="thumb">
+					<img src="../resources/images/koala.jpg">
+				</div>
+				<div class="content">
+					<p class="title">jquery滚动条美化插件niceScroll</p>
+					<p class="time">2018-09-21</p>
+				</div>
 			</a>
 		</li>
 	</ul>

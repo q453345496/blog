@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 .widget {
 	background-color: #fff;
@@ -89,26 +89,39 @@
 .widget-post{
  	border: 1px solid #eaeaea;
 }
-.widget-post li{
-	line-height: 30px;
-}
+
 .widget-post li a{
 	font-size: 14px;
 	padding: 10px 15px;
-	display: block;
+	display: flex;
     border-bottom: solid 1px #eee;
 }
-.widget-post .text{
-	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-}
 
+
+.widget-post li a .thumb img{
+	width: 120px;
+	height: 80px;
+}
+.widget-post li a .content{
+	padding: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.widget-post li a .content .title{
+    display: inline-block;
+}
+.widget-post li a .content .time{
+	color: #999;
+	font-size: 10px;
+	display: block;
+}
 .widget-post a:hover {
     color: #45B6F7;
 }
-
+.widget-post p{
+	margin-bottom: 0;
+}
 </style>
 
 <!-- <div class="widget widget-ad widget-ad-img"> -->
@@ -143,7 +156,13 @@
 		<c:forEach var="blog" items="${lastBlogList }">
 		<li>
 			<a href="/blog/${blog.id }.html">
-				<span class="text">${blog.title }</span>
+				<div class="thumb">
+					<img src="${blog.thumb }">
+				</div>
+				<div class="content">
+					<p class="title">${blog.title }</p>
+					<p class="time"><fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></p>
+				</div>
 			</a>
 		</li>
 		</c:forEach>
@@ -155,7 +174,13 @@
 		<c:forEach var="blog" items="${hotBlogList }">
 		<li>
 			<a href="/blog/${blog.id }.html">
-				<span class="text">${blog.title }</span>
+				<div class="thumb">
+					<img src="${blog.thumb }">
+				</div>
+				<div class="content">
+					<p class="title">${blog.title }</p>
+					<p class="time"><fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></p>
+				</div>
 			</a>
 		</li>
 		</c:forEach>

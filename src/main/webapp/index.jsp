@@ -37,6 +37,9 @@ a:hover {
 	<div role="main" class="container">
 		<div class="row">
         	<div class="col-md-8">
+        		<c:if test="${isIndex }">
+				<jsp:include page="common/carousel.jsp"></jsp:include>
+        		</c:if>
 				<jsp:include page="${mainPage }"></jsp:include>
         	</div><!-- main-end -->
         	

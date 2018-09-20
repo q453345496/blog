@@ -32,6 +32,7 @@ public class IndexController {
 		if (list.isEmpty()) {
 			view.addObject("mainPage", Constants.PAGE_404);
 		} else {
+			view.addObject("isIndex", true);
 			view.addObject("blogs", list);
 			view.addObject("mainPage", "view/blog/list.jsp");
 			view.addObject("page", pageInfo);

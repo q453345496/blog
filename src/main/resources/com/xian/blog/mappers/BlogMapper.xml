@@ -56,4 +56,14 @@
 		WHERE b.id = #{id}
 	</select>
 	
+	<select id="getLast" parameterType="Long" resultMap="BlogResult">
+		SELECT b.id, b.title FROM t_blog b
+		WHERE b.id &lt; #{id} ORDER BY id DESC LIMIT 1
+	</select>
+	
+	<select id="getNext" parameterType="Long" resultMap="BlogResult">
+		SELECT b.id, b.title FROM t_blog b
+		WHERE b.id &gt; #{id} ORDER BY id ASC LIMIT 1
+	</select>
+	
 </mapper> 

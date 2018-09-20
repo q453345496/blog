@@ -82,4 +82,12 @@ public class BlogService {
 	public void delete(Long[] ids) {
 		blogDao.deleteBatchIds(Arrays.asList(ids));
 	}
+	
+	public Blog getLast(Long id){
+		return blogDao.getLast(id);
+	}
+	
+	public Blog getNext(Long id){
+		return blogDao.getNext(id);
+	}
 }

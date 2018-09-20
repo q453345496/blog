@@ -124,8 +124,23 @@
 	</div>
 	
 	<div class="post-nav">
-		<a class="post-nav-pre" href="#">上一篇<br>HTML5-语义化</a>
-		<a class="post-nav-next" href="#">下一篇<br>干货【从入门到精通前端系列视频教程】免费赠送</a>
+		<c:choose>
+			<c:when test="${lastBlog == null}">
+				<a class="post-nav-pre" href="javascript:;">上一篇<br>没有了</a>
+			</c:when>
+			<c:otherwise>
+				<a class="post-nav-pre" href="/blog/${lastBlog.id }.html">上一篇<br>${lastBlog.title }</a>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${nextBlog == null}">
+				<a class="post-nav-next" href="javascript:;">下一篇<br>没有了</a>
+			</c:when>
+			<c:otherwise>
+				<a class="post-nav-next" href="/blog/${nextBlog.id }.html">下一篇<br>${nextBlog.title }</a>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	
 	<div class="post-recommend">

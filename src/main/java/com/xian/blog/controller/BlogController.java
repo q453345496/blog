@@ -35,6 +35,8 @@ public class BlogController {
 			modelAndView.addObject("mainPage", Constants.PAGE_404);
 		} else {
 			modelAndView.addObject("blog", blog);
+			modelAndView.addObject("lastBlog", blogService.getLast(id));
+			modelAndView.addObject("nextBlog", blogService.getNext(id));
 			modelAndView.addObject("mainPage", "view/blog/blog.jsp");
 		}
 		return modelAndView;

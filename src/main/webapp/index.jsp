@@ -35,11 +35,11 @@ a:hover {
 	<%@include file="common/header.jsp" %>
 	
 	<div role="main" class="container">
+	    <c:if test="${isIndex }">
+		<jsp:include page="common/carousel.jsp"></jsp:include>
+	    </c:if>
 		<div class="row">
         	<div class="col-md-8">
-        		<c:if test="${isIndex }">
-				<jsp:include page="common/carousel.jsp"></jsp:include>
-        		</c:if>
 				<jsp:include page="${mainPage }"></jsp:include>
         	</div><!-- main-end -->
         	

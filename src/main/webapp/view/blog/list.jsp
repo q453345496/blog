@@ -46,6 +46,15 @@
 	font-size:12px;
 	text-align: justify;
 }
+.readmore{
+    float: right;
+    background: #00b5ad;
+    color: #fff;
+    padding: 5px 10px;
+}
+.readmore a{
+	color: #fff;
+}
 .post-pagination{
 	margin-top: 20px;
 }
@@ -73,6 +82,9 @@
 		</div>
 		<div class="summary">
 			&nbsp;&nbsp;&nbsp;&nbsp;${blog.summary }</div>
+		<div class="readmore">
+			<a href="/blog/${blog.id }.html">阅读全文&gt;&gt;</a>
+		</div>
 	</div>
 </div>
 </c:forEach>

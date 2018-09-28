@@ -43,6 +43,15 @@
 	font-size:12px;
 	text-align: justify;
 }
+.readmore{
+    float: right;
+    background: #00b5ad;
+    color: #fff;
+    padding: 5px 10px;
+}
+.readmore a{
+	color: #fff;
+}
 .post-pagination{
 	margin-top: 20px;
 }
@@ -69,6 +78,9 @@
 		</div>
 		<div class="summary">
 			&nbsp;&nbsp;&nbsp;&nbsp;前段时间写鼠标悬停元素上移效果时，当鼠标恰好放在元素边缘时，chrome出现一直上下移动的问题，其他浏览器表现正常。原因尚不知，可能是实现方式不对吧（PS：使用top实现），虽然不知道原因，但...		</div>
+		<div class="readmore">
+			<a href="#">阅读全文&gt;&gt;</a>
+		</div>
 	</div>
 </div>
 <div class="post-item">
@@ -90,6 +102,9 @@
 		</div>
 		<div class="summary">
 			&nbsp; &nbsp; 距HTML5标准规范制定完成并公开发布已经有好些年了，面试时也少不了要问对HTML5语义化得理解。但是在实际运用时，真正使用HTML5标签来开发的似乎不是很多（ps：查看了几个巨头公司网站推论），可能一部分原因是仍有部分用户使用在使...
+		</div>
+		<div class="readmore">
+			<a href="#">阅读全文&gt;&gt;</a>
 		</div>
 	</div>
 </div>

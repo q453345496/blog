@@ -1,16 +1,13 @@
 package com.xian.blog.service;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field.Store;
-import org.apache.lucene.document.StoredField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
@@ -32,6 +29,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.model.Blog;
 
 public class LuceneService {
@@ -55,7 +53,6 @@ public class LuceneService {
 			document.add(new StringField("id", blog.getId().toString(), Store.YES));
 			document.add(new TextField("title", blog.getTitle(), Store.YES));
 			document.add(new TextField("content", blog.getContent(), Store.YES));
-			document.add(new StoredField("thumb", blog.getThumb()));
 
 			writer.addDocument(document);
 		} catch (IOException e) {
@@ -64,7 +61,7 @@ public class LuceneService {
 
 	}
 
-	public static List<Blog> search(String q) {
+	public static List<Blog> search(String q, Page<Blog> pageInfo) {
 		SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
 
 		try (IndexReader reader = DirectoryReader.open(DIR)) {
@@ -72,29 +69,26 @@ public class LuceneService {
 			BooleanQuery.Builder b = new BooleanQuery.Builder();
 			QueryParser parser = new QueryParser("title", analyzer);
 			QueryParser parser2 = new QueryParser("content", analyzer);
-			b.add(parser.parse(q), BooleanClause.Occur.SHOULD);
+			b.add(new BooleanClause(parser.parse(q), BooleanClause.Occur.MUST));
 			b.add(parser2.parse(q), BooleanClause.Occur.SHOULD);
 			System.out.println(b.build());
 			List<Blog> datas = new ArrayList<>();
 			TopDocs hits = is.search(b.build(), 100);
-			
+
 			QueryScorer scorer = new QueryScorer(parser.parse(q));
 			Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
 			SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<b><font color='red'>", "</font></b>");
 			Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
 			highlighter.setTextFragmenter(fragmenter);
-			
-			
-			
+
 			for (ScoreDoc scoreDoc : hits.scoreDocs) {
 				Document doc = is.doc(scoreDoc.doc);
 				Blog blog = new Blog();
 				blog.setId(Long.parseLong(doc.get("id")));
 				blog.setTitle(doc.get("title"));
-				blog.setContent(doc.get("content"));
-				blog.setThumb(doc.get("thumb"));
+				blog.setSummary(doc.get("content"));
 				datas.add(blog);
-				
+
 				String hTitle = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
 				System.out.println(hTitle);
 			}
@@ -104,5 +98,9 @@ public class LuceneService {
 		}
 		return null;
 
+	}
+
+	public static void main(String[] args) {
+		search("盒子", new Page<>(1, 10));
 	}
 }

@@ -1,5 +1,6 @@
 package com.xian.blog.controller.manager;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +59,7 @@ public class BlogManagerController {
 		}
 		if (Blog.DRAFT == blog.getStatus()) {//草稿的保存后成为正式使用
 			blog.setStatus(Blog.ONLINE);
+			blog.setCreateTime(new Date());
 		}
 		String thumb = JsoupUtil.getFirstImgURL(htmlDoc);
 		if (StringUtils.isBlank(thumb)) {

@@ -18,6 +18,7 @@ import com.xian.blog.model.Blog;
 import com.xian.blog.model.BlogType;
 import com.xian.blog.service.BlogService;
 import com.xian.blog.service.BlogTypeService;
+import com.xian.blog.service.LuceneService;
 
 @Controller
 
@@ -62,6 +63,22 @@ public class BlogController {
 				view.addObject("mainPage", "view/blog/list.jsp");
 				view.addObject("page", pageInfo);
 			}
+		}
+		return view;
+	}
+
+	@RequestMapping("/search")
+	public ModelAndView search(@RequestParam("kw") String kw,
+			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
+		ModelAndView view = new ModelAndView("index");
+		Page<Blog> pageInfo = new Page<Blog>(page, 10);
+		List<Blog> list = LuceneService.search(kw, pageInfo);
+		if (list.isEmpty()) {
+			view.addObject("mainPage", Constants.PAGE_404);
+		} else {
+			view.addObject("blogs", list);
+			view.addObject("mainPage", "view/blog/search.jsp");
+			view.addObject("page", pageInfo);
 		}
 		return view;
 	}

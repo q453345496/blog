@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xian.blog.common.CommonResult;
@@ -30,10 +29,4 @@ public class SystemController {
 		return CommonResult.success();
 	}
 
-	@RequestMapping("/search")
-	@ResponseBody
-	public List<Blog> syncIndex(@RequestParam("q") String q) {
-
-		return LuceneService.search(q);
-	}
 }

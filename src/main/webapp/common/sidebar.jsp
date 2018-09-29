@@ -155,7 +155,7 @@
 	<ul>
 		<c:forEach var="blog" items="${lastBlogList }">
 		<li>
-			<a href="/blog/${blog.id }.html">
+			<a href="<%=basePath %>/blog/${blog.id }.html">
 				<div class="thumb">
 					<img src="${blog.thumb }">
 				</div>
@@ -173,7 +173,7 @@
 	<ul>
 		<c:forEach var="blog" items="${hotBlogList }">
 		<li>
-			<a href="/blog/${blog.id }.html">
+			<a href="<%=basePath %>/blog/${blog.id }.html">
 				<div class="thumb">
 					<img src="${blog.thumb }">
 				</div>
@@ -188,7 +188,6 @@
 </div>
 
 <script type="text/javascript">
-
 // $(window).scroll(function(){
 // 	var lastElement = $(".widget:last");
 // 	var sideHeight = lastElement.outerHeight();//侧边栏的高度

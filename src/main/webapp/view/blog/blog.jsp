@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path;
 %>
 <style>
 .post {
@@ -103,7 +105,7 @@
 				<i class="fa fa-calendar"></i><span>发布时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
 			</div>
 			<div class="item">
-				<i class="fa fa-folder-open"></i><span>分类：<a href="/${blog.typeCode }">${blog.typeName }</a></span>
+				<i class="fa fa-folder-open"></i><span>分类：<a href="<%=basePath%>/${blog.typeCode }">${blog.typeName }</a></span>
 			</div>
 			<div class="item">
 				<i class="fa fa-eye"></i><span>阅读(${blog.click })</span>
@@ -120,7 +122,7 @@
 <!-- 	</div> -->
 	
 	<div class="post-copyright">
-		未经允许不得转载：<a href="/blog/${blog.id }.html">${blog.title }</a>
+		未经允许不得转载：<a href="<%=basePath%>/blog/${blog.id }.html">${blog.title }</a>
 	</div>
 	
 	<div class="post-nav">
@@ -129,7 +131,7 @@
 				<a class="post-nav-pre" href="javascript:;">上一篇<br>没有了</a>
 			</c:when>
 			<c:otherwise>
-				<a class="post-nav-pre" href="/blog/${lastBlog.id }.html">上一篇<br>${lastBlog.title }</a>
+				<a class="post-nav-pre" href="<%=basePath%>/blog/${lastBlog.id }.html">上一篇<br>${lastBlog.title }</a>
 			</c:otherwise>
 		</c:choose>
 		
@@ -138,7 +140,7 @@
 				<a class="post-nav-next" href="javascript:;">下一篇<br>没有了</a>
 			</c:when>
 			<c:otherwise>
-				<a class="post-nav-next" href="/blog/${nextBlog.id }.html">下一篇<br>${nextBlog.title }</a>
+				<a class="post-nav-next" href="<%=basePath%>/blog/${nextBlog.id }.html">下一篇<br>${nextBlog.title }</a>
 			</c:otherwise>
 		</c:choose>
 	</div>

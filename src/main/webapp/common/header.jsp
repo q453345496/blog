@@ -39,7 +39,7 @@
 	        </div>
 	      </li>
 	    </ul>
-	    <form class="form-inline my-2 my-lg-0" action="${path}/search">
+	    <form class="form-inline my-2 my-lg-0" action="<%=basePath %>/search">
 	      <input name="kw" class="form-control mr-sm-2" type="search" placeholder="请输入关键字" aria-label="Search" value="${kw }">
 	      <button class="btn btn-primary my-2 my-sm-0" type="submit">搜索</button>
 	    </form>

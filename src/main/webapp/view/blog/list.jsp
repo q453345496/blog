@@ -95,7 +95,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-var pa = '${basePath}';
 var pathname = location.pathname;
 $('#pagination').jqPaginator({
     //totalPages: 100,

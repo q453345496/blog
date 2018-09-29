@@ -1,5 +1,4 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -28,12 +27,17 @@ a:hover {
 	padding-right: 10px;
 }
 
+.post-pagination{
+	margin-top: 20px;
+}
+.post-pagination .pagination{
+	justify-content: center;
+}
 
 </style>
 </head>
 <body>
-	<%@include file="common/header.jsp" %>
-	
+	<%@include file="common/header.jsp" %>	
 	<div role="main" class="container">
 	    <c:if test="${isIndex }">
 		<jsp:include page="common/carousel.jsp"></jsp:include>

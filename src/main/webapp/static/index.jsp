@@ -1,5 +1,4 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -23,8 +22,16 @@ a:hover {
 	padding-right: 0px;
 	padding-left: 0px;
 }
-
-
+.col-md-8, .col-md-4{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.post-pagination{
+	margin-top: 20px;
+}
+.post-pagination .pagination{
+	justify-content: center;
+}
 
 </style>
 </head>
@@ -32,10 +39,11 @@ a:hover {
 	<%@include file="common/header.jsp" %>
 	
 	<div role="main" class="container">
+<%-- 		<jsp:include page="common/carousel.jsp"></jsp:include> --%>
 		<div class="row">
         	<div class="col-md-8">
-				<jsp:include page="common/carousel.jsp"></jsp:include>
-				<jsp:include page="view/blog/list.jsp"></jsp:include>
+				<jsp:include page="view/blog/search.jsp"></jsp:include>
+<%-- 				<jsp:include page="view/blog/list.jsp"></jsp:include> --%>
 <%-- 				<jsp:include page="./view/blog/blog.jsp"></jsp:include> --%>
         	</div><!-- main-end -->
         	

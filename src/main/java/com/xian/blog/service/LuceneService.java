@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field.Store;
@@ -69,7 +70,7 @@ public class LuceneService {
 			BooleanQuery.Builder b = new BooleanQuery.Builder();
 			QueryParser parser = new QueryParser("title", analyzer);
 			QueryParser parser2 = new QueryParser("content", analyzer);
-			b.add(new BooleanClause(parser.parse(q), BooleanClause.Occur.MUST));
+			b.add(new BooleanClause(parser.parse(q), BooleanClause.Occur.SHOULD));
 			b.add(parser2.parse(q), BooleanClause.Occur.SHOULD);
 			System.out.println(b.build());
 			List<Blog> datas = new ArrayList<>();
@@ -77,7 +78,7 @@ public class LuceneService {
 
 			QueryScorer scorer = new QueryScorer(parser.parse(q));
 			Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
-			SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<b><font color='red'>", "</font></b>");
+			SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<span class='highlight'>", "</span>");
 			Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
 			highlighter.setTextFragmenter(fragmenter);
 
@@ -85,12 +86,20 @@ public class LuceneService {
 				Document doc = is.doc(scoreDoc.doc);
 				Blog blog = new Blog();
 				blog.setId(Long.parseLong(doc.get("id")));
-				blog.setTitle(doc.get("title"));
-				blog.setSummary(doc.get("content"));
 				datas.add(blog);
 
-				String hTitle = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
-				System.out.println(hTitle);
+				String hTitle = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
+				if (StringUtils.isBlank(hTitle)) {
+					blog.setTitle(doc.get("title"));
+				} else {
+					blog.setTitle(hTitle);
+				}
+				String hContent = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
+				if (StringUtils.isBlank(hContent)) {
+					blog.setSummary(doc.get("content"));
+				} else {
+					blog.setSummary(hContent);
+				}
 			}
 			return datas;
 		} catch (Exception e) {

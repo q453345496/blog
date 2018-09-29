@@ -1,6 +1,11 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path;
+%>
 <style>
 .post-item{
 	background-color: #fff;
@@ -55,44 +60,42 @@
 .readmore a{
 	color: #fff;
 }
-.post-pagination{
-	margin-top: 20px;
-}
-.post-pagination .pagination{
-	justify-content: center;
-}
+
 </style>
-<c:forEach var="blog" items="${blogs}">
-<div class="post-item">
-	<div class="thumb">
-		<a class="focus" href="/blog/${blog.id }.html">
-			<img src="${blog.thumb }" alt="${blog.title }">
-		</a>
+<div class="post-list">
+	<c:forEach var="blog" items="${blogs}">
+	<div class="post-item">
+		<div class="thumb">
+			<a class="focus" href="<%=basePath %>/blog/${blog.id }.html">
+				<img src="${blog.thumb }" alt="${blog.title }">
+			</a>
+		</div>
+		<div class="info">
+			<div class="title">
+				<h2>
+					<a href="<%=basePath %>/blog/${blog.id }.html" title="${blog.title }" target="_blank">${blog.title }</a>
+				</h2>
+			</div>
+			<div class="meta">
+				<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${blog.createTime}"/></span>
+				<span><i class="fa fa-list-alt"></i><a href="<%=basePath%>/${blog.typeCode }">${blog.typeName}</a></span>
+				<span><i class="fa fa-eye"></i>阅读(${blog.click })</span>
+			</div>
+			<div class="summary">
+				&nbsp;&nbsp;&nbsp;&nbsp;${blog.summary }</div>
+			<div class="readmore">
+				<a href="<%=basePath%>/blog/${blog.id }.html">阅读全文&gt;&gt;</a>
+			</div>
+		</div>
 	</div>
-	<div class="info">
-		<div class="title">
-			<h2>
-				<a href="/blog/${blog.id }.html" title="${blog.title }" target="_blank">${blog.title }</a>
-			</h2>
-		</div>
-		<div class="meta">
-			<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${blog.createTime}"/></span>
-			<span><i class="fa fa-list-alt"></i><a href="/${blog.typeCode }">${blog.typeName}</a></span>
-			<span><i class="fa fa-eye"></i>阅读(${blog.click })</span>
-		</div>
-		<div class="summary">
-			&nbsp;&nbsp;&nbsp;&nbsp;${blog.summary }</div>
-		<div class="readmore">
-			<a href="/blog/${blog.id }.html">阅读全文&gt;&gt;</a>
-		</div>
+	</c:forEach>
+	<div class="post-pagination">
+		<ul id="pagination" class="pagination">
+		</ul>
 	</div>
-</div>
-</c:forEach>
-<div class="post-pagination">
-	<ul id="pagination" class="pagination">
-	</ul>
 </div>
 <script type="text/javascript">
+var pa = '${basePath}';
 var pathname = location.pathname;
 $('#pagination').jqPaginator({
     //totalPages: 100,

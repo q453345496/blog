@@ -73,13 +73,10 @@ public class BlogController {
 		ModelAndView view = new ModelAndView("index");
 		Page<Blog> pageInfo = new Page<Blog>(page, 10);
 		List<Blog> list = LuceneService.search(kw, pageInfo);
-		if (list.isEmpty()) {
-			view.addObject("mainPage", Constants.PAGE_404);
-		} else {
-			view.addObject("blogs", list);
-			view.addObject("mainPage", "view/blog/search.jsp");
-			view.addObject("page", pageInfo);
-		}
+		view.addObject("blogs", list);
+		view.addObject("mainPage", "view/blog/search.jsp");
+		view.addObject("page", pageInfo);
+		view.addObject("kw", kw);
 		return view;
 	}
 

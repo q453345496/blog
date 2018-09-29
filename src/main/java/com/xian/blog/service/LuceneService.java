@@ -3,6 +3,7 @@ package com.xian.blog.service;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -62,51 +63,55 @@ public class LuceneService {
 
 	}
 
-	public static List<Blog> search(String q, Page<Blog> pageInfo) {
-		SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
+	public static void search(String q, Page<Blog> pageInfo) {
+		List<Blog> datas = new ArrayList<>();
+		long total = 0;
+		if (StringUtils.isNotBlank(q)) {
+			try (IndexReader reader = DirectoryReader.open(DIR)) {
+				SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
+				IndexSearcher is = new IndexSearcher(reader);
+				BooleanQuery.Builder b = new BooleanQuery.Builder();
+				QueryParser parser = new QueryParser("title", analyzer);
+				QueryParser parser2 = new QueryParser("content", analyzer);
+				b.add(new BooleanClause(parser.parse(q), BooleanClause.Occur.SHOULD));
+				b.add(parser2.parse(q), BooleanClause.Occur.SHOULD);
+				System.out.println(b.build());
+				TopDocs hits = is.search(b.build(), 100);
+				QueryScorer scorer = new QueryScorer(parser.parse(q));
+				Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
+				SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<span class='highlight'>",
+						"</span>");
+				Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
+				highlighter.setTextFragmenter(fragmenter);
 
-		try (IndexReader reader = DirectoryReader.open(DIR)) {
-			IndexSearcher is = new IndexSearcher(reader);
-			BooleanQuery.Builder b = new BooleanQuery.Builder();
-			QueryParser parser = new QueryParser("title", analyzer);
-			QueryParser parser2 = new QueryParser("content", analyzer);
-			b.add(new BooleanClause(parser.parse(q), BooleanClause.Occur.SHOULD));
-			b.add(parser2.parse(q), BooleanClause.Occur.SHOULD);
-			System.out.println(b.build());
-			List<Blog> datas = new ArrayList<>();
-			TopDocs hits = is.search(b.build(), 100);
+				for (ScoreDoc scoreDoc : hits.scoreDocs) {
+					Document doc = is.doc(scoreDoc.doc);
+					Blog blog = new Blog();
+					blog.setId(Long.parseLong(doc.get("id")));
 
-			QueryScorer scorer = new QueryScorer(parser.parse(q));
-			Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
-			SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<span class='highlight'>", "</span>");
-			Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
-			highlighter.setTextFragmenter(fragmenter);
-
-			for (ScoreDoc scoreDoc : hits.scoreDocs) {
-				Document doc = is.doc(scoreDoc.doc);
-				Blog blog = new Blog();
-				blog.setId(Long.parseLong(doc.get("id")));
-				datas.add(blog);
-
-				String hTitle = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
-				if (StringUtils.isBlank(hTitle)) {
-					blog.setTitle(doc.get("title"));
-				} else {
-					blog.setTitle(hTitle);
+					String hTitle = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
+					if (StringUtils.isBlank(hTitle)) {
+						blog.setTitle(doc.get("title"));
+					} else {
+						blog.setTitle(hTitle);
+					}
+					String hContent = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
+					if (StringUtils.isBlank(hContent)) {
+						blog.setSummary(doc.get("content"));
+					} else {
+						blog.setSummary(hContent);
+					}
+					datas.add(blog);
 				}
-				String hContent = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
-				if (StringUtils.isBlank(hContent)) {
-					blog.setSummary(doc.get("content"));
-				} else {
-					blog.setSummary(hContent);
-				}
+				total = hits.totalHits;
+			} catch (Exception e) {
+				LOG.error("search error", e);
+				total = 0;
+				datas = Collections.emptyList();
 			}
-			return datas;
-		} catch (Exception e) {
-			LOG.error("search error", e);
 		}
-		return null;
-
+		pageInfo.setTotal(total);
+		pageInfo.setRecords(datas);
 	}
 
 	public static void main(String[] args) {

@@ -53,7 +53,7 @@
 </style>
 <div class="search-result">
 	<div class="result-status">
-		为您找到相关记录<strong>24</strong>条
+		为您找到相关记录<strong>${page.total}</strong>条
 	</div>
 	<c:choose>
 		<c:when test="${empty blogs }">
@@ -77,19 +77,22 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+<c:if test="${page.total!=0 }">
 <script type="text/javascript">
+var pathname = location.pathname + "?kw=${kw}";
 $('#pagination').jqPaginator({
     //totalPages: 100,
-    pageSize: 10,
-    totalCounts: 11,
+    pageSize: ${page.size},
+    totalCounts: ${page.total},
     visiblePages: 10,
-    currentPage: 1,
-    first: '<li class="page-item"><a class="page-link" href="/s?page={{page}}">首页</a></li>',
-    last: '<li class="page-item"><a class="page-link" href="/s?&page={{page}}">尾页</a></li>',
-    prev: '<li class="page-item"><a class="page-link" href="/s?&page={{page}}">上一页</a></li>',
-    next: '<li class="page-item""><a class="page-link" href="/s?&page={{page}}">下一页</a></li>',
-    page: '<li class="page-item""><a class="page-link" href="/s?&page={{page}};">{{page}}</a></li>',
+    currentPage: ${page.current},
+    first: '<li class="page-item"><a class="page-link" href="' + pathname + 'page={{page}}">首页</a></li>',
+    last: '<li class="page-item"><a class="page-link" href="' + pathname + '&page={{page}}">尾页</a></li>',
+    prev: '<li class="page-item"><a class="page-link" href="' + pathname + '&page={{page}}">上一页</a></li>',
+    next: '<li class="page-item""><a class="page-link" href="' + pathname + '&page={{page}}">下一页</a></li>',
+    page: '<li class="page-item""><a class="page-link" href="' + pathname + '&page={{page}}">{{page}}</a></li>',
     onPageChange: function (num, type) {
     }
 });
 </script>
+</c:if>

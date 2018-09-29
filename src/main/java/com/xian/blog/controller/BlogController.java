@@ -72,8 +72,8 @@ public class BlogController {
 			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
 		ModelAndView view = new ModelAndView("index");
 		Page<Blog> pageInfo = new Page<Blog>(page, 10);
-		List<Blog> list = LuceneService.search(kw, pageInfo);
-		view.addObject("blogs", list);
+		LuceneService.search(kw, pageInfo);
+		view.addObject("blogs", pageInfo.getRecords());
 		view.addObject("mainPage", "view/blog/search.jsp");
 		view.addObject("page", pageInfo);
 		view.addObject("kw", kw);

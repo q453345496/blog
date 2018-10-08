@@ -49,13 +49,14 @@
 </div>
 <script>
 $(function() {
-    $.getJSON("<%=path%>/admin/blogType/listAll",function(result){
+    $.getJSON("<%=path%>/admin/blogType/listGroup",function(result){
     	if(result.data.length > 0){
     		result.data[0].selected=true
     	}
         $('#blogTypeId').combobox({
             valueField : 'id',
             textField : 'name',
+            groupField: 'parentName',
             data : result.data,
             editable : false
         });

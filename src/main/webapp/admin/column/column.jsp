@@ -85,8 +85,12 @@ $(function() {
 				}
 			}
 		]],
-		onLoadSuccess:function(data){
+		onLoadSuccess:function(node, data){
 			$('.column-easyui-linkbutton-edit').linkbutton({text:'编辑'});
+        	if(data){
+        		var root = $('#columnTreeGrid').treegrid('getRoot');
+				$('#columnTreeGrid').treegrid('expand', root.id);
+        	}
 		},
 		method : 'GET',
 		onContextMenu: function(e, row){

@@ -11,18 +11,20 @@ import com.xian.blog.util.FtpAdapter;
 public class BlogType {
 	@TableId
 	private Long id;
-	private String name;// 标题
+	private String name;
 	private String code;//编码
-	private Integer rank;// 序号
-
 	private String imgPath;
-
+	private Integer rank;
+	private Long parentId;
+	@TableField(exist = false)
+	private String parentName;
+	@TableField(value = "is_parent")
+	private Boolean parent;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	@TableField(value = "create_time", fill = FieldFill.INSERT)
+	@TableField(fill = FieldFill.INSERT)
 	private Date createTime;
-
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	@TableField(value = "modify_time", fill = FieldFill.INSERT_UPDATE)
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date modifyTime;
 
 	public Long getId() {
@@ -41,14 +43,6 @@ public class BlogType {
 		this.name = name;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
 	public Integer getRank() {
 		return rank;
 	}
@@ -57,12 +51,32 @@ public class BlogType {
 		this.rank = rank;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public Long getParentId() {
+		return parentId;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public Boolean getParent() {
+		return parent;
+	}
+
+	public void setParent(Boolean parent) {
+		this.parent = parent;
+	}
+
+	public String getState() {
+		return Boolean.TRUE.equals(parent) ? "closed" : "open";
 	}
 
 	public Date getCreateTime() {
@@ -81,8 +95,23 @@ public class BlogType {
 		this.modifyTime = modifyTime;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
 	public String getImgPathURL() {
 		return FtpAdapter.getImgURL(imgPath);
 	}
-	
 }

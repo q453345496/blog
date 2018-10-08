@@ -28,6 +28,8 @@ CREATE TABLE `t_blog_type` (
 `code` varchar(32) NOT NULL ,
 `img_path` varchar(255) ,
 `rank` int(11),
+`parent_id` int(11) NOT NULL,
+`is_parent` tinyint(1) DEFAULT false,
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
@@ -35,6 +37,8 @@ PRIMARY KEY (`id`)
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+INSERT INTO `t_blog_type` (`id`, `name`, `code`, `img_path`, `rank`, `parent_id`, `is_parent`, `create_time`, `modify_time`) 
+VALUES ('1', '根分类', 'root', NULL, '1', '-1', '0', NOW(), NOW());
 
 /*收入与支出分类*/
 DROP TABLE IF EXISTS `t_journal_category`;

@@ -68,8 +68,12 @@ $(function() {
 				}
 			}
 		]],
-		onLoadSuccess:function(data){
+		onLoadSuccess:function(node, data){
 			$('.${model}-easyui-linkbutton-edit').linkbutton({text:'编辑'});
+			if(data){
+        		var root = $('#${model}TreeGrid').treegrid('getRoot');
+				$('#${model}TreeGrid').treegrid('expand', root.id);
+        	}
 		},
 		method : 'GET',
 		onContextMenu: function(e, row){

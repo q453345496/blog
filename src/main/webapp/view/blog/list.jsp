@@ -78,7 +78,7 @@
 			</div>
 			<div class="meta">
 				<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${blog.createTime}"/></span>
-				<span><i class="fa fa-list-alt"></i><a href="<%=basePath%>/${blog.typeCode }">${blog.typeName}</a></span>
+				<span><i class="fa fa-list-alt"></i><a href="<%=basePath%>/t/${blog.typeCode }">${blog.typeName}</a></span>
 				<span><i class="fa fa-eye"></i>阅读(${blog.click })</span>
 			</div>
 			<div class="summary">

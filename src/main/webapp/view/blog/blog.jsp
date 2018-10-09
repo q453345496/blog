@@ -105,7 +105,7 @@
 				<i class="fa fa-calendar"></i><span>发布时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
 			</div>
 			<div class="item">
-				<i class="fa fa-folder-open"></i><span>分类：<a href="<%=basePath%>/${blog.typeCode }">${blog.typeName }</a></span>
+				<i class="fa fa-folder-open"></i><span>分类：<a href="<%=basePath%>/t/${blog.typeCode }">${blog.typeName }</a></span>
 			</div>
 			<div class="item">
 				<i class="fa fa-eye"></i><span>阅读(${blog.click })</span>

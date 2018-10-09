@@ -21,7 +21,9 @@ import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.TopFieldCollector;
 import org.apache.lucene.search.highlight.Fragmenter;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.QueryScorer;
@@ -75,9 +77,15 @@ public class LuceneService {
 				QueryParser parser2 = new QueryParser("content", analyzer);
 				b.add(new BooleanClause(parser.parse(q), BooleanClause.Occur.SHOULD));
 				b.add(parser2.parse(q), BooleanClause.Occur.SHOULD);
-				System.out.println(b.build());
-				TopDocs hits = is.search(b.build(), 100);
-				QueryScorer scorer = new QueryScorer(parser.parse(q));
+				BooleanQuery query = b.build();
+
+				TopFieldCollector topFieldCollector = TopFieldCollector.create(new Sort(),
+						pageInfo.getCurrent() * pageInfo.getSize(), false, false, false);
+				is.search(b.build(), topFieldCollector);
+				TopDocs hits = topFieldCollector.topDocs((pageInfo.getCurrent() - 1) * pageInfo.getSize(),
+						pageInfo.getSize());
+
+				QueryScorer scorer = new QueryScorer(query);
 				Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
 				SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<span class='highlight'>",
 						"</span>");
@@ -115,6 +123,9 @@ public class LuceneService {
 	}
 
 	public static void main(String[] args) {
-		search("盒子", new Page<>(1, 10));
+		search("的", new Page<>(1, 3));
+		search("的", new Page<>(2, 3));
+		search("的", new Page<>(3, 3));
+		search("的", new Page<>(4, 3));
 	}
 }

@@ -1,9 +1,22 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
 <%@include file="common/link.jsp"%>
-<title>The Flower Blog</title>
+<title>
+<c:choose>
+	<c:when test="${not empty blog }">
+	${blog.title }
+	</c:when>
+	<c:when test="${not empty kw }">
+	${kw }_站内搜索
+	</c:when>
+	<c:otherwise>
+	时间就是金钱
+	</c:otherwise>
+</c:choose>
+</title>
 <style>
 body {
 	background-color: #f6f6f6;

@@ -27,10 +27,6 @@ import com.xian.blog.service.BlogTypeService;
 import com.xian.blog.util.JsoupUtil;
 import com.xian.blog.util.MarkdownUtil;
 
-/**
- * Date:2016年7月29日下午9:35:11
- * 
- */
 @Controller
 @RequestMapping("/admin/blog")
 public class BlogManagerController {

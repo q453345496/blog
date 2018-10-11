@@ -49,6 +49,7 @@ public class BlogService {
 
 	public void update(Blog blog) {
 		blogDao.updateById(blog);
+		LuceneService.updateIndex(blog);
 	}
 
 	public void save(Blog blog) {

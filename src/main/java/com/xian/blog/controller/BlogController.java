@@ -43,7 +43,7 @@ public class BlogController {
 		return modelAndView;
 	}
 
-	@RequestMapping("/{typeCode:[a-z]+}")
+	@RequestMapping("/t/{typeCode:[a-z]+}")
 	public ModelAndView listByType(@PathVariable("typeCode") String typeCode,
 			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
 		ModelAndView view = new ModelAndView("index");
@@ -72,7 +72,7 @@ public class BlogController {
 			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
 		ModelAndView view = new ModelAndView("index");
 		Page<Blog> pageInfo = new Page<Blog>(page, 10);
-		LuceneService.search(kw, pageInfo);
+		LuceneService.search(kw, pageInfo, true);
 		view.addObject("blogs", pageInfo.getRecords());
 		view.addObject("mainPage", "view/blog/search.jsp");
 		view.addObject("page", pageInfo);

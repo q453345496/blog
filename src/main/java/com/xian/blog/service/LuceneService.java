@@ -16,6 +16,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
@@ -60,12 +61,47 @@ public class LuceneService {
 
 			writer.addDocument(document);
 		} catch (IOException e) {
-			LOG.error("addIndex error", e);
+			LOG.error("add Index error", e);
+		}
+	}
+
+	public static void updateIndex(Blog blog) {
+		SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
+		IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+		try (IndexWriter writer = new IndexWriter(DIR, iwc)) {
+			Document document = new Document();
+			document.add(new StringField("id", blog.getId().toString(), Store.YES));
+			document.add(new TextField("title", blog.getTitle(), Store.YES));
+			document.add(new TextField("content", blog.getContent(), Store.YES));
+
+			writer.updateDocument(new Term("id", blog.getId().toString()), document);
+		} catch (IOException e) {
+			LOG.error("add Index error", e);
+		}
+	}
+
+	public static void deleteIndex(Long id) {
+		SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
+		IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+		try (IndexWriter writer = new IndexWriter(DIR, iwc)) {
+			writer.deleteDocuments(new Term("id", id.toString()));
+		} catch (IOException e) {
+			LOG.error("add Index error", e);
+		}
+	}
+
+	public static void cleanAll() {
+		SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
+		IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+		try (IndexWriter writer = new IndexWriter(DIR, iwc)) {
+			writer.deleteAll();
+		} catch (IOException e) {
+			LOG.error("clean All Index error", e);
 		}
 
 	}
 
-	public static void search(String q, Page<Blog> pageInfo) {
+	public static void search(String q, Page<Blog> pageInfo, boolean isHighlight) {
 		List<Blog> datas = new ArrayList<>();
 		long total = 0;
 		if (StringUtils.isNotBlank(q)) {
@@ -85,29 +121,32 @@ public class LuceneService {
 				TopDocs hits = topFieldCollector.topDocs((pageInfo.getCurrent() - 1) * pageInfo.getSize(),
 						pageInfo.getSize());
 
-				QueryScorer scorer = new QueryScorer(query);
-				Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
-				SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<span class='highlight'>",
-						"</span>");
-				Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
-				highlighter.setTextFragmenter(fragmenter);
+				Highlighter highlighter = null;
+				if (isHighlight) {
+					QueryScorer scorer = new QueryScorer(query);
+					Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
+					SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<span class='highlight'>",
+							"</span>");
+					highlighter = new Highlighter(simpleHTMLFormatter, scorer);
+					highlighter.setTextFragmenter(fragmenter);
+				}
 
 				for (ScoreDoc scoreDoc : hits.scoreDocs) {
 					Document doc = is.doc(scoreDoc.doc);
 					Blog blog = new Blog();
 					blog.setId(Long.parseLong(doc.get("id")));
+					blog.setTitle(doc.get("title"));
+					blog.setSummary(doc.get("content"));
 
-					String hTitle = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
-					if (StringUtils.isBlank(hTitle)) {
-						blog.setTitle(doc.get("title"));
-					} else {
-						blog.setTitle(hTitle);
-					}
-					String hContent = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
-					if (StringUtils.isBlank(hContent)) {
-						blog.setSummary(doc.get("content"));
-					} else {
-						blog.setSummary(hContent);
+					if (isHighlight) {
+						String hTitle = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
+						if (StringUtils.isNotBlank(hTitle)) {
+							blog.setTitle(hTitle);
+						}
+						String hContent = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
+						if (StringUtils.isNotBlank(hContent)) {
+							blog.setSummary(hContent);
+						}
 					}
 					datas.add(blog);
 				}
@@ -123,9 +162,10 @@ public class LuceneService {
 	}
 
 	public static void main(String[] args) {
-		search("的", new Page<>(1, 3));
-		search("的", new Page<>(2, 3));
-		search("的", new Page<>(3, 3));
-		search("的", new Page<>(4, 3));
+		search("的", new Page<>(1, 3), false);
+		search("的", new Page<>(2, 3), false);
+		search("的", new Page<>(3, 3), false);
+		search("的", new Page<>(4, 3), false);
 	}
+
 }

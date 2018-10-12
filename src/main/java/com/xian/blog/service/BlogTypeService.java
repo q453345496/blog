@@ -1,7 +1,10 @@
 package com.xian.blog.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -18,6 +21,7 @@ import com.xian.blog.dao.BlogTypeDao;
 import com.xian.blog.exception.CheckException;
 import com.xian.blog.exception.FtpException;
 import com.xian.blog.model.BlogType;
+import com.xian.blog.model.vo.BlogTypeVO;
 import com.xian.blog.util.FtpAdapter;
 
 @Service
@@ -114,8 +118,37 @@ public class BlogTypeService {
 		blogType.setCode(code);
 		return blogTypeDao.selectOne(blogType);
 	}
-	
-	public List<BlogType> listGroup(){
+
+	public List<BlogType> listGroup() {
 		return blogTypeDao.listGroup();
+	}
+
+	public List<BlogTypeVO> listForNav() {
+		List<BlogTypeVO> list = new ArrayList<>();
+		List<BlogType> datas = blogTypeDao.selectList(new EntityWrapper<BlogType>().ne("parent_id", -1));
+		Map<Long, List<BlogTypeVO>> map = new HashMap<>();
+		for (BlogType blogType : datas) {
+			if (!blogType.getParent()) {
+				List<BlogTypeVO> sub = map.get(blogType.getParentId());
+				if (sub == null) {
+					sub = new ArrayList<>();
+					map.put(blogType.getParentId(), sub);
+				}
+				BlogTypeVO vo = new BlogTypeVO();
+				vo.setCode(blogType.getCode());
+				vo.setName(blogType.getName());
+				sub.add(vo);
+			}
+		}
+		for (BlogType blogType : datas) {
+			if (blogType.getParent()) {
+				BlogTypeVO vo = new BlogTypeVO();
+				vo.setCode(blogType.getCode());
+				vo.setName(blogType.getName());
+				vo.setSubs(map.get(blogType.getId()));
+				list.add(vo);
+			}
+		}
+		return list;
 	}
 }

@@ -53,7 +53,7 @@
 }
 .readmore{
     float: right;
-    background: #00b5ad;
+    background: #00a4ff;
     color: #fff;
     padding: 5px 10px;
 }

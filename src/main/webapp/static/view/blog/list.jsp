@@ -45,19 +45,14 @@
 }
 .readmore{
     float: right;
-    background: #00b5ad;
+    background: #00a4ff;
     color: #fff;
     padding: 5px 10px;
 }
 .readmore a{
 	color: #fff;
 }
-.post-pagination{
-	margin-top: 20px;
-}
-.post-pagination .pagination{
-	justify-content: center;
-}
+
 </style>
 <div class="post-list">
 	<div class="post-item">

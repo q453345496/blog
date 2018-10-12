@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 .header-nav{
 	background-color: #fff;
@@ -16,33 +17,37 @@
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="#">首页</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#">前端开发</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#">后台开发</a>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          其他
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>
-	    </ul>
-	    <form class="form-inline my-2 my-lg-0" action="<%=basePath %>/search">
-	      <input name="kw" class="form-control mr-sm-2" type="search" placeholder="请输入关键字" aria-label="Search" value="${kw }">
-	      <button class="btn btn-primary my-2 my-sm-0" type="submit">搜索</button>
-	    </form>
-	  </div>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+				  <a class="nav-link" href="#">首页</a>
+				</li>
+				<c:forEach var="type" items="${typeList }">
+					<c:choose>
+						<c:when test="${empty type.subs }">
+							<li class="nav-item">
+							<a class="nav-link" href="<%=basePath%>/t/${type.code }">后台开发</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="<%=basePath%>/t/${type.code }" data-toggle="dropdown">
+								  ${type.name }
+								</a>
+								<div class="dropdown-menu">
+									<c:forEach var="sub" items="${type.subs }">
+										<a class="dropdown-item" href="<%=basePath%>/t/${sub.code }">${sub.name }</a>
+									</c:forEach>
+								</div>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
+		    <form class="form-inline my-2 my-lg-0" action="<%=basePath %>/search">
+				<input name="kw" class="form-control mr-sm-2" type="search" placeholder="请输入关键字" aria-label="Search" value="${kw }">
+				<button class="btn btn-primary my-2 my-sm-0" type="submit">搜索</button>
+		    </form>
+		</div>
 	</nav>
 </header>

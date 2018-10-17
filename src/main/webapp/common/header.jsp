@@ -72,7 +72,7 @@
 	<div class="layui-container header-wrap">
 		<h1 class="logo">
 			<a href="index.html">
-				<img src="../resources/images/logo.png" alt="" class="logo-img">
+				<img src="<%=basePath%>/resources/images/logo.png" alt="" class="logo-img">
 			</a>
 		</h1>
 		<div class="header-nav">
@@ -83,14 +83,14 @@
 			<c:forEach var="type" items="${typeList }">
 				<li class="layui-nav-item">
 					<a href="<%=basePath%>/t/${type.code }">${type.name }</a>
+					<c:if test="${not empty type.subs }">
+						<dl class="layui-nav-child">
+								<c:forEach var="sub" items="${type.subs }">
+									<dd><a href="<%=basePath%>/t/${sub.code }">${sub.name }</a></dd>
+								</c:forEach>
+						</dl>
+					</c:if>
 				</li>
-				<c:if test="${not empty type.subs }">
-					<dl class="layui-nav-child">
-							<c:forEach var="sub" items="${type.subs }">
-								<dd><a href="<%=basePath%>/t/${sub.code }">${sub.name }</a></dd>
-							</c:forEach>
-					</dl>
-				</c:if>
 			</c:forEach>
 			  <li class="layui-nav-item">
 			  	<a href="message.html">留言</a>

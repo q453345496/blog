@@ -84,7 +84,7 @@
 var testEditor;
 $(function () {
 // 	$.get("/admin/blog/${blog.id }",function(res){
-		
+		editormd.defaults.path = '<%=path%>/resources/editor/lib/';//坑爹的路径
 		testEditor = editormd.markdownToHTML("doc-content",{
 // 			markdown: res.data.content,
 			//htmlDecode : true,

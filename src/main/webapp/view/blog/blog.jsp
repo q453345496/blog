@@ -85,9 +85,6 @@
 .post-recommend .title{
     border-bottom: 1px solid #eaeaea;
 }
-.post-recommend .title{
-    border-bottom: 1px solid #eaeaea;
-}
 .post-recommend .title h3{
 	font-size: 1.3rem;
 }

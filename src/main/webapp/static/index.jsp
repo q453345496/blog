@@ -3,18 +3,9 @@
 <html lang="zh">
 <head>
 <%@include file="../common/link1.jsp"%>
+<%@include file="common/css.jsp"%>
 <title>The Flower Blog</title>
 <style>
-body { 
- 	background-color: #f6f6f6; 
-    color: #555; 
-} 
-.post-pagination{
-	margin-top: 20px;
-}
-.post-pagination .pagination{
-	justify-content: center;
-}
 
 </style>
 </head>

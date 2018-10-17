@@ -93,13 +93,14 @@
 			</ul>
 		</div>
 		<form class="layui-form search-form" action="${path}/search">
-		     <input type="text" name="kw" lay-verify="kw" autocomplete="off" class="layui-input" placeholder="请输入关键字">
+		     <input type="text" name="kw" lay-verify="kw" autocomplete="off" class="layui-input" placeholder="请输入关键字" value="${kw}">
 		    <button class="layui-btn layui-btn-normal" type="submit">搜索</button>
 		</form>
 	</div>
 </header>
 <script>
-layui.use('element', function(){
+layui.use(['element', 'form'], function(){
   var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
 });
 </script>

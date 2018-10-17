@@ -2,60 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
-.post-item{
-	background-color: #fff;
-	display: flex;
-	padding: 20px;
-	color: #999;
-	border: 1px solid #eaeaea;
-	margin-bottom: -1px;
-}
-.post-item .thumb{
-	margin-right: 12px;
-}
-.post-item .thumb img{
-	width: 220px;
-	min-width: 220px;
-	height: 150px;
-}
-.post-item .title{
-	margin-bottom: 10px;
-}
-.post-item .title h2{
-	font-size: 1.2rem;
-    font-weight: 600;
-}
-.post-item .title h2 a{
-	color: #555;
-}
-.post-item .title h2 a:hover{
-	color: #45B6F7;
-}
-.post-item .meta{
-	margin-bottom: 10px;
-	font-size:12px;
-}
-.post-item .meta i{
-	margin-right: 4px;
-}
-.post-item .meta span{
-	margin-right: 20px;
-}
-.post-item .summary{
-	margin-bottom: 10px;
-	font-size:12px;
-	text-align: justify;
-}
-.readmore{
-    float: right;
-    background: #00a4ff;
-    color: #fff;
-    padding: 5px 10px;
-}
-.readmore a{
-	color: #fff;
-}
-
 </style>
 <div class="post-list">
 	<div class="post-item">
@@ -107,24 +53,26 @@
 			</div>
 		</div>
 	</div>
-	<div class="post-pagination">
-		<ul id="pagination" class="pagination">
-		</ul>
+	<div id="pagination" class="pagination">
 	</div>
 </div>
 <script type="text/javascript">
-$('#pagination').jqPaginator({
-    //totalPages: 100,
-    pageSize: 10,
-    totalCounts: 11,
-    visiblePages: 10,
-    currentPage: 1,
-    first: '<li class="page-item"><a class="page-link" href="/s?page={{page}}">首页</a></li>',
-    last: '<li class="page-item"><a class="page-link" href="/s?&page={{page}}">尾页</a></li>',
-    prev: '<li class="page-item"><a class="page-link" href="/s?&page={{page}}">上一页</a></li>',
-    next: '<li class="page-item""><a class="page-link" href="/s?&page={{page}}">下一页</a></li>',
-    page: '<li class="page-item""><a class="page-link" href="/s?&page={{page}};">{{page}}</a></li>',
-    onPageChange: function (num, type) {
-    }
+layui.use('laypage', function(){
+	var laypage = layui.laypage;
+	laypage.render({
+	    elem: 'pagination',
+	    count: 100,
+	    theme: '#1E9FFF',
+	    first: "首页",
+	    last: "尾页",
+	    jump: function(obj, first){
+	    	if(!first){
+				var href = location.pathname + '?';
+				href += '&page=' + obj.curr;
+				console.log(href)
+				location.href = href;
+	    	}
+	    }
+	});
 });
 </script>

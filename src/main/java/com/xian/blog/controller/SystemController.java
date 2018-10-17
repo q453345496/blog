@@ -23,6 +23,7 @@ public class SystemController {
 	@ResponseBody
 	public CommonResult syncIndex() {
 		List<Blog> selectList = BlogDao.selectList(null);
+		LuceneService.cleanAll();
 		for (Blog blog : selectList) {
 			LuceneService.addIndex(blog);
 		}

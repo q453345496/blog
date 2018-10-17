@@ -48,6 +48,7 @@ layui.use('laypage', function(){
 	  laypage.render({
 		    elem: 'search-page',
 		    count: 100,
+		    curr: 1,
 		    theme: '#1E9FFF',
 		    first: "首页",
 		    last: "尾页",

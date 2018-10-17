@@ -13,7 +13,6 @@
 <link rel="stylesheet" type="text/css" href="<%=path%>/resources/layui/css/layui.css">
 <script src="<%=path%>/resources/jquery-1.12.3.min.js"></script>
 <script src="<%=path%>/resources/layui/layui.js"></script>
-<script src="<%=path%>/resources/js/jqpaginator.min.js"></script>
 <script type="text/javascript">
 	var basePath = "<%=path%>";
 	$(function(){

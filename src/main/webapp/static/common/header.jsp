@@ -7,112 +7,96 @@
 .pull-left{
 	float: left !important;
 }
-
+/* start header */
 .header{
- 	background-color: #1E9FFF!important;
+	background-color: #FFF;
  	position:relative;
-}
-/* .logo{ */
-/*     position: absolute; */
-/*     left: 0; */
-/*     top: 16px; */
-/* } */
-
-.search-box{
-	position:relative;
-	margin-left: 0; 
-    min-height: auto;
-}
-.search-box i{
-	position: absolute;
-	color:#fff;
-	width: 25px;
-	height: 27px;
-	line-height:27px;
-	top: 9px;
-	left: 15px;
-	font-size: 20px;
-	cursor: pointer;
+ 	margin-bottom: 15px;
+    border-bottom: 1px solid #EAEAEA;
 }
 
+.header-wrap{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
 
-.mobile-nav{
-	display:none;
+.header-nav{
+	margin-right: auto;
 }
-.pop-nav{
-	width:100%;
-	line-height:60px;
-	position:absolute;
-	left:0px;
-	top:100px;
-	text-align:center;
-	background:#1e9fff;
-	display:none;
-	z-index: 2;
+
+.header-nav li.layui-this:after,
+.header-nav .layui-nav-bar{
+	background-color: #C1E4FF;
 }
-.pop-nav  li{
-/* 	border-top: 2px solid rgba(255,255,255,0.08); */
+.header-nav .layui-nav-more{
+	border-top-color: #000;
 }
-.pop-nav li a{
-/* 	display:block; */
-/* 	height:100%; */
-/* 	width:100%; */
-/* 	font-size:20px; */
-/* 	color:#fff; */
+
+.header-nav .layui-nav-mored{
+	border-color: transparent transparent #000;
 }
-@media only screen and (max-width:  750px) {
-	.header-nav{
-		display:none;
-	}
-	.mobile-nav{
-		display:block;
-	}
-	.header-wrap{
-/* 		padding:0 20px 0 40px; */
-	}
-	.pop-nav{
-		display:none;
-	}
+.header-nav ul{
+	background:transparent;
 }
+.header-nav .layui-nav a {
+	font-size: 16px;
+	color: #000;
+}
+.header-nav .layui-nav a:hover {
+	color: #000;
+}
+/* end header */
+
+/* start search-form */
+.search-form{
+	display: flex;
+}
+
+.search-form input{
+    margin-right: .5rem!important;
+}
+
+.search-form input:focus{
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+/* end search-form */
+
 </style>
-<%-- 	    <form class="form-inline my-2 my-lg-0" action="${path}/search"> --%>
-<%-- 	      <input name="kw" class="form-control mr-sm-2" type="search" placeholder="请输入关键字" aria-label="Search" value="${kw }"> --%>
-<!-- 	      <button class="btn btn-primary my-2 my-sm-0" type="submit">搜索</button> -->
-<!-- 	    </form> -->
 <header class="layui-header header">
-	<div class="header-wrap">
-		<h1 class="logo pull-left">
+	<div class="layui-container header-wrap">
+		<h1 class="logo">
 			<a href="index.html">
-				<img src="../res/static/images/logo.png" alt="" class="logo-img">
-				<img src="../res/static/images/logo-text.png" alt="" class="logo-text">
+				<img src="../resources/images/logo.png" alt="" class="logo-img">
 			</a>
 		</h1>
-		<form class="layui-form pull-left" action="${path}/search">
-			<div class="layui-form-item search-wrap">
-			    <div class="layui-input-block search-box">
-			      <i class="layui-icon layui-icon-search"></i>
-			      <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
-			    </div>
-			</div>
-		</form>
-		<div class="header-nav pull-right">
-			<ul class="layui-nav pull-left">
-			  <li class="layui-nav-item layui-this"><a href="index.html">首页</a></li>
-			  <li class="layui-nav-item"><a href="message.html">留言</a></li>
-			  <li class="layui-nav-item"><a href="about.html">关于</a></li>
+		<div class="header-nav">
+			<ul class="layui-nav">
+			  <li class="layui-nav-item">
+			  	<a href="index.html">首页</a>
+			  </li>
+			  <li class="layui-nav-item">
+			  	<a href="message.html">留言</a>
+				<dl class="layui-nav-child"> <!-- 二级菜单 -->
+				  <dd><a href="">移动模块</a></dd>
+				  <dd><a href="">后台模版</a></dd>
+				  <dd><a href="">电商平台</a></dd>
+				</dl>
+			  </li>
+			  <li class="layui-nav-item">
+			  	<a href="about.html">关于</a>
+			  </li>
 			</ul>
 		</div>
-		<div class="mobile-nav pull-right">
-			<a href="javascript:;">
-				<i class="layui-icon layui-icon-more"></i>
-			</a>
-		</div>
+		<form class="layui-form search-form" action="${path}/search">
+		     <input type="text" name="kw" lay-verify="kw" autocomplete="off" class="layui-input" placeholder="请输入关键字">
+		    <button class="layui-btn layui-btn-normal" type="submit">搜索</button>
+		</form>
 	</div>
-	<ul class="pop-nav">
-		<li><a href="index.html">首页</a></li>
-		<li><a href="message.html">留言</a></li>
-		<li><a href="about.html">关于</a></li>
-	</ul>
 </header>
 <script>
 layui.use('element', function(){

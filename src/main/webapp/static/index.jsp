@@ -7,17 +7,8 @@
 <style>
 body { 
  	background-color: #f6f6f6; 
-/*  	font: 14px/1.8 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53';  */
     color: #555; 
 } 
-/* a { */
-/* 	color: #666; */
-/* 	text-decoration: none; */
-/* } */
-/* a:hover { */
-/* 	color: #45B6F7; */
-/* 	text-decoration: none; */
-/* } */
 .post-pagination{
 	margin-top: 20px;
 }

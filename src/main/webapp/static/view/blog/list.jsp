@@ -35,6 +35,9 @@
 	margin-bottom: 10px;
 	font-size:12px;
 }
+.post-item .meta i{
+	margin-right: 4px;
+}
 .post-item .meta span{
 	margin-right: 20px;
 }

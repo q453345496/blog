@@ -27,10 +27,11 @@ public class BlogController {
 	private BlogService blogService;
 	@Resource
 	private BlogTypeService blogTypeService;
+	private static boolean isStatic = true;
 
 	@RequestMapping("/blog/{id}")
 	public ModelAndView detail(@PathVariable("id") Long id) {
-		ModelAndView modelAndView = new ModelAndView("index");
+		ModelAndView modelAndView = new ModelAndView(getPrePath() + "index");
 		Blog blog = blogService.detail(id);
 		if (blog == null) {
 			modelAndView.addObject("mainPage", Constants.PAGE_404);
@@ -38,7 +39,7 @@ public class BlogController {
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("lastBlog", blogService.getLast(id));
 			modelAndView.addObject("nextBlog", blogService.getNext(id));
-			modelAndView.addObject("mainPage", "view/blog/blog.jsp");
+			modelAndView.addObject("mainPage", getPrePath() + "view/blog/blog.jsp");
 		}
 		return modelAndView;
 	}
@@ -46,7 +47,7 @@ public class BlogController {
 	@RequestMapping("/t/{typeCode:[a-z]+}")
 	public ModelAndView listByType(@PathVariable("typeCode") String typeCode,
 			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
-		ModelAndView view = new ModelAndView("index");
+		ModelAndView view = new ModelAndView(getPrePath() + "index");
 		BlogType blogType = blogTypeService.getByCode(typeCode);
 		if (blogType == null) {
 			view.addObject("mainPage", Constants.PAGE_404);
@@ -60,7 +61,7 @@ public class BlogController {
 				view.addObject("mainPage", Constants.PAGE_404);
 			} else {
 				view.addObject("blogs", list);
-				view.addObject("mainPage", "view/blog/list.jsp");
+				view.addObject("mainPage", getPrePath() + "view/blog/list.jsp");
 				view.addObject("page", pageInfo);
 			}
 		}
@@ -70,14 +71,17 @@ public class BlogController {
 	@RequestMapping("/search")
 	public ModelAndView search(@RequestParam("kw") String kw,
 			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
-		ModelAndView view = new ModelAndView("index");
+		ModelAndView view = new ModelAndView(getPrePath() + "index");
 		Page<Blog> pageInfo = new Page<Blog>(page, 10);
 		LuceneService.search(kw, pageInfo, true);
 		view.addObject("blogs", pageInfo.getRecords());
-		view.addObject("mainPage", "view/blog/search.jsp");
+		view.addObject("mainPage", getPrePath() + "view/blog/search.jsp");
 		view.addObject("page", pageInfo);
 		view.addObject("kw", kw);
 		return view;
 	}
 
+	private static String getPrePath() {
+		return (isStatic ? "static/" : "");
+	}
 }

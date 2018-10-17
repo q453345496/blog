@@ -1,71 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <style>
-.pull-right{
-	float: right !important;
-}
-
-.pull-left{
-	float: left !important;
-}
-/* start header */
-.header{
-	background-color: #FFF;
- 	position:relative;
- 	margin-bottom: 15px;
-    border-bottom: 1px solid #EAEAEA;
-}
-
-.header-wrap{
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-}
-
-.header-nav{
-	margin-right: auto;
-}
-
-.header-nav li.layui-this:after,
-.header-nav .layui-nav-bar{
-	background-color: #C1E4FF;
-}
-.header-nav .layui-nav-more{
-	border-top-color: #000;
-}
-
-.header-nav .layui-nav-mored{
-	border-color: transparent transparent #000;
-}
-.header-nav ul{
-	background:transparent;
-}
-.header-nav .layui-nav a {
-	font-size: 16px;
-	color: #000;
-}
-.header-nav .layui-nav a:hover {
-	color: #000;
-}
-/* end header */
-
-/* start search-form */
-.search-form{
-	display: flex;
-}
-
-.search-form input{
-    margin-right: .5rem!important;
-}
-
-.search-form input:focus{
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-/* end search-form */
-
 </style>
 <header class="layui-header header">
 	<div class="layui-container header-wrap">
@@ -92,7 +26,7 @@
 			  </li>
 			</ul>
 		</div>
-		<form class="layui-form search-form" action="${path}/search">
+		<form class="layui-form search-form" action="<%=path%>/search">
 		     <input type="text" name="kw" lay-verify="kw" autocomplete="off" class="layui-input" placeholder="请输入关键字" value="${kw}">
 		    <button class="layui-btn layui-btn-normal" type="submit">搜索</button>
 		</form>

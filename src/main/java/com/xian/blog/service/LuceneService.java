@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.document.Document;
@@ -136,7 +137,7 @@ public class LuceneService {
 					Blog blog = new Blog();
 					blog.setId(Long.parseLong(doc.get("id")));
 					blog.setTitle(doc.get("title"));
-					blog.setSummary(doc.get("content"));
+					blog.setSummary(StringUtils.substring(StringEscapeUtils.escapeHtml4(doc.get("content")), 0, 200));
 
 					if (isHighlight) {
 						String hTitle = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
@@ -145,7 +146,7 @@ public class LuceneService {
 						}
 						String hContent = highlighter.getBestFragment(analyzer, "content", doc.get("content"));
 						if (StringUtils.isNotBlank(hContent)) {
-							blog.setSummary(hContent);
+							blog.setSummary(StringUtils.substring(hContent, 0, 200));
 						}
 					}
 					datas.add(blog);

@@ -24,9 +24,9 @@
 <body>
 	<%@include file="common/header.jsp" %>	
 	<div class="layui-container">
-<%-- 	    <c:if test="${isIndex }"> --%>
-<%-- 		<jsp:include page="common/carousel.jsp"></jsp:include> --%>
-<%-- 	    </c:if> --%>
+	    <c:if test="${isIndex }">
+		<jsp:include page="common/carousel.jsp"></jsp:include>
+	    </c:if>
 		<div class="layui-row layui-col-space20">
         	<div class="layui-col-md8">
 				<jsp:include page="${mainPage }"></jsp:include>

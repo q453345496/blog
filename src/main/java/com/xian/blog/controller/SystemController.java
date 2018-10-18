@@ -3,6 +3,7 @@ package com.xian.blog.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import com.xian.blog.common.CommonResult;
 import com.xian.blog.dao.BlogDao;
 import com.xian.blog.model.Blog;
 import com.xian.blog.service.LuceneService;
+import com.xian.blog.service.SystemService;
 
 @Controller
 @RequestMapping("sys")
@@ -27,6 +29,13 @@ public class SystemController {
 		for (Blog blog : selectList) {
 			LuceneService.addIndex(blog);
 		}
+		return CommonResult.success();
+	}
+
+	@RequestMapping("/reload")
+	@ResponseBody
+	public CommonResult reload(HttpServletRequest request) {
+		SystemService.reload(request.getServletContext());
 		return CommonResult.success();
 	}
 

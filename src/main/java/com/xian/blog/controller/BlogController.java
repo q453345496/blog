@@ -39,6 +39,7 @@ public class BlogController {
 			modelAndView.addObject("lastBlog", blogService.getLast(id));
 			modelAndView.addObject("nextBlog", blogService.getNext(id));
 			modelAndView.addObject("mainPage", "view/blog/blog.jsp");
+			blogService.addClick(id, 1);
 		}
 		return modelAndView;
 	}

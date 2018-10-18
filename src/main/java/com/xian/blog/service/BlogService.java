@@ -91,4 +91,11 @@ public class BlogService {
 	public Blog getNext(Long id){
 		return blogDao.getNext(id);
 	}
+
+	public void addClick(Long id, int num) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("num", num);
+		blogDao.addClick(map);
+	}
 }

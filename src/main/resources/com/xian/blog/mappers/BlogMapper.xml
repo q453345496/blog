@@ -67,4 +67,7 @@
 		WHERE b.id &gt; #{id} ORDER BY id ASC LIMIT 1
 	</select>
 	
+	<update id="addClick" parameterType="map">
+		UPDATE t_blog SET click = click + #{num} WHERE id = #{id}
+	</update>
 </mapper> 

@@ -12,8 +12,10 @@ public interface BlogDao extends BaseMapper<Blog> {
 	public List<Blog> list(Page<Blog> page, Map<String, Object> map);
 
 	public Blog detail(Long id);
-	
+
 	public Blog getLast(Long id);
-	
+
 	public Blog getNext(Long id);
+
+	public void addClick(Map<String, Object> map);
 }

@@ -16,9 +16,10 @@
 <%-- 		<jsp:include page="common/carousel.jsp"></jsp:include> --%>
 		<div class="layui-row layui-col-space20">
         	<div class="layui-col-md8">
-				<jsp:include page="view/blog/search.jsp"></jsp:include>
+				<jsp:include page="view/blog/index.jsp"></jsp:include>
+<%-- 				<jsp:include page="view/blog/search.jsp"></jsp:include> --%>
 <%-- 				<jsp:include page="view/blog/list.jsp"></jsp:include> --%>
-<%-- 				<jsp:include page="./view/blog/blog.jsp"></jsp:include> --%>
+<%-- 				<jsp:include page="view/blog/blog.jsp"></jsp:include> --%>
         	</div><!-- main-end -->
         	
         	<aside class="layui-col-md4">

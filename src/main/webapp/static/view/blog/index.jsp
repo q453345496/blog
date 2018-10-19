@@ -4,11 +4,17 @@
 <style>
 .index-content{
 	background-color: #fff;
+	box-shadow: 0px 0px 3px #ccc;
+	margin-bottom: 10px;
+}
+.index-content>*{
+	padding: 10px;
 }
 .cat-title{
+	color: #0099cc;
 	border-bottom: 1px solid #e8e8e8;
 	font-size: 16px;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 }
 
 .index-content .title h2{
@@ -22,7 +28,6 @@
 	color: #45B6F7;
 }
 .index-content .meta{
-	margin-bottom: 10px;
 	font-size:12px;
 	color: #aaa;
 }
@@ -61,7 +66,7 @@
 }
 
 </style>
-<div class="layui-row index-content layui-col-space20" >
+<div class="layui-row index-content" >
 	<h3 class="cat-title">推荐阅读</h3>
 	<div class="layui-col-md6">
 		<div class="first-post">
@@ -162,7 +167,6 @@
 			</div>
 		</div>
 	</div>
-	
 </div>
 <script type="text/javascript">
 </script>

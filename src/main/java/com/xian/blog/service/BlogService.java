@@ -46,6 +46,14 @@ public class BlogService {
 		map.put("orderByCause", "b.click DESC");
 		return blogDao.list(new Page<Blog>(1, size, "b.click", false), map);
 	}
+	
+	public List<Blog> listRelate(Long id, Long typeId, int size) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("typeId", typeId);
+		map.put("status", Blog.ONLINE);
+		return blogDao.listRelate(new Page<Blog>(1, size), map);
+	}
 
 	public void update(Blog blog) {
 		blogDao.updateById(blog);

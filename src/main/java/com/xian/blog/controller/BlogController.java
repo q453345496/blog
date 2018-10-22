@@ -38,6 +38,7 @@ public class BlogController {
 			modelAndView.addObject("blog", blog);
 			modelAndView.addObject("lastBlog", blogService.getLast(id));
 			modelAndView.addObject("nextBlog", blogService.getNext(id));
+			modelAndView.addObject("relateBlogList", blogService.listRelate(id, blog.getTypeId(), Constants.DEFAULT_COUNT));
 			modelAndView.addObject("mainPage", "view/blog/blog.jsp");
 			blogService.addClick(id, 1);
 		}
@@ -55,7 +56,7 @@ public class BlogController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("typeId", blogType.getId());
 			map.put("status", Blog.ONLINE);
-			Page<Blog> pageInfo = new Page<Blog>(page, 10);
+			Page<Blog> pageInfo = new Page<Blog>(page, Constants.DEFAULT_PAGE_SIZE);
 			List<Blog> list = blogService.list(pageInfo, map);
 			if (list.isEmpty()) {
 				view.addObject("mainPage", Constants.PAGE_404);
@@ -72,7 +73,7 @@ public class BlogController {
 	public ModelAndView search(@RequestParam("kw") String kw,
 			@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
 		ModelAndView view = new ModelAndView("index");
-		Page<Blog> pageInfo = new Page<Blog>(page, 10);
+		Page<Blog> pageInfo = new Page<Blog>(page, Constants.DEFAULT_PAGE_SIZE);
 		LuceneService.search(kw, pageInfo, true);
 		view.addObject("blogs", pageInfo.getRecords());
 		view.addObject("mainPage", "view/blog/search.jsp");

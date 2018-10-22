@@ -58,14 +58,9 @@
 			<h3>相关推荐</h3>
 		</div>
 		<ul>
-			<li><a href="#">中国首届React开发者大会 8月18日 广州举行</a></li>
-			<li><a href="#">HTML5-语义化</a></li>
-			<li><a href="#">Windows node版本管理器–nvm</a></li>
-			<li><a href="#">canvas小tip–下载二维码、图片加水印</a></li>
-			<li><a href="#">分享一个生成二维码的插件–QRCode.js</a></li>
-			<li><a href="#">图表库ECharts的使用</a></li>
-			<li><a href="#">git常用命令</a></li>
-			<li><a href="#">css print</a></li>
+			<c:forEach var="blog" items="${relateBlogList }">
+				<li><a href="<%=basePath %>/blog/${blog.id }.html">${blog.title }</a></li>
+			</c:forEach>
 		</ul>
 	</div>
 </div><!-- post -->

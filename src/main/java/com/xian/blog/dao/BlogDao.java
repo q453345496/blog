@@ -18,4 +18,6 @@ public interface BlogDao extends BaseMapper<Blog> {
 	public Blog getNext(Long id);
 
 	public void addClick(Map<String, Object> map);
+
+	public List<Blog> listRelate(Page<Blog> page, Map<String, Object> map);
 }

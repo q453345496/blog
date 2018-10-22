@@ -59,12 +59,17 @@
 	
 	<select id="getLast" parameterType="Long" resultMap="BlogResult">
 		SELECT b.id, b.title FROM t_blog b
-		WHERE b.id &lt; #{id} ORDER BY id DESC LIMIT 1
+		WHERE b.id &lt; #{id} AND b.`status` = 1 ORDER BY id DESC LIMIT 1
 	</select>
 	
 	<select id="getNext" parameterType="Long" resultMap="BlogResult">
 		SELECT b.id, b.title FROM t_blog b
-		WHERE b.id &gt; #{id} ORDER BY id ASC LIMIT 1
+		WHERE b.id &gt; #{id} AND b.`status` = 1 ORDER BY id ASC LIMIT 1
+	</select>
+	
+	<select id="listRelate" parameterType="Map" resultMap="BlogResult">
+		SELECT b.id, b.title FROM t_blog b
+		WHERE b.type_id = #{typeId} AND b.id != #{id} AND b.`status` = #{status}
 	</select>
 	
 	<update id="addClick" parameterType="map">

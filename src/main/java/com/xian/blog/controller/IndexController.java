@@ -26,7 +26,7 @@ public class IndexController {
 	public ModelAndView index(@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("status", Blog.ONLINE);
-		Page<Blog> pageInfo = new Page<Blog>(page, 10);
+		Page<Blog> pageInfo = new Page<Blog>(page, Constants.DEFAULT_PAGE_SIZE);
 		List<Blog> list = blogService.list(pageInfo, map);
 		ModelAndView view = new ModelAndView("index");
 		if (list.isEmpty()) {

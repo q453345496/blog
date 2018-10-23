@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<%@include file="../common/link1.jsp"%>
+<%@include file="../common/link.jsp"%>
 <%@include file="common/css.jsp"%>
 <title>The Flower Blog</title>
 <style>
@@ -13,7 +13,7 @@
 	<%@include file="common/header.jsp" %>
 	
 	<div class="layui-container">
-<%-- 		<jsp:include page="common/carousel.jsp"></jsp:include> --%>
+		<jsp:include page="common/carousel.jsp"></jsp:include>
 		<div class="layui-row layui-col-space20">
         	<div class="layui-col-md8">
 				<jsp:include page="view/blog/index.jsp"></jsp:include>

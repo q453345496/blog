@@ -101,6 +101,12 @@ body {
 	background-color: #fff;
 	padding: 1.5rem!important;
 }
+.post-content ol li{
+	list-style-type: decimal;
+}
+.post-content ul li{
+	list-style-type: circle;
+}
 .post-header {
 	padding: 0 0 25px 0;
 	border-bottom: 1px solid #eee;

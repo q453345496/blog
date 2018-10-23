@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-<div id="blogDetail" class="easyui-panel" title="文章内容" data-options="fit:true" style="padding: 20px;">
+<div id="blogDetail" class="easyui-panel" title="文章内容" data-options="fit:true" style="padding: 5px;">
 	<div>
 		<input id="blogId" name="id" type="hidden" value="${id}"/>
 		<input id="status" name="status" type="hidden"/>
@@ -63,7 +63,7 @@ $(function() {
     });
    	testEditor = editormd("content", {
 		width : "90%",
-		height : 640,
+		height : 600,
 		markdown : "",
 		path : '<%=path%>/resources/editor/lib/',
 		htmlDecode : "style,script,sub,sup|on*",
@@ -124,10 +124,18 @@ function saveBlog(){
 				},
 				function(result){
 					if(result.status == 0){
-						alert("博客发布成功！");
-						closeBlog();
+						$.messager.show({
+							title: '提示',
+							msg: '成功',
+							timeout: 2000,
+							showType:'slide'
+						});
+						setTimeout(function(){closeBlog()}, 2000);
 					}else{
-						alert("博客发布失败！");
+						$.messager.show({
+							title: '提示',
+							msg: result.msg
+						});
 					}
 				}, "json");
 	}

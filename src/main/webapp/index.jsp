@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<%@include file="common/link1.jsp"%>
+<%@include file="common/link.jsp"%>
 <%@include file="common/css.jsp"%>
 <title>
 <c:choose>

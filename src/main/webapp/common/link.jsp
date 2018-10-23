@@ -9,16 +9,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
 
-<%-- <link rel="stylesheet" type="text/css" href="<%=path%>/resources/bootstrap/css/bootstrap.min.css"> --%>
-<link rel="stylesheet" type="text/css" href="<%=path%>/resources/bootstrap4/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/resources/font-awesome/css/font-awesome.min.css">
-<%-- <link rel="stylesheet" type="text/css" href="<%=path%>/resources/css/style.css"> --%>
-
+<link rel="stylesheet" type="text/css" href="<%=path%>/resources/layui/css/layui.css">
 <script src="<%=path%>/resources/jquery-1.12.3.min.js"></script>
-<%-- <script src="<%=path%>/resources/bootstrap/js/bootstrap.min.js"></script> --%>
-<script src="<%=path%>/resources/bootstrap4/js/popper.min.js"></script>
-<script src="<%=path%>/resources/bootstrap4/js/bootstrap.min.js"></script>
-<script src="<%=path%>/resources/js/jqpaginator.min.js"></script>
+<script src="<%=path%>/resources/layui/layui.js"></script>
 <script type="text/javascript">
 	var basePath = "<%=path%>";
 	$(function(){

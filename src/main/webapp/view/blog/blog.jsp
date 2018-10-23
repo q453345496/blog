@@ -64,7 +64,6 @@
 		</ul>
 	</div>
 </div><!-- post -->
-<link rel="stylesheet" href="<%=path%>/resources/editor/css/editormd.min.css" />
 <script src="<%=path%>/resources/editor/editormd.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>

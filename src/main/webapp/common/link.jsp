@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" type="text/css" href="<%=path%>/resources/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="<%=path%>/resources/layui/css/layui.css">
+<link rel="stylesheet" href="<%=path%>/resources/editor/css/editormd.min.css" />
 <script src="<%=path%>/resources/jquery-1.12.3.min.js"></script>
 <script src="<%=path%>/resources/layui/layui.js"></script>
 <script type="text/javascript">

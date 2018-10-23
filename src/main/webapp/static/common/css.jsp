@@ -1,5 +1,10 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <style>
+*{
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing : border-box;
+	box-sizing : border-box;
+}
 body { 
 	background-color: #f6f6f6; 
 	color: #555; 
@@ -97,8 +102,7 @@ body {
 	padding: 1.5rem!important;
 }
 .post-header {
-	margin-bottom: 20px;
-	padding: 25px 0;
+	padding: 0 0 25px 0;
 	border-bottom: 1px solid #eee;
 	text-align: center;
 }

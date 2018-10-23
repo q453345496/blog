@@ -12,7 +12,7 @@
 		<div class="header-nav">
 		<ul class="layui-nav">
 			<li class="layui-nav-item">
-				<a href="<%=basePath%>index.html">首页</a>
+				<a href="<%=basePath%>/index.html">首页</a>
 			</li>
 			<c:forEach var="type" items="${typeList }">
 				<li class="layui-nav-item">

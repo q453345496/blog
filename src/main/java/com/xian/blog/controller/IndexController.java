@@ -34,7 +34,7 @@ public class IndexController {
 		} else {
 			view.addObject("isIndex", true);
 			view.addObject("blogs", list);
-			view.addObject("mainPage", "view/blog/list.jsp");
+			view.addObject("mainPage", "view/blog/index.jsp");
 			view.addObject("page", pageInfo);
 		}
 		return view;

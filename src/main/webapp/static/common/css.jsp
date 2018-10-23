@@ -21,7 +21,11 @@ body {
 .pull-left{
 	float: left !important;
 }
-
+.thumb img{
+	border: 1px solid #ddd;
+	padding: 1px;
+	border-radius: 2px;
+}
 /*====================start head.jsp===========*/
 
 /* start header */

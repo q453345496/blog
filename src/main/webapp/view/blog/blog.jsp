@@ -30,7 +30,7 @@
 	</div><!-- post-content -->
 	
 	<div class="post-copyright">
-		未经允许不得转载：<a href="<%=basePath%>/blog/${blog.id }.html">${blog.title }</a>
+		未经允许不得转载：<a href="<%=basePath%>/b/${blog.id }.html">${blog.title }</a>
 	</div>
 	
 	<div class="post-nav">
@@ -39,7 +39,7 @@
 				<a class="post-nav-pre" href="javascript:;">上一篇<br>没有了</a>
 			</c:when>
 			<c:otherwise>
-				<a class="post-nav-pre" href="<%=basePath%>/blog/${lastBlog.id }.html">上一篇<br>${lastBlog.title }</a>
+				<a class="post-nav-pre" href="<%=basePath%>/b/${lastBlog.id }.html">上一篇<br>${lastBlog.title }</a>
 			</c:otherwise>
 		</c:choose>
 		
@@ -48,7 +48,7 @@
 				<a class="post-nav-next" href="javascript:;">下一篇<br>没有了</a>
 			</c:when>
 			<c:otherwise>
-				<a class="post-nav-next" href="<%=basePath%>/blog/${nextBlog.id }.html">下一篇<br>${nextBlog.title }</a>
+				<a class="post-nav-next" href="<%=basePath%>/b/${nextBlog.id }.html">下一篇<br>${nextBlog.title }</a>
 			</c:otherwise>
 		</c:choose>
 	</div>
@@ -59,7 +59,7 @@
 		</div>
 		<ul>
 			<c:forEach var="blog" items="${relateBlogList }">
-				<li><a href="<%=basePath %>/blog/${blog.id }.html">${blog.title }</a></li>
+				<li><a href="<%=basePath %>/b/${blog.id }.html">${blog.title }</a></li>
 			</c:forEach>
 		</ul>
 	</div>

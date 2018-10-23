@@ -28,7 +28,7 @@ public class BlogController {
 	@Resource
 	private BlogTypeService blogTypeService;
 
-	@RequestMapping("/blog/{id}")
+	@RequestMapping("/b/{id}")
 	public ModelAndView detail(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView("index");
 		Blog blog = blogService.detail(id);

@@ -155,7 +155,7 @@
 	<ul>
 		<c:forEach var="blog" items="${lastBlogList }">
 		<li>
-			<a href="<%=basePath %>/blog/${blog.id }.html">
+			<a href="<%=basePath %>/b/${blog.id }.html">
 				<div class="thumb">
 					<img src="${blog.thumb }">
 				</div>
@@ -173,7 +173,7 @@
 	<ul>
 		<c:forEach var="blog" items="${hotBlogList }">
 		<li>
-			<a href="<%=basePath %>/blog/${blog.id }.html">
+			<a href="<%=basePath %>/b/${blog.id }.html">
 				<div class="thumb">
 					<img src="${blog.thumb }">
 				</div>

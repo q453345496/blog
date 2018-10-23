@@ -12,14 +12,14 @@
 	<c:forEach var="blog" items="${blogs}">
 	<div class="post-item">
 		<div class="thumb">
-			<a class="focus" href="<%=basePath %>/blog/${blog.id }.html">
+			<a class="focus" href="<%=basePath %>/b/${blog.id }.html">
 				<img src="${blog.thumb }" alt="${blog.title }">
 			</a>
 		</div>
 		<div class="info">
 			<div class="title">
 				<h2>
-					<a href="<%=basePath %>/blog/${blog.id }.html" title="${blog.title }" target="_blank">${blog.title }</a>
+					<a href="<%=basePath %>/b/${blog.id }.html" title="${blog.title }" target="_blank">${blog.title }</a>
 				</h2>
 			</div>
 			<div class="meta">
@@ -30,7 +30,7 @@
 			<div class="summary">
 				&nbsp;&nbsp;&nbsp;&nbsp;${blog.summary }</div>
 			<div class="readmore">
-				<a href="<%=basePath%>/blog/${blog.id }.html">阅读全文&gt;&gt;</a>
+				<a href="<%=basePath%>/b/${blog.id }.html">阅读全文&gt;&gt;</a>
 			</div>
 		</div>
 	</div>

@@ -9,14 +9,15 @@ editormd.katexURL  = {
 ```
 2. 显示html需要引入一下js,否则会报错
 ```
+<script src="<%=path%>/resources/editor/editormd.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/marked.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/prettify.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/raphael.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/underscore.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/sequence-diagram.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>
+注意sequence-diagram依赖underscore,所以underscore需要先加载
 ```
 3. 显示html时在div下需要有一个textarea
 

@@ -44,22 +44,20 @@
 </div>
 <script type="text/javascript">
 $(function(){
-	$.getJSON(basePath + '/admin/blogType/listAll', function(res){
+	$.getJSON(basePath + '/admin/blogType/listGroup', function(res){
 		var data = res.data;
-		data.unshift({
-			'id':'',
-			'name':'全部'
-		});
 	    $('#blogTypeIdR').combobox({
 	        data: data,
 	        valueField: 'id',
 	        textField: 'name',
+	        groupField: 'parentName',
 	        editable: false
 	    });
 	    $('#blogTypeIdUR').combobox({
 	        data: data,
 	        valueField: 'id',
 	        textField: 'name',
+	        groupField: 'parentName',
 	        editable: false
 	    });
 	});

@@ -66,30 +66,27 @@
 </div><!-- post -->
 <link rel="stylesheet" href="<%=path%>/resources/editor/css/editormd.min.css" />
 <script src="<%=path%>/resources/editor/editormd.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
+<script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/marked.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/prettify.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/raphael.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/underscore.min.js"></script>
 <script src="<%=path%>/resources/editor/lib/sequence-diagram.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/flowchart.min.js"></script>
-<script src="<%=path%>/resources/editor/lib/jquery.flowchart.min.js"></script>
 
 <script type="text/javascript">
 var testEditor;
 $(function () {
-// 	$.get("/admin/blog/${blog.id }",function(res){
-		editormd.defaults.path = '<%=path%>/resources/editor/lib/';//坑爹的路径
-		testEditor = editormd.markdownToHTML("doc-content",{
-// 			markdown: res.data.content,
-			//htmlDecode : true,
-			htmlDecode : "style,script,sub,sup|on*",
-			emoji : true,
-			taskList : true,
-			tex : true, // 默认不解析
-			flowChart : true, // 默认不解析
-			sequenceDiagram : true, // 默认不解析
-		});
-// 	})
+	editormd.defaults.path = '<%=path%>/resources/editor/lib/';//坑爹的路径
+	testEditor = editormd.markdownToHTML("doc-content",{
+		//markdown: res.data.content,
+		//htmlDecode : true,
+		htmlDecode : "style,script,sub,sup|on*",
+		emoji : true,
+		taskList : true,
+		tex : true, // 默认不解析
+		flowChart : true, // 默认不解析
+		sequenceDiagram : true, // 默认不解析
+	});
 });
 </script>

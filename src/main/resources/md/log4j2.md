@@ -1,0 +1,15 @@
+web.xml的变化
+```
+删除
+	<listener>      
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>      
+	</listener>
+新的
+	<context-param>
+		<param-name>log4jConfiguration</param-name>
+		<param-value>${sys:user.dir}/developer/conf/log4j2.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+	</listener>
+```

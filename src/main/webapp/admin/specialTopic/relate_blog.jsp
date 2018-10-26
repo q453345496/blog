@@ -1,10 +1,10 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <div id="specialTopicRelateblogDialog" class="easyui-dialog" style="width:1200px;height:680px;" closed="true" modal="true">
 	<div id="blogRelateTabs" class="easyui-tabs" data-options="fit:true" border=false>
-		<div title="已关联文章" style="overflow:hidden;height:500px;">
+		<div title="已关联博客" style="overflow:hidden;height:500px;">
 			<div id="blogRelatedDataGridToolbar" style="padding:5px">
 					<a href="#" id="blogUnrelateBtn" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delRelateBlogFunc()">取消关联</a>
-					&nbsp;文章名称: <input type="text" id="blogNameR">
+					&nbsp;博客名称: <input type="text" id="blogNameR">
 					&nbsp;分类: <input id="blogTypeIdR" style="width:145px">
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearchBlogRFunc()" plain="true">查询</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#blogRelatedDataGridToolbar')" plain="true">清空</a>
@@ -14,17 +14,18 @@
 					<tr>
 						<th data-options="field:'ck',checkbox:true"></th>
 						<th field="id" width="20" align="left" hidden="true">ID</th>
-						<th field="blogId" width="20" align="left">文章ID</th>
+						<th field="blogId" width="20" align="left">博客ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
+						<th field="rank" width="20" align="left">排序</th>
 						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
 				</thead>
 			</table>    
 		</div>
-		<div title="未关联文章" style="overflow:hidden;height:500px;"> 
+		<div title="未关联博客" style="overflow:hidden;height:500px;"> 
 			<div id="blogUnRelatedDataGridToolbar" style="padding:5px">
 					<a href="#" id="blogAddRelateBtn" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="blogAddRelateFunc()">添加关联</a>
-					&nbsp;文章名称: <input type="text" id="blogNameUR">
+					&nbsp;博客名称: <input type="text" id="blogNameUR">
 					&nbsp;分类: <input id="blogTypeIdUR" style="width:145px">
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearchBlogURFunc()" plain="true">查询</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#blogUnRelatedDataGridToolbar')" plain="true">清空</a>
@@ -33,7 +34,7 @@
 				<thead>
 					<tr>
 						<th data-options="field:'ck',checkbox:true"></th>
-						<th field="blogId" width="20" align="left">文章ID</th>
+						<th field="blogId" width="20" align="left">博客ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
 						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
@@ -69,7 +70,7 @@ function openRelateBlogDialogFunc(rowIndex){
 	$('#specialTopicDataGrid').datagrid('selectRow', rowIndex);
     var row = $("#specialTopicDataGrid").datagrid("getSelected");
     if(row){
-    	 $("#specialTopicRelateblogDialog").dialog("open").dialog('setTitle', "关联文章 【专题： " + row.name + "】");
+    	 $("#specialTopicRelateblogDialog").dialog("open").dialog('setTitle', "关联博客 【专题： " + row.name + "】");
     	 $('#blogRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/topicResource/listRelate?topicId=' + row.id, queryParams:{}});
     	 $('#blogUnRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/topicResource/listUnRelate?topicId=' + row.id, queryParams:{}});
     }
@@ -139,7 +140,7 @@ function delRelateBlogFunc(){
             $("#blogUnrelateBtn").linkbutton("enable");
         },'json');
 	} else {
-		$.messager.show({title:'提示',msg:'请选择要取消关联的文章',timeout:1000});
+		$.messager.show({title:'提示',msg:'请选择要取消关联的博客',timeout:1000});
 		$("#blogUnrelateBtn").linkbutton("enable");
 	}
 }

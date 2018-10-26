@@ -16,6 +16,10 @@ public class ColumnBlogRelate {
 
 	@TableField(exist = false)
 	private String blogTitle;
+	@TableField(exist = false)
+	private String blogTypeName;
+	@TableField(exist = false)
+	private Long blogTypeId;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
 	@TableField(fill = FieldFill.INSERT)
@@ -79,4 +83,21 @@ public class ColumnBlogRelate {
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
 	}
+
+	public String getBlogTypeName() {
+		return blogTypeName;
+	}
+
+	public void setBlogTypeName(String blogTypeName) {
+		this.blogTypeName = blogTypeName;
+	}
+
+	public Long getBlogTypeId() {
+		return blogTypeId;
+	}
+
+	public void setBlogTypeId(Long blogTypeId) {
+		this.blogTypeId = blogTypeId;
+	}
+
 }

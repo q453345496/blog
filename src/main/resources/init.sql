@@ -110,6 +110,7 @@ CREATE TABLE `t_special_topic_resource` (
 `id` int(11) NOT NULL AUTO_INCREMENT ,
 `topic_id`  int(11) NOT NULL ,
 `blog_id` int(11) NOT NULL ,
+`rank` int(11) NOT NULL ,
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)

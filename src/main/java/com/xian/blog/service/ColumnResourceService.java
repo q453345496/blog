@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.DataGridResult;
+import com.xian.blog.constants.Constants;
 import com.xian.blog.dao.ColumnResourceDao;
 import com.xian.blog.model.ColumnResource;
 
@@ -58,7 +59,7 @@ public class ColumnResourceService {
 			ColumnResource columnResource = new ColumnResource();
 			columnResource.setColumnId(columnId);
 			columnResource.setTypeId(typeId);
-			columnResource.setRank(99);
+			columnResource.setRank(Constants.DEFAULT_RANK);
 			save(columnResource);
 		}
 	}

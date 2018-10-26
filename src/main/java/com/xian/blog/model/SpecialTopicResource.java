@@ -12,12 +12,13 @@ public class SpecialTopicResource {
 	private Long id;
 	private Long topicId;
 	private Long blogId;
-
+	private Integer rank;
+	
 	@TableField(exist = false)
 	private String blogTitle;
 	@TableField(exist = false)
 	private String blogTypeName;
-	
+	@TableField(exist = false)
 	private Long blogTypeId;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
@@ -89,6 +90,14 @@ public class SpecialTopicResource {
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
 	}
 
 }

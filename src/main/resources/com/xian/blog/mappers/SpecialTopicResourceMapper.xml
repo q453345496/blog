@@ -21,7 +21,7 @@
 		<where>
 			<include refid="sql_relate_where"></include>
 		</where>
-		ORDER BY b.create_time
+		ORDER BY r.rank, b.create_time
 	</select>
 	
 	

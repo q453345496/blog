@@ -5,23 +5,30 @@
 		<if test="columnId != null">
 				AND column_id = #{columnId}
 		</if>
+		<if test="blogTypeId != null">
+			AND b.type_id = #{blogTypeId}
+		</if>
 		<if test="blogTitle != null and blogTitle != ''">
 				AND b.title LIKE CONCAT('%', #{blogTitle}, '%')
 		</if>
 	</sql>
 	
 	<select id="listRelate" resultType="ColumnBlogRelate">
-		SELECT r.*, b.title as blogTitle FROM t_column_blog_relate r 
+		SELECT r.*, b.title as blogTitle, b.type_id AS blogTypeId, t.name as blogTypeName FROM t_column_blog_relate r 
 		LEFT JOIN t_blog b ON b.id = r.blog_id
+		LEFT JOIN t_blog_type t ON t.id = b.type_id
 		<where>
 			<include refid="sql_relate_where"></include>
 		</where>
-		ORDER BY r.rank, r.create_time
+		ORDER BY r.rank, b.create_time
 	</select>
 	
 	<sql id="sql_unrelate_where">
 		<if test="blogTitle != null and blogTitle != ''">
 				AND b.title LIKE CONCAT('%', #{blogTitle}, '%')
+		</if>
+		<if test="blogTypeId != null">
+				AND b.type_id = #{blogTypeId}
 		</if>
 		<if test="columnId != null">
 			AND NOT EXISTS (SELECT 1 FROM t_column_blog_relate r WHERE r.blog_id = b.id AND r.column_id = #{columnId})
@@ -29,10 +36,11 @@
 	</sql>
 	
 	<select id="listUnRelate" resultType="ColumnBlogRelate">
-		SELECT b.id AS blogId, b.title AS blogTitle FROM t_blog b
+		SELECT b.id AS blogId, b.title AS blogTitle, b.type_id AS blogTypeId, t.name AS blogTypeName FROM t_blog b
+		LEFT JOIN t_blog_type t ON t.id = b.type_id
 		<where>
 			<include refid="sql_unrelate_where"></include>
 		</where>
-		ORDER BY create_time
+		ORDER BY b.create_time
 	</select>
 </mapper>

@@ -30,13 +30,15 @@ public class ColumnBlogRelateManagerController {
 	public DataGridResult list(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "columnId", required = true) Long columnId,
-			@RequestParam(value = "blogTitle", required = false) String blogTitle) {
+			@RequestParam(value = "blogTitle", required = false) String blogTitle,
+			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
 		if (columnId == null) {
 			throw new CheckException("参数不能为空");
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("columnId", columnId);
 		map.put("blogTitle", blogTitle);
+		map.put("blogTypeId", blogTypeId);
 		return columnBlogRelateService.pageRelate(new Page<ColumnBlogRelate>(page, rows), map);
 	}
 
@@ -45,13 +47,15 @@ public class ColumnBlogRelateManagerController {
 	public DataGridResult listUnRelate(@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "columnId", required = true) Long columnId,
-			@RequestParam(value = "blogTitle", required = false) String blogTitle) {
+			@RequestParam(value = "blogTitle", required = false) String blogTitle,
+			@RequestParam(value = "blogTypeId", required = false) Long blogTypeId) {
 		if (columnId == null) {
 			throw new CheckException("参数不能为空");
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("columnId", columnId);
 		map.put("blogTitle", blogTitle);
+		map.put("blogTypeId", blogTypeId);
 		return columnBlogRelateService.pageUnRelate(new Page<ColumnBlogRelate>(page, rows), map);
 	}
 

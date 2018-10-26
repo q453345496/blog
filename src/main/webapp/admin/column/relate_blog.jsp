@@ -5,6 +5,7 @@
 			<div id="columnBlogRelateRelatedDataGridToolbar" style="padding:5px">
 					<a href="#" id="columnBlogRelateUnrelateBtn" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delRelateColumnBlogRelateFunc()">取消关联</a>
 					&nbsp;博客名称: <input type="text" id="blogNameR">
+					&nbsp;分类: <input id="blogTypeIdR" style="width:145px">
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearchColumnBlogRelateRFunc()" plain="true">查询</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#columnBlogRelateRelatedDataGridToolbar')" plain="true">清空</a>
 			</div> 
@@ -15,6 +16,8 @@
 						<th field="id" width="20" align="left" hidden="true">ID</th>
 						<th field="blogId" width="20" align="left">博客ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
+						<th field="rank" width="20" align="left">排序</th>
+						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
 				</thead>
 			</table>    
@@ -23,6 +26,7 @@
 			<div id="columnBlogRelateUnRelatedDataGridToolbar" style="padding:5px">
 					<a href="#" id="columnBlogRelateAddRelateBtn" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addRelateColumnBlogRelateFunc()">添加关联</a>
 					&nbsp;博客名称: <input type="text" id="blogNameUR">
+					&nbsp;分类: <input id="blogTypeIdUR" style="width:145px">
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearchColumnBlogRelateURFunc()" plain="true">查询</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearSearch('#columnBlogRelateUnRelatedDataGridToolbar')" plain="true">清空</a>
 			</div>  
@@ -32,6 +36,7 @@
 						<th data-options="field:'ck',checkbox:true"></th>
 						<th field="blogId" width="20" align="left">博客ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
+						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
 				</thead>
 			</table>    
@@ -39,6 +44,26 @@
 	</div>
 </div>
 <script type="text/javascript">
+$(function(){
+	$.getJSON(basePath + '/admin/blogType/listGroup', function(res){
+		var data = res.data;
+	    $('#blogTypeIdR').combobox({
+	        data: data,
+	        valueField: 'id',
+	        textField: 'name',
+	        groupField: 'parentName',
+	        editable: false
+	    });
+	    $('#blogTypeIdUR').combobox({
+	        data: data,
+	        valueField: 'id',
+	        textField: 'name',
+	        groupField: 'parentName',
+	        editable: false
+	    });
+	});
+});
+
 function openColumnBlogRelateDialogFunc(rowIndex){
 	clearSearch('#columnBlogRelateRelatedDataGridToolbar');
 	clearSearch('#columnBlogRelateUnRelatedDataGridToolbar');
@@ -71,14 +96,16 @@ function refreshColumnBlogRelateTabFunc(index) {
 
 function doSearchColumnBlogRelateRFunc(){
 	var params = {
-			'blogTitle': $("#blogNameR").val()
+			'blogTitle': $("#blogNameR").val(),
+			'blogTypeId': $("#blogTypeIdR").combobox("getValue")
 	   	};
 	$('#columnBlogRelateRelatedDataGrid').datagrid('reload', params);
 }
 
 function doSearchColumnBlogRelateURFunc(){
 	var params = {
-			'blogTitle': $("#blogNameUR").val()
+			'blogTitle': $("#blogNameUR").val(),
+			'blogTypeId': $("#blogTypeIdUR").combobox("getValue")
 	   	};
 	$('#columnBlogRelateUnRelatedDataGrid').datagrid('reload', params);
 }

@@ -6,4 +6,6 @@ public class Constants {
 	
 	public static final int DEFAULT_PAGE_SIZE = 10;
 	public static final int DEFAULT_COUNT = 6;
+	
+	public static final int DEFAULT_RANK = 99;
 }

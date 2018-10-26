@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.DataGridResult;
+import com.xian.blog.constants.Constants;
 import com.xian.blog.dao.SpecialTopicResourceDao;
 import com.xian.blog.model.SpecialTopicResource;
 
@@ -39,6 +40,7 @@ public class SpecialTopicResourceService {
 			SpecialTopicResource specialTopicResource = new SpecialTopicResource();
 			specialTopicResource.setTopicId(topicId);
 			specialTopicResource.setBlogId(blogId);
+			specialTopicResource.setRank(Constants.DEFAULT_RANK);
 			save(specialTopicResource);
 		}
 

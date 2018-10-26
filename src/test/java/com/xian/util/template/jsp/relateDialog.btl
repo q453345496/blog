@@ -60,7 +60,7 @@ function ${openRelateDialogFunc}(rowIndex){
 		},
 		'selected' : 0
 	});
-    
+    event.stopPropagation();
 }
 
 function ${refreshTabFunc}(index) {

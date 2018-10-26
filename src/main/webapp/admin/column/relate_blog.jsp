@@ -55,6 +55,7 @@ function openColumnBlogRelateDialogFunc(rowIndex){
 		},
 		'selected' : 0
 	});
+    event.stopPropagation();
     
 }
 

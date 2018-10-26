@@ -55,7 +55,7 @@ function openRelateBlogTypeDialogFunc(rowIndex){
 		},
 		'selected' : 0
 	});
-    
+    event.stopPropagation();
 }
 
 function refreshBlogTypeTabFunc(index) {

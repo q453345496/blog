@@ -16,17 +16,18 @@ import org.beetl.core.resource.FileResourceLoader;
 
 public class RelateJspCreator extends AutoCreator{
 
-	static String Model = "BlogType";
-	static String modelCN = "分类";
+	static String Model = "Blog";
+	static String modelCN = "博客";
 	static String model = StringUtils.uncapitalize(Model);
-	static String modelId = "typeId";
-	static String modelNameField = "blogTypeName";
+	static String modelId = "blogId";
+	static String modelNameField = "blogTitle";
 	static String ParentModel = "Column";
 	static String parentModelCN = "栏目";
 	static String parentModel = StringUtils.uncapitalize(ParentModel);
 	static String parentId = "columnId";
-	static boolean parentIsTree = false;
-	static String relateModel = "columnResource";
+	static boolean parentIsTree = true;
+	static String RelateModel = "ColumnBlogRelate";
+	static String relateModel = StringUtils.uncapitalize(RelateModel);
 	static String relateListUrl = "/admin/" + relateModel + "/listRelate";
 	static String relateUrl = "/admin/" + relateModel + "/save";
 	static String unRelateListUrl = "/admin/" + relateModel + "/listUnRelate";
@@ -50,29 +51,29 @@ public class RelateJspCreator extends AutoCreator{
 		map.put("parentIsTree", parentIsTree);
 		
 		map.put("dialogId", parentModel + "Relate" + model + "Dialog");
-		map.put("contentRelateTabs", model + "RelateTabs");
+		map.put("contentRelateTabs", relateModel + "Tabs");
 
-		map.put("refreshTabFunc", "refresh" + Model + "TabFunc");
+		map.put("refreshTabFunc", "refresh" + RelateModel + "TabFunc");
 		map.put("modeId", modelId);//id field
 		map.put("modelNameField", modelNameField);//name field
 		
 		map.put("parentDataGrid", parentDataGrid);//programTypeDataGrid
 		map.put("parentId", parentId);
-		map.put("openRelateDialogFunc", "openRelate" + Model + "DialogFunc");
+		map.put("openRelateDialogFunc", "open" + RelateModel + "DialogFunc");
 
-		map.put("relatedDataGridToolbar", model + "RelatedDataGridToolbar");
-		map.put("delUnRelateBtn", model + "UnrelateBtn");
-		map.put("delRelateFunc", "delRelate" + Model + "Func");
-		map.put("doSearchRFunc", "doSearch" + Model + "RFunc");
-		map.put("relatedDataGrid", model + "RelatedDataGrid");
+		map.put("relatedDataGridToolbar", relateModel + "RelatedDataGridToolbar");
+		map.put("delUnRelateBtn", relateModel + "UnrelateBtn");
+		map.put("delRelateFunc", "delRelate" + RelateModel + "Func");
+		map.put("doSearchRFunc", "doSearch" + RelateModel + "RFunc");
+		map.put("relatedDataGrid", relateModel + "RelatedDataGrid");
 		map.put("relatedDataGridUrl", relateListUrl);//relateListUrl
 		map.put("relate_url", relateUrl);//relateUrl
 
-		map.put("unRelatedDataGridToolbar", model + "UnRelatedDataGridToolbar");
-		map.put("addRelateBtn", model + "AddRelateBtn");
-		map.put("addRelateFunc", model + "AddRelateFunc");
-		map.put("doSearchURFunc", "doSearch" + Model + "URFunc");
-		map.put("unRelatedDataGrid", model + "UnRelatedDataGrid");
+		map.put("unRelatedDataGridToolbar", relateModel + "UnRelatedDataGridToolbar");
+		map.put("addRelateBtn", relateModel + "AddRelateBtn");
+		map.put("addRelateFunc", "addRelate"+RelateModel+"Func");
+		map.put("doSearchURFunc", "doSearch" + RelateModel + "URFunc");
+		map.put("unRelatedDataGrid", relateModel + "UnRelatedDataGrid");
 		map.put("unRelatedDataGridUrl", unRelateListUrl);//unrelateListUrl
 		map.put("unRelate_url", unRelateUrl);//unrelateUrl
 

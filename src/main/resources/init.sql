@@ -152,6 +152,20 @@ PRIMARY KEY (`id`)
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+/*栏目关联博客*/
+DROP TABLE IF EXISTS `t_column_blog_relate`;
+CREATE TABLE `t_column_blog_relate` (
+`id` int(11) NOT NULL AUTO_INCREMENT ,
+`column_id`  int(11) NOT NULL ,
+`blog_id` int(11) NOT NULL ,
+`rank` int(11) NOT NULL ,
+`create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;
 
 /*文件表*/
 DROP TABLE IF EXISTS `t_attachment`;

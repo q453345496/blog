@@ -24,7 +24,7 @@
 				</h2>
 			</div>
 			<div class="meta">
-				<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${blog.createTime}"/></span>
+				<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
 				<span><i class="fa fa-eye"></i>阅读(${blog.click })</span>
 			</div>
 			<div class="summary">&nbsp;&nbsp;&nbsp;&nbsp;${blog.summary }</div>
@@ -50,7 +50,7 @@
 							</h2>
 						</div>
 						<div class="meta">
-							<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${blog.createTime}"/></span>
+							<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
 							<span><i class="fa fa-eye"></i>阅读(${blog.click })</span>
 						</div>
 					</div>

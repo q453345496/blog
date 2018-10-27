@@ -137,7 +137,9 @@ ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
 INSERT INTO `t_column` (`id`, `name`, `code`, `parent_id`, `status`, `rank`, `is_parent`, `create_time`, `modify_time`) 
-VALUES ('1', '根栏目', 'root', '-1', '1', '1', '0', NOW(), NOW());
+VALUES ('1', '根栏目', 'root', '-1', '1', '1', '1', NOW(), NOW());
+INSERT INTO `t_column` (`id`, `name`, `code`, `parent_id`, `status`, `rank`, `is_parent`, `create_time`, `modify_time`) 
+VALUES ('2', '今日推荐', 'today_recommend', '1', '1', '1', '0', NOW(), NOW());
 
 /*栏目关联分类*/
 DROP TABLE IF EXISTS `t_column_resource`;

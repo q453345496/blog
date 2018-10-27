@@ -18,8 +18,11 @@ public class SystemService {
 		servletContext.setAttribute("lastBlogList", blogService.listLast(Constants.DEFAULT_COUNT));
 		//最热
 		servletContext.setAttribute("hotBlogList", blogService.listHot(Constants.DEFAULT_COUNT));
+		//今日
+		servletContext.setAttribute("todayBlogList", blogService.listColumn(Constants.COLUMN_TODAY_RECOMMEND));
 		//导航分类
 		servletContext.setAttribute("typeList", blogTypeService.listForNav());
+
 	}
 
 }

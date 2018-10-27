@@ -20,4 +20,6 @@ public interface BlogDao extends BaseMapper<Blog> {
 	public void addClick(Map<String, Object> map);
 
 	public List<Blog> listRelate(Page<Blog> page, Map<String, Object> map);
+
+	public List<Blog> listColumn(Map<String, Object> map);
 }

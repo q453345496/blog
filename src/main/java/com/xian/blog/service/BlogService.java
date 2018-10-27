@@ -13,14 +13,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xian.blog.common.DataGridResult;
 import com.xian.blog.dao.BlogDao;
+import com.xian.blog.dao.ColumnDao;
 import com.xian.blog.model.Blog;
+import com.xian.blog.model.Column;
 
 @Service
 @Transactional
 public class BlogService {
 	@Resource
 	private BlogDao blogDao;
-
+	@Resource
+	private ColumnDao columnDao;
+	
 	public List<Blog> list(Page<Blog> page, Map<String, Object> map) {
 		return blogDao.list(page, map);
 	}
@@ -53,6 +57,20 @@ public class BlogService {
 		map.put("typeId", typeId);
 		map.put("status", Blog.ONLINE);
 		return blogDao.listRelate(new Page<Blog>(1, size), map);
+	}
+	
+	public List<Blog> listColumn(String columnCode) {
+		Column query = new Column();
+		query.setCode(columnCode);
+		Column column = columnDao.selectOne(query);
+		return listColumn(column.getId());
+	}
+	
+	public List<Blog> listColumn(Long columnId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("columnId", columnId);
+		map.put("status", Blog.ONLINE);
+		return blogDao.listColumn(map);
 	}
 
 	public void update(Blog blog) {

@@ -72,6 +72,13 @@
 		WHERE b.type_id = #{typeId} AND b.id != #{id} AND b.`status` = #{status}
 	</select>
 	
+	<select id="listColumn" parameterType="Map" resultMap="BlogResult">
+		SELECT b.* FROM t_blog b 
+		RIGHT JOIN t_column_blog_relate r 
+		ON b.id = r.blog_id AND r.column_id = #{columnId} AND b.`status` = #{status}
+		ORDER BY r.rank, b.create_time;
+	</select>
+	
 	<update id="addClick" parameterType="map">
 		UPDATE t_blog SET click = click + #{num} WHERE id = #{id}
 	</update>

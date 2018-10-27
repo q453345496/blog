@@ -16,7 +16,7 @@
 						<th field="id" width="20" align="left" hidden="true">ID</th>
 						<th field="blogId" width="20" align="left">博客ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
-						<th field="rank" width="20" align="left">排序</th>
+						<th field="rank" width="20" align="left" formatter="rankFormatter">排序</th>
 						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
 				</thead>
@@ -44,6 +44,24 @@
 	</div>
 </div>
 <script type="text/javascript">
+function rankFormatter(value, row, index){
+	return '<input type="text" size="6" value="'+value+'" onchange="validateRank('+value+', this)" onblur="updateTopicResourceRank(\'' + row.id +'\',\'' + value + '\', this)"/>';
+}
+
+function updateTopicResourceRank(id, oldValue, obj){
+	var newValue = $(obj).val();
+	if(newValue == "" || oldValue == newValue){
+		return;
+	}
+	$.post(basePath + '/admin/specialTopicResource/update',{'id': id, 'rank':newValue},function(result){
+        if (0 == result.status){
+            $('#blogRelatedDataGrid').datagrid('reload');
+        } else {
+        	$.messager.show({ title: '错误', msg: result.msg });
+        }
+        
+    },'json');
+}
 $(function(){
 	$.getJSON(basePath + '/admin/blogType/listGroup', function(res){
 		var data = res.data;
@@ -67,12 +85,13 @@ $(function(){
 function openRelateBlogDialogFunc(rowIndex){
 	clearSearch('#blogRelatedDataGridToolbar');
 	clearSearch('#blogUnRelatedDataGridToolbar');
+	$('#specialTopicDataGrid').datagrid('unselectAll');
 	$('#specialTopicDataGrid').datagrid('selectRow', rowIndex);
     var row = $("#specialTopicDataGrid").datagrid("getSelected");
     if(row){
     	 $("#specialTopicRelateblogDialog").dialog("open").dialog('setTitle', "关联博客 【专题： " + row.name + "】");
-    	 $('#blogRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/topicResource/listRelate?topicId=' + row.id, queryParams:{}});
-    	 $('#blogUnRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/topicResource/listUnRelate?topicId=' + row.id, queryParams:{}});
+    	 $('#blogRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/specialTopicResource/listRelate?topicId=' + row.id, queryParams:{}});
+    	 $('#blogUnRelatedDataGrid').datagrid({method : 'GET', url : basePath + '/admin/specialTopicResource/listUnRelate?topicId=' + row.id, queryParams:{}});
     }
     $('#blogRelateTabs').tabs({
 		'onSelect':function(title, index) {
@@ -112,7 +131,7 @@ function blogAddRelateFunc(){
 	var ids = concatIds('#blogUnRelatedDataGrid', 'blogId');
 	var row = $("#specialTopicDataGrid").datagrid("getSelected");
 	if (row && row.id && ids != "") {
-		$.post(basePath + '/admin/topicResource/save',{'topicId': row.id, 'ids':ids},function(result){
+		$.post(basePath + '/admin/specialTopicResource/save',{'topicId': row.id, 'ids':ids},function(result){
             if (0 == result.status){
                 $('#blogUnRelatedDataGrid').datagrid('reload');
             } else {
@@ -131,7 +150,7 @@ function delRelateBlogFunc(){
 	$("#blogUnrelateBtn").linkbutton("disable");
 	var ids = concatIds('#blogRelatedDataGrid','id');
 	if (ids != "") {
-		$.post(basePath + '/admin/topicResource/delete',{'ids':ids},function(result){
+		$.post(basePath + '/admin/specialTopicResource/delete',{'ids':ids},function(result){
             if (0 == result.status){
                 $('#blogRelatedDataGrid').datagrid('reload');
             } else {

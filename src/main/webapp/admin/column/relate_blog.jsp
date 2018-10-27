@@ -16,7 +16,7 @@
 						<th field="id" width="20" align="left" hidden="true">ID</th>
 						<th field="blogId" width="20" align="left">博客ID</th>
 						<th field="blogTitle" width="100" align="left">名称</th>
-						<th field="rank" width="20" align="left">排序</th>
+						<th field="rank" width="20" align="left" formatter="rankFormatter">排序</th>
 						<th field="blogTypeName" width="30" align="left">分类</th>
 					</tr>
 				</thead>
@@ -44,6 +44,24 @@
 	</div>
 </div>
 <script type="text/javascript">
+function rankFormatter(value, row, index){
+	return '<input type="text" size="6" value="'+value+'" onchange="validateRank('+value+', this)" onblur="updateColumnBlogRank(\'' + row.id +'\',\'' + value + '\', this)"/>';
+}
+
+function updateColumnBlogRank(id, oldValue, obj){
+	var newValue = $(obj).val();
+	if(newValue == "" || oldValue == newValue){
+		return;
+	}
+	$.post(basePath + '/admin/columnBlogRelate/update',{'id': id, 'rank':newValue},function(result){
+        if (0 == result.status){
+            $('#columnBlogRelateRelatedDataGrid').datagrid('reload');
+        } else {
+        	$.messager.show({ title: '错误', msg: result.msg });
+        }
+        
+    },'json');
+}
 $(function(){
 	$.getJSON(basePath + '/admin/blogType/listGroup', function(res){
 		var data = res.data;
@@ -67,6 +85,7 @@ $(function(){
 function openColumnBlogRelateDialogFunc(rowIndex){
 	clearSearch('#columnBlogRelateRelatedDataGridToolbar');
 	clearSearch('#columnBlogRelateUnRelatedDataGridToolbar');
+	$('#columnTreeGrid').treegrid('unselectAll');
 	$('#columnTreeGrid').treegrid('select', rowIndex);
     var row = $("#columnTreeGrid").treegrid("find", rowIndex);
     if(row){

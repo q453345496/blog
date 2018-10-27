@@ -159,3 +159,11 @@ function setImagePreviews(sourceId, targetId, imgHeight, imgWidth) {
 	}
 	return true;
 }
+function validateRank(oldValue, obj){
+	var newValue = $(obj).val();
+	var reg = /^-?[0-9]\d*$/;
+	if(newValue>2147483647||!(reg.test(newValue))){
+		newValue = oldValue;
+	}
+	$(obj).val(newValue);
+}

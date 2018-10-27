@@ -19,7 +19,7 @@ import com.xian.blog.model.SpecialTopicResource;
 import com.xian.blog.service.SpecialTopicResourceService;
 
 @Controller
-@RequestMapping("/admin/topicResource")
+@RequestMapping("/admin/specialTopicResource")
 public class SpecialTopicResourceManagerController {
 	@Resource
 	private SpecialTopicResourceService specialTopicResourceService;
@@ -69,7 +69,14 @@ public class SpecialTopicResourceManagerController {
 		specialTopicResourceService.save(topicId, ids);
 		return CommonResult.success();
 	}
-
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult update(SpecialTopicResource specialTopicResource) {
+		specialTopicResourceService.update(specialTopicResource);
+		return CommonResult.success();
+	}
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult delete(Long[] ids) {

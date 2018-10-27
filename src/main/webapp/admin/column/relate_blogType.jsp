@@ -42,6 +42,7 @@
 function openRelateBlogTypeDialogFunc(rowIndex){
 	clearSearch('#blogTypeRelatedDataGridToolbar');
 	clearSearch('#blogTypeUnRelatedDataGridToolbar');
+	$('#columnTreeGrid').treegrid('unselectAll');
 	$('#columnTreeGrid').treegrid('select', rowIndex);
     var row = $("#columnTreeGrid").treegrid("find", rowIndex);
     if(row){

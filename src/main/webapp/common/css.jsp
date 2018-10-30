@@ -107,7 +107,7 @@ body {
 	margin-bottom: 10px;
 }
 .index-content>*{
-	padding: 10px;
+	padding: 15px;
 }
 .cat-title{
 	color: #0099cc;
@@ -122,6 +122,7 @@ body {
 }
 .index-content .title h2 a{
 	color: #555;
+	white-space:nowrap;
 }
 .index-content .title h2 a:hover{
 	color: #45B6F7;
@@ -148,6 +149,8 @@ body {
 	margin-bottom: 10px;
 	font-size:12px;
 	text-align: justify;
+	height: 60px;
+	overflow: hidden;
 }
 .other-post{
 	display: flex;

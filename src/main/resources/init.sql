@@ -190,3 +190,20 @@ PRIMARY KEY (`id`)
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+
+/*网页源*/
+DROP TABLE IF EXISTS `t_web_source`;
+CREATE TABLE `t_web_source` (
+`id` int(11) NOT NULL AUTO_INCREMENT ,
+`name` varchar(255) NOT NULL ,
+`code` varchar(32) NOT NULL ,
+`title_pattern` varchar(255) NULL ,
+`content_pattern` varchar(255) NULL ,
+`label_pattern` varchar(255) NULL ,
+`create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;

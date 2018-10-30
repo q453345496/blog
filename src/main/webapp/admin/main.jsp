@@ -17,10 +17,10 @@
 	
 	<div data-options="region:'west',split:true,title:'菜单导航'" style="width: 150px;">
 	 	<div class="easyui-accordion" data-options="fit:true,border:false">
-	 		<div title="系统管理" style="padding:10px">
-				<a href="#" onclick="openTab('参数管理','<%=path%>/admin/param/param.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">参数管理</a>
-				<a href="#" onclick="openTab('参数类型管理','<%=path%>/admin/param/paramType.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">参数类型管理</a>
-			</div>
+<!-- 	 		<div title="系统管理" style="padding:10px"> -->
+<%-- 				<a href="#" onclick="openTab('参数管理','<%=path%>/admin/param/param.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">参数管理</a> --%>
+<%-- 				<a href="#" onclick="openTab('参数类型管理','<%=path%>/admin/param/paramType.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">参数类型管理</a> --%>
+<!-- 			</div> -->
 <!-- 			<div title="权限管理" style="padding:10px"> -->
 <%-- 				<a href="#" onclick="openTab('角色管理','<%=path%>/admin/role/role.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">角色管理</a> --%>
 <!-- 			</div> -->
@@ -31,6 +31,7 @@
 			<div title="博客管理" style="padding:10px">
 				<a href="#" onclick="openTab('文章列表','<%=path%>/admin/blog/blogManager.jsp','fa fa-file-word-o')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-word-o'">文章列表</a>
 				<a href="#" onclick="openTab('文章分类管理','<%=path%>/admin/blogType/blogType.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">文章分类管理</a>
+				<a href="#" onclick="openTab('网页源管理','<%=path%>/admin/webSource/webSource.jsp','fa fa-tags')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-tags'">网页源管理</a>
 			</div>
 			<div title="专题管理" style="padding:10px">
 				<a href="#" onclick="openTab('栏目列表','<%=path%>/admin/column/column.jsp','fa fa-file-word-o')" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-word-o'">栏目列表</a>

@@ -18,7 +18,7 @@
         	<div class="layui-col-md8">
 				<jsp:include page="view/blog/index.jsp"></jsp:include>
 <%-- 				<jsp:include page="view/blog/search.jsp"></jsp:include> --%>
-<%-- 				<jsp:include page="view/blog/list.jsp"></jsp:include> --%>
+<%-- 				<jsp:include page="view/blog/page.jsp"></jsp:include> --%>
 <%-- 				<jsp:include page="view/blog/blog.jsp"></jsp:include> --%>
         	</div><!-- main-end -->
         	

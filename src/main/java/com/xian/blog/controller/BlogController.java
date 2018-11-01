@@ -62,7 +62,7 @@ public class BlogController {
 				view.addObject("mainPage", Constants.PAGE_404);
 			} else {
 				view.addObject("blogs", list);
-				view.addObject("mainPage", "view/blog/list.jsp");
+				view.addObject("mainPage", "view/blog/page.jsp");
 				view.addObject("page", pageInfo);
 			}
 		}

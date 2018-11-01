@@ -13,7 +13,9 @@ body {
 .pagination{
 	text-align: center;
 }
-
+.layui-col-space20{
+	margin: 0px;
+}
 .pull-right{
 	float: right !important;
 }
@@ -97,6 +99,7 @@ body {
 .layui-carousel img {
 	width: 100%;
 	height: 280px;
+	padding: 0 10px;
 }
 /*=======================end 轮播图=================*/
 

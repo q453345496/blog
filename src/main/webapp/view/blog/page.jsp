@@ -8,7 +8,34 @@
 %>
 <style>
 </style>
-<jsp:include page="list.jsp"></jsp:include>
+<div class="post-list">
+	<c:forEach var="blog" items="${blogs}">
+	<div class="post-item">
+		<div class="thumb">
+			<a class="focus" href="<%=basePath %>/b/${blog.id }.html">
+				<img src="${blog.thumb }" alt="${blog.title }">
+			</a>
+		</div>
+		<div class="info">
+			<div class="title">
+				<h2>
+					<a href="<%=basePath %>/b/${blog.id }.html" title="${blog.title }" target="_blank">${blog.title }</a>
+				</h2>
+			</div>
+			<div class="meta">
+				<span><i class="fa fa-clock-o"></i><fmt:formatDate pattern="yyyy-MM-dd" value="${blog.createTime}"/></span>
+				<span><i class="fa fa-list-alt"></i><a href="<%=basePath%>/t/${blog.typeCode }">${blog.typeName}</a></span>
+				<span><i class="fa fa-eye"></i>阅读(${blog.click })</span>
+			</div>
+			<div class="summary">
+				&nbsp;&nbsp;&nbsp;&nbsp;${blog.summary }</div>
+			<div class="readmore">
+				<a href="<%=basePath%>/b/${blog.id }.html">阅读全文&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+	</c:forEach>
+</div>
 <div id="pagination" class="pagination">
 </div>
 <script type="text/javascript">

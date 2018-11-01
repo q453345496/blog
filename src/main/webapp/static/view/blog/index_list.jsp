@@ -53,4 +53,79 @@
 			</div>
 		</div>
 	</div>
+	<div class="post-item">
+		<div class="thumb">
+			<a class="focus" href="#">
+				<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">
+			</a>
+		</div>
+		<div class="info">
+			<div class="title">
+				<h2>
+					<a href="#" title="HTML5-语义化" target="_blank">HTML5-语义化</a>
+				</h2>
+			</div>
+			<div class="meta">
+				<span><i class="fa fa-clock-o"></i>2018-09-10</span>
+				<span><i class="fa fa-list-alt"></i>html</span>
+				<span><i class="fa fa-eye"></i>阅读</span>
+			</div>
+			<div class="summary">
+				&nbsp; &nbsp; 距HTML5标准规范制定完成并公开发布已经有好些年了，面试时也少不了要问对HTML5语义化得理解。但是在实际运用时，真正使用HTML5标签来开发的似乎不是很多（ps：查看了几个巨头公司网站推论），可能一部分原因是仍有部分用户使用在使...
+			</div>
+			<div class="readmore">
+				<a href="#">阅读全文&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+	<div class="post-item">
+		<div class="thumb">
+			<a class="focus" href="#">
+				<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">
+			</a>
+		</div>
+		<div class="info">
+			<div class="title">
+				<h2>
+					<a href="#" title="HTML5-语义化" target="_blank">HTML5-语义化</a>
+				</h2>
+			</div>
+			<div class="meta">
+				<span><i class="fa fa-clock-o"></i>2018-09-10</span>
+				<span><i class="fa fa-list-alt"></i>html</span>
+				<span><i class="fa fa-eye"></i>阅读</span>
+			</div>
+			<div class="summary">
+				&nbsp; &nbsp; 距HTML5标准规范制定完成并公开发布已经有好些年了，面试时也少不了要问对HTML5语义化得理解。但是在实际运用时，真正使用HTML5标签来开发的似乎不是很多（ps：查看了几个巨头公司网站推论），可能一部分原因是仍有部分用户使用在使...
+			</div>
+			<div class="readmore">
+				<a href="#">阅读全文&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
+	<div class="post-item">
+		<div class="thumb">
+			<a class="focus" href="#">
+				<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">
+			</a>
+		</div>
+		<div class="info">
+			<div class="title">
+				<h2>
+					<a href="#" title="HTML5-语义化" target="_blank">HTML5-语义化</a>
+				</h2>
+			</div>
+			<div class="meta">
+				<span><i class="fa fa-clock-o"></i>2018-09-10</span>
+				<span><i class="fa fa-list-alt"></i>html</span>
+				<span><i class="fa fa-eye"></i>阅读</span>
+			</div>
+			<div class="summary">
+				&nbsp; &nbsp; 距HTML5标准规范制定完成并公开发布已经有好些年了，面试时也少不了要问对HTML5语义化得理解。但是在实际运用时，真正使用HTML5标签来开发的似乎不是很多（ps：查看了几个巨头公司网站推论），可能一部分原因是仍有部分用户使用在使...
+			</div>
+			<div class="readmore">
+				<a href="#">阅读全文&gt;&gt;</a>
+			</div>
+		</div>
+	</div>
 </div>

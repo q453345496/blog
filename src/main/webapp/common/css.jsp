@@ -104,40 +104,39 @@ body {
 /*=======================end 轮播图=================*/
 
 /*================index.jsp============*/
-.index-content{
+.index{
 	background-color: #fff;
 	box-shadow: 0px 0px 3px #ccc;
 	margin-bottom: 10px;
 }
-.index-content>*{
+.index-recommend>*{
 	padding: 15px;
 }
-.cat-title{
+.index .cat-title{
 	color: #0099cc;
-	border-bottom: 1px solid #e8e8e8;
 	font-size: 16px;
-	padding-bottom: 5px;
+	padding: 15px;
 }
 
-.index-content .title h2{
+.index-recommend .title h2{
 	font-size: 1.1rem;
 	font-weight: 300;
 }
-.index-content .title h2 a{
+.index-recommend .title h2 a{
 	color: #555;
 	white-space:nowrap;
 }
-.index-content .title h2 a:hover{
+.index-recommend .title h2 a:hover{
 	color: #45B6F7;
 }
-.index-content .meta{
+.index-recommend .meta{
 	font-size:12px;
 	color: #aaa;
 }
-.index-content .meta span{
+.index-recommend .meta span{
 	margin-right: 20px;
 }
-.index-content .meta i{
+.index-recommend .meta i{
 	margin-right: 4px;
 }
 
@@ -277,13 +276,17 @@ body {
 /*================blog.jsp end============*/
 
 /**===============list.jsp================*/
+.post-list{
+	background-color: #fff;
+	box-shadow: 0px 0px 3px #ccc;
+	margin-bottom: 10px;
+}
 .post-item{
 	background-color: #fff;
 	display: flex;
 	padding: 20px;
 	color: #999;
-	border: 1px solid #eaeaea;
-	margin-bottom: -1px;
+ 	border-bottom: 1px solid #eaeaea;
 }
 .post-item .thumb{
 	margin-right: 12px;

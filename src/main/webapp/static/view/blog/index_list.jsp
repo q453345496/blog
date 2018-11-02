@@ -3,7 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 </style>
-<div class="post-list">
+<div class="index index-new">
+	<h3 class="cat-title">最新文章</h3>
 	<div class="post-item">
 		<div class="thumb">
 			<a class="focus" href="#">

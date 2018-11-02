@@ -8,8 +8,8 @@
 %>
 <style>
 </style>
-<div class="layui-row index-content" >
-	<h3 class="cat-title">今日推荐</h3>
+<div class="layui-row index index-recommend" >
+	<h3 class="cat-title">推荐阅读</h3>
 	<div class="layui-col-md6">
 	<c:forEach end="0" var="blog" items="${todayBlogList }">
 		<div class="first-post">

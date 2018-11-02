@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 </style>
-<div class="layui-row index-content" >
+<div class="layui-row index index-recommend">
 	<h3 class="cat-title">推荐阅读</h3>
 	<div class="layui-col-md6">
 		<div class="first-post">

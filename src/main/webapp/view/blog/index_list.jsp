@@ -8,7 +8,8 @@
 %>
 <style>
 </style>
-<div class="post-list">
+<div class="index index-new">
+	<h3 class="cat-title">最新文章</h3>
 	<c:forEach var="blog" items="${blogs}">
 	<div class="post-item">
 		<div class="thumb">

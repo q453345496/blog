@@ -18,7 +18,6 @@
 		b.key_word,
 		b.summary,
 		b.content,
-		b.right_type,
 		b.click AS click, 
 		b.reply AS reply,
 		b.create_time,
@@ -26,6 +25,9 @@
 		b.`status`,
 		b.thumb,
 		t.NAME AS type_name,
+		b.source_url,
+		b.author_id,
+		b.author_name,
 		t.code AS type_code
 		FROM
 		t_blog b

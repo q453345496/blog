@@ -22,7 +22,6 @@
 <div id="blogDetail" class="easyui-panel" title="文章内容" data-options="fit:true" style="padding: 5px;">
 	<div>
 		<input id="blogId" name="id" type="hidden" value="${id}"/>
-		<input id="status" name="status" type="hidden"/>
 		<span class="blog">文章标题：</span>
 		<input id="title" name="title" type="text" class="easyui-textbox" data-options="prompt:'文章标题'" />
 		<span class="blog">关键字：</span>
@@ -32,10 +31,16 @@
 		<span class="blog">分类：</span>
 		<input id="blogTypeId" name="typeId" type="text" />
 		<span class="blog">权限：</span>
-		<select id="rightType" name="rightType" class="easyui-combobox" data-options="editable:false">
-			<option value="0">公开</option>
-			<option value="1">自己可见</option>
+		<select id="status" name="status" class="easyui-combobox" data-options="editable:false">
+			<option value="0">草稿</option>
+			<option value="1">上线</option>
+			<option value="-1">下线</option>
 		</select>
+		<span class="blog">来源：</span>
+		<input id="authorName" type="text" class="easyui-textbox"/>
+		<span class="blog">源地址：</span>
+		<input id="sourceUrl" type="text" class="easyui-textbox"/>
+		
 	</div>
 
 	<div id="content">
@@ -81,13 +86,14 @@ $(function() {
 		        $.getJSON("<%=path%>/admin/blog/"+id,function(result){
 		        	var blog = result.data;
 		        	if(blog){
-		        		$("#status").val(blog.status);
 			        	$("#title").textbox('setValue',blog.title);
 			        	$("#keyWord").textbox('setValue',blog.keyWord);
+			        	$("#authorName").textbox('setValue',blog.authorName);
+			        	$("#sourceUrl").textbox('setValue',blog.sourceUrl);
 			        	if(blog.typeId){
 				        	$("#blogTypeId").combobox("setValue",blog.typeId || "");
 			        	}
-			        	$("#rightType").combobox("setValue",blog.rightType);
+			        	$("#status").combobox("setValue",blog.status);
 			        	testEditor.setMarkdown(blog.content)
 		        	}
 		        });
@@ -101,7 +107,7 @@ var testEditor;
 function saveBlog(){
 	var title = $("#title").val();
 	var blogTypeId = $("#blogTypeId").combobox("getValue");
-	var rightType = $("#rightType").combobox("getValue");
+	var status = $("#status").combobox("getValue");
 	var content = testEditor.getMarkdown();
 	var keyWord=$("#keyWord").val();
 	
@@ -115,10 +121,9 @@ function saveBlog(){
 		$.post("<%=path%>/admin/blog/save",
 				{	
 					'id': $("#blogId").val(),
-					'status': $("#status").val(),
+					'status': status,
 					'title' : title,
 					'typeId' : blogTypeId,
-					'rightType' : rightType,
 					'content' : content,
 					'keyWord' : keyWord
 				},

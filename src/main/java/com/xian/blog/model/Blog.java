@@ -16,7 +16,6 @@ public class Blog {
 	private String title;// 标题
 	private String content;// 内容
 	private String keyWord;// 关键字
-	private Integer rightType;// 权限类型 目前只有自己可见和公开
 	private Integer click;
 	private Integer reply;
 	private Integer status;//-1草稿,1正式
@@ -35,6 +34,9 @@ public class Blog {
 	private String typeCode;
 	
 	private Long typeId;
+	private String sourceUrl;
+	private Long authorId;
+	private String authorName;
 	
 	@TableField(exist = false)
 	private String contentNoTag;// 内容无标签,方便分词
@@ -87,14 +89,6 @@ public class Blog {
 
 	public void setKeyWord(String keyWord) {
 		this.keyWord = keyWord;
-	}
-
-	public Integer getRightType() {
-		return rightType;
-	}
-
-	public void setRightType(Integer rightType) {
-		this.rightType = rightType;
 	}
 
 	public Integer getClick() {
@@ -167,6 +161,30 @@ public class Blog {
 
 	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
+	}
+
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
+	}
+
+	public Long getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 }

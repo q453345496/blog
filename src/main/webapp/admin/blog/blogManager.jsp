@@ -48,6 +48,8 @@ $(function() {
             		return row.typeId ? row.typeName : "";
             	}
              },
+             {field : 'authorName',	title : '来源',	width:60,	align:'center'},
+             {field : 'sourceUrl',	title : '源地址',	width:100,	align:'center'},
              {field : 'createTime',	title : '发布时间',	width:100,	align:'center'},
              {field : 'status',	title : '状态',	width:100,	align:'center', 
             	formatter: function(value,row,index){

@@ -1,17 +1,19 @@
 /*博客表*/
 DROP TABLE IF EXISTS `t_blog`;
 CREATE TABLE `t_blog` (
-`id`  bigint(20) NOT NULL AUTO_INCREMENT ,
+`id`  int(11) NOT NULL AUTO_INCREMENT ,
 `title`  varchar(128) NOT NULL ,
 `type_id` int(11),
 `key_word` varchar(255),
 `summary` varchar(400),
 `thumb` varchar(255),
 `content` text,
-`right_type` int(11) DEFAULT 0,
 `click` int(11) DEFAULT 0,
 `reply` int(11) DEFAULT 0,
 `status` int(11) DEFAULT 0,
+`source_url` varchar(255),
+`author_id` int(11),
+`author_name` varchar(255),
 `create_time` datetime NOT NULL,
 `modify_time` datetime NOT NULL,
 PRIMARY KEY (`id`)
@@ -179,7 +181,7 @@ CREATE TABLE `t_attachment` (
 `path` varchar(500) NOT NULL ,
 `height` int(11) NULL ,
 `width` int(11) NULL ,
-`size` bigint(20) NOT NULL ,
+`size` int(11) NOT NULL ,
 `type` varchar(32) NOT NULL ,
 `biz_id` varchar(64) NOT NULL ,
 `biz_type` varchar(32) NOT NULL ,

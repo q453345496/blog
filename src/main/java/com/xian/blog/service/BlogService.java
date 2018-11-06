@@ -24,7 +24,7 @@ public class BlogService {
 	private BlogDao blogDao;
 	@Resource
 	private ColumnDao columnDao;
-	
+
 	public List<Blog> list(Page<Blog> page, Map<String, Object> map) {
 		return blogDao.list(page, map);
 	}
@@ -50,7 +50,7 @@ public class BlogService {
 		map.put("orderByCause", "b.click DESC");
 		return blogDao.list(new Page<Blog>(1, size, "b.click", false), map);
 	}
-	
+
 	public List<Blog> listRelate(Long id, Long typeId, int size) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
@@ -58,19 +58,26 @@ public class BlogService {
 		map.put("status", Blog.ONLINE);
 		return blogDao.listRelate(new Page<Blog>(1, size), map);
 	}
-	
-	public List<Blog> listColumn(String columnCode) {
+
+	public List<Blog> listByColumnCode(String columnCode) {
 		Column query = new Column();
 		query.setCode(columnCode);
 		Column column = columnDao.selectOne(query);
-		return listColumn(column.getId());
+		return listByColumn(column.getId());
 	}
-	
-	public List<Blog> listColumn(Long columnId) {
+
+	public List<Blog> listByColumn(Long columnId) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("columnId", columnId);
 		map.put("status", Blog.ONLINE);
 		return blogDao.listColumn(map);
+	}
+
+	public List<Blog> listByType(Long typeId, Page<Blog> page) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("typeId", typeId);
+		map.put("status", Blog.ONLINE);
+		return list(page, map);
 	}
 
 	public void update(Blog blog) {
@@ -109,12 +116,12 @@ public class BlogService {
 	public void delete(Long[] ids) {
 		blogDao.deleteBatchIds(Arrays.asList(ids));
 	}
-	
-	public Blog getLast(Long id){
+
+	public Blog getLast(Long id) {
 		return blogDao.getLast(id);
 	}
-	
-	public Blog getNext(Long id){
+
+	public Blog getNext(Long id) {
 		return blogDao.getNext(id);
 	}
 

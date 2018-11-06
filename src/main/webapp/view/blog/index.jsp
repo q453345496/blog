@@ -9,6 +9,7 @@
 <style>
 </style>
 <jsp:include page="index_today.jsp"></jsp:include>
+<jsp:include page="index_type.jsp"></jsp:include>
 <jsp:include page="index_list.jsp"></jsp:include>
 <script type="text/javascript">
 </script>

@@ -1,8 +1,6 @@
 package com.xian.blog.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -53,11 +51,8 @@ public class BlogController {
 		if (blogType == null) {
 			view.addObject("mainPage", Constants.PAGE_404);
 		} else {
-			Map<String, Object> map = new HashMap<>();
-			map.put("typeId", blogType.getId());
-			map.put("status", Blog.ONLINE);
 			Page<Blog> pageInfo = new Page<Blog>(page, Constants.DEFAULT_PAGE_SIZE);
-			List<Blog> list = blogService.list(pageInfo, map);
+			List<Blog> list = blogService.listByType(blogType.getId(), pageInfo);
 			if (list.isEmpty()) {
 				view.addObject("mainPage", Constants.PAGE_404);
 			} else {

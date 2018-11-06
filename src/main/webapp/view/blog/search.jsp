@@ -21,7 +21,9 @@
 		<c:otherwise>
 			<c:forEach var="blog" items="${blogs }">
 			<div class="result-item">
-				<h3><a href="<%=basePath%>/b/${blog.id }.html" title="HTML5-语义化" target="_blank">${blog.title }</a></h3>
+				<h3>
+					<a href="<%=basePath%>/b/${blog.id }.html" title="${blog.title }" target="_blank">${blog.title }</a>
+				</h3>
 				<p class="url"><%=basePath%>/b/${blog.id }.html</p>
 				<p class="summary">${blog.summary }</p>
 				<p class="date">发布于&nbsp;2018-09-29</p>

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -23,20 +22,16 @@ public class IndexController {
 	private BlogService blogService;
 
 	@RequestMapping(value = { "/index" })
-	public ModelAndView index(@RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
+	public ModelAndView index() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("status", Blog.ONLINE);
-		Page<Blog> pageInfo = new Page<Blog>(page, Constants.DEFAULT_PAGE_SIZE);
+		Page<Blog> pageInfo = new Page<Blog>(1, Constants.DEFAULT_PAGE_SIZE);
 		List<Blog> list = blogService.list(pageInfo, map);
 		ModelAndView view = new ModelAndView("index");
-		if (list.isEmpty()) {
-			view.addObject("mainPage", Constants.PAGE_404);
-		} else {
-			view.addObject("isIndex", true);
-			view.addObject("blogs", list);
-			view.addObject("mainPage", "view/blog/index.jsp");
-			view.addObject("page", pageInfo);
-		}
+		view.addObject("isIndex", true);
+		view.addObject("blogs", list);
+		view.addObject("mainPage", "view/blog/index.jsp");
+		view.addObject("page", pageInfo);
 		return view;
 	}
 

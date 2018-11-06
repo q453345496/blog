@@ -37,9 +37,12 @@
 .other-info .fa-angle-right{
 	width: 12px;
 }
+
 </style>
 <div class="layui-row index index-category">
-	<h3 class="cat-title">推荐阅读</h3>
+	<h3 class="cat-title">
+		推荐阅读<a href="#"><span>更多</span><i class="fa fa-arrow-circle-right fa-lg"></i></a>
+	</h3>
 	<div>
 		<div class="category-first">
 			<h2 class="title">

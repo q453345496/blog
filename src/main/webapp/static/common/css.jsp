@@ -113,11 +113,25 @@ body {
 	padding: 15px;
 }
 .index .cat-title{
+	display: flex;
+	justify-content: space-between;
 	color: #0099cc;
 	font-size: 16px;
-	padding: 15px;
+	padding: 10px 15px 5px;
+	border-bottom: 1px solid #eee; 
 }
-
+.index .cat-title a{
+ 	color: #888;
+}
+.index .cat-title a i{
+	color: #ff0000;
+}
+.index .cat-title a span{
+	margin-right: 6px;
+}
+.index .cat-title a:hover span{
+	text-decoration: underline;
+}
 .index-recommend .title h2{
 	font-size: 1.1rem;
 	font-weight: 300;

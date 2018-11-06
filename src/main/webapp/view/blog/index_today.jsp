@@ -12,7 +12,7 @@
 	<h3 class="cat-title">推荐阅读</h3>
 	<div class="layui-col-md6">
 	<c:forEach end="0" var="blog" items="${todayBlogList }">
-		<div class="first-post">
+		<div class="today-first">
 			<div class="thumb">
 				<a class="focus" href="<%=basePath %>/b/${blog.id }.html">
 					<img src="${blog.thumb }" alt="${blog.title }">
@@ -37,7 +37,7 @@
 	<div class="layui-col-md6">
 		<div class="last-post-list">
 			<c:forEach begin="1" end="4" var="blog" items="${todayBlogList }">
-				<div class="other-post">
+				<div class="today-other">
 					<div class="thumb">
 						<a class="focus" href="<%=basePath %>/b/${blog.id }.html">
 							<img src="${blog.thumb }" alt="${blog.title }">

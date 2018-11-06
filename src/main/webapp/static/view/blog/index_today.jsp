@@ -6,7 +6,7 @@
 <div class="layui-row index index-recommend">
 	<h3 class="cat-title">推荐阅读</h3>
 	<div class="layui-col-md6">
-		<div class="first-post">
+		<div class="today-first">
 			<div class="thumb">
 				<a class="focus" href="#">
 					<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">
@@ -30,7 +30,7 @@
 	</div>
 	<div class="layui-col-md6">
 		<div class="last-post-list">
-			<div class="other-post">
+			<div class="today-other">
 				<div class="thumb">
 					<a class="focus" href="#">
 						<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="other-post">
+			<div class="today-other">
 				<div class="thumb">
 					<a class="focus" href="#">
 						<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">
@@ -66,7 +66,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="other-post">
+			<div class="today-other">
 				<div class="thumb">
 					<a class="focus" href="#">
 						<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">
@@ -84,7 +84,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="other-post">
+			<div class="today-other">
 				<div class="thumb">
 					<a class="focus" href="#">
 						<img src="../resources/images/koala.jpg" alt="chrome  transition闪烁BUG-大前端">

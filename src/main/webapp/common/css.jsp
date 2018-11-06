@@ -140,31 +140,31 @@ body {
 	margin-right: 4px;
 }
 
-.first-post .thumb{
+.today-first .thumb{
 	margin-bottom: 10px;
 }
-.first-post .thumb img{
+.today-first .thumb img{
 	width: 100%;
 	height: 200px;
 }
-.first-post .summary{
+.today-first .summary{
 	margin-bottom: 10px;
 	font-size:12px;
 	text-align: justify;
 	height: 60px;
 	overflow: hidden;
 }
-.other-post{
+.today-other{
 	display: flex;
 	margin-bottom: 10px;
 }
-.other-post .thumb{
+.today-other .thumb{
 	margin-right: 12px;
 }
-.other-post .thumb a {
+.today-other .thumb a {
 	margin-right: 12px;
 }
-.other-post .thumb img{
+.today-other .thumb img{
 	width: 86px;
 	height: 86px;
 }

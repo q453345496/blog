@@ -1,7 +1,5 @@
 package com.xian.blog.dao;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -10,9 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StopWatch;
 
-import com.google.gson.Gson;
 import com.xian.blog.model.BlogType;
-import com.xian.blog.model.vo.BlogTypeVO;
 import com.xian.blog.service.BlogTypeService;
 
 @RunWith(value = SpringJUnit4ClassRunner.class)
@@ -38,10 +34,8 @@ public class BlogTypeDaoTest {
 	public void batch() {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
-		List<BlogTypeVO> listForNav = blogTypeService.listForNav();
 		stopWatch.stop();
 		System.out.println(stopWatch.prettyPrint());;
-		System.out.println(new Gson().toJson(listForNav));;
 	}
 
 }

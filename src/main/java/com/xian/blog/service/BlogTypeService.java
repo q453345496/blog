@@ -21,7 +21,7 @@ import com.xian.blog.dao.BlogTypeDao;
 import com.xian.blog.exception.CheckException;
 import com.xian.blog.exception.FtpException;
 import com.xian.blog.model.BlogType;
-import com.xian.blog.model.vo.BlogTypeVO;
+import com.xian.blog.model.vo.NavVO;
 import com.xian.blog.util.FtpAdapter;
 
 @Service
@@ -123,18 +123,18 @@ public class BlogTypeService {
 		return blogTypeDao.listGroup();
 	}
 
-	public List<BlogTypeVO> listForNav() {
-		List<BlogTypeVO> list = new ArrayList<>();
+	public List<NavVO> listForNav() {
+		List<NavVO> list = new ArrayList<>();
 		List<BlogType> datas = blogTypeDao.selectList(new EntityWrapper<BlogType>().ne("parent_id", -1));
-		Map<Long, List<BlogTypeVO>> map = new HashMap<>();
+		Map<Long, List<NavVO>> map = new HashMap<>();
 		for (BlogType blogType : datas) {
 			if (!blogType.getParent()) {
-				List<BlogTypeVO> sub = map.get(blogType.getParentId());
+				List<NavVO> sub = map.get(blogType.getParentId());
 				if (sub == null) {
 					sub = new ArrayList<>();
 					map.put(blogType.getParentId(), sub);
 				}
-				BlogTypeVO vo = new BlogTypeVO();
+				NavVO vo = new NavVO();
 				vo.setCode(blogType.getCode());
 				vo.setName(blogType.getName());
 				sub.add(vo);
@@ -142,7 +142,7 @@ public class BlogTypeService {
 		}
 		for (BlogType blogType : datas) {
 			if (blogType.getParent()) {
-				BlogTypeVO vo = new BlogTypeVO();
+				NavVO vo = new NavVO();
 				vo.setCode(blogType.getCode());
 				vo.setName(blogType.getName());
 				vo.setSubs(map.get(blogType.getId()));

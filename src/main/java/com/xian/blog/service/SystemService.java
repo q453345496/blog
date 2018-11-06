@@ -21,7 +21,9 @@ public class SystemService {
 		//今日
 		servletContext.setAttribute("todayBlogList", blogService.listColumn(Constants.COLUMN_TODAY_RECOMMEND));
 		//导航分类
-		servletContext.setAttribute("typeList", blogTypeService.listForNav());
+		servletContext.setAttribute("navList", blogTypeService.listForNav());
+		//首页分类
+//		servletContext.setAttribute("typeList", blogTypeService.listForNav());
 
 	}
 

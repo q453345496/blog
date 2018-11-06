@@ -14,12 +14,12 @@
 			<li class="layui-nav-item">
 				<a href="<%=basePath%>/index.html">首页</a>
 			</li>
-			<c:forEach var="type" items="${typeList }">
+			<c:forEach var="nav" items="${navList }">
 				<li class="layui-nav-item">
-					<a href="<%=basePath%>/t/${type.code }">${type.name }</a>
-					<c:if test="${not empty type.subs }">
+					<a href="<%=basePath%>/t/${nav.code }">${nav.name }</a>
+					<c:if test="${not empty nav.subs }">
 						<dl class="layui-nav-child">
-								<c:forEach var="sub" items="${type.subs }">
+								<c:forEach var="sub" items="${nav.subs }">
 									<dd><a href="<%=basePath%>/t/${sub.code }">${sub.name }</a></dd>
 								</c:forEach>
 						</dl>

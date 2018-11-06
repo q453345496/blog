@@ -2,11 +2,11 @@ package com.xian.blog.model.vo;
 
 import java.util.List;
 
-public class BlogTypeVO {
+public class NavVO {
 	private String name;
 	private String code;//编码
 
-	private List<BlogTypeVO> subs;
+	private List<NavVO> subs;
 
 	public String getName() {
 		return name;
@@ -24,11 +24,11 @@ public class BlogTypeVO {
 		this.code = code;
 	}
 
-	public List<BlogTypeVO> getSubs() {
+	public List<NavVO> getSubs() {
 		return subs;
 	}
 
-	public void setSubs(List<BlogTypeVO> subs) {
+	public void setSubs(List<NavVO> subs) {
 		this.subs = subs;
 	}
 

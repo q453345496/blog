@@ -50,8 +50,9 @@ public class BlogManagerController {
 	public CommonResult save(Blog blog) {
 		String html = MarkdownUtil.toHtml(blog.getContent());
 		Document htmlDoc = Jsoup.parse(html);
+		blog.setContentNoTag(StringEscapeUtils.escapeHtml4(htmlDoc.text()));
 		if (StringUtils.isBlank(blog.getSummary())) {
-			blog.setSummary(StringUtils.substring(StringEscapeUtils.escapeHtml4(htmlDoc.text()), 0, 200));
+			blog.setSummary(StringUtils.substring(blog.getContentNoTag(), 0, 200));
 		}
 		if (Blog.DRAFT == blog.getStatus()) {//草稿的保存后成为正式使用
 			blog.setStatus(Blog.ONLINE);

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.document.Document;
@@ -58,8 +57,7 @@ public class LuceneService {
 			Document document = new Document();
 			document.add(new StringField("id", blog.getId().toString(), Store.YES));
 			document.add(new TextField("title", blog.getTitle(), Store.YES));
-			document.add(new TextField("content", blog.getContent(), Store.YES));
-
+			document.add(new TextField("content", blog.getContentNoTag(), Store.YES));
 			writer.addDocument(document);
 		} catch (IOException e) {
 			LOG.error("add Index error", e);
@@ -73,7 +71,7 @@ public class LuceneService {
 			Document document = new Document();
 			document.add(new StringField("id", blog.getId().toString(), Store.YES));
 			document.add(new TextField("title", blog.getTitle(), Store.YES));
-			document.add(new TextField("content", blog.getContent(), Store.YES));
+			document.add(new TextField("content", blog.getContentNoTag(), Store.YES));
 
 			writer.updateDocument(new Term("id", blog.getId().toString()), document);
 		} catch (IOException e) {
@@ -137,8 +135,7 @@ public class LuceneService {
 					Blog blog = new Blog();
 					blog.setId(Long.parseLong(doc.get("id")));
 					blog.setTitle(doc.get("title"));
-					blog.setSummary(StringUtils.substring(StringEscapeUtils.escapeHtml4(doc.get("content")), 0, 200));
-
+					blog.setSummary(StringUtils.substring(doc.get("content"), 0, 200));
 					if (isHighlight) {
 						String hTitle = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
 						if (StringUtils.isNotBlank(hTitle)) {

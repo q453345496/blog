@@ -51,17 +51,17 @@ public class JsoupUtil {
 				} else if ("pre".equals(tagName)) {
 					sb.append("```\r\n").append(element.text()).append("\r\n```\r\n");
 				} else if ("h1".equals(tagName)) {
-					sb.append("#").append(element.text());
+					sb.append("#").append(element.text()).append("\r\n");
 				} else if ("h2".equals(tagName)) {
-					sb.append("##").append(element.text());
+					sb.append("##").append(element.text()).append("\r\n");
 				} else if ("h3".equals(tagName)) {
-					sb.append("###").append(element.text());
+					sb.append("###").append(element.text()).append("\r\n");
 				} else if ("h4".equals(tagName)) {
-					sb.append("####").append(element.text());
+					sb.append("####").append(element.text()).append("\r\n");
 				} else if ("h5".equals(tagName)) {
-					sb.append("#####").append(element.text());
+					sb.append("#####").append(element.text()).append("\r\n");
 				} else if ("h6".equals(tagName)) {
-					sb.append("######").append(element.text());
+					sb.append("######").append(element.text()).append("\r\n");
 				} else {
 					sb.append(element.text());
 				}

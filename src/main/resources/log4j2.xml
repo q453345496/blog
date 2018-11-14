@@ -8,9 +8,13 @@
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d{DEFAULT} [%-5level] %l - %msg%n" />
 		</Console>
-		<File name="AllLog" fileName="${log_path}/all.log">
+		<RollingFile name="AllLog" fileName="${log_path}/all.log" filePattern="${log_path}/all/$${date:yyyy-MM}/all-%d{yyyy-MM-dd}-%i.log">
 			<PatternLayout pattern="${patternLayout}" />
-		</File>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
 
 		<RollingFile name="InfoLog" fileName="${log_path}/info.log"
 			filePattern="${log_path}/info/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
@@ -61,7 +65,7 @@
 			<AppenderRef ref="AllLog" />
 <!-- 			<AppenderRef ref="InfoLog" /> -->
 <!-- 			<AppenderRef ref="WarnLog" /> -->
-<!-- 			<AppenderRef ref="ErrorLog" /> -->
+			<AppenderRef ref="ErrorLog" />
 			<!-- <AppenderRef ref="Console" level="DEBUG" /> -->
 			<!-- <AppenderRef ref="AllLog" level="DEBUG" /> -->
 			<!-- <AppenderRef ref="InfoLog" level="INFO" /> -->

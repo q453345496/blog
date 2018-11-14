@@ -10,7 +10,7 @@
 <!-- 		</association> -->
 	</resultMap>
 
-	<sql id="sql_select">
+	<sql id="sql_select_detail">
 		SELECT
 		b.id,
 		b.title,
@@ -22,6 +22,26 @@
 		b.reply AS reply,
 		b.create_time,
 		b.modify_time,
+		b.`status`,
+		b.thumb,
+		t.NAME AS type_name,
+		b.source_url,
+		b.author_id,
+		b.author_name,
+		t.code AS type_code
+		FROM
+		t_blog b
+		LEFT JOIN t_blog_type t ON
+		b.type_id = t.id
+	</sql>
+	
+	<sql id="sql_select_short">
+		SELECT
+		b.id,
+		b.title,
+		b.type_id,
+		b.summary,
+		b.create_time,
 		b.`status`,
 		b.thumb,
 		t.NAME AS type_name,
@@ -48,14 +68,14 @@
 	</sql>
 	
 	<select id="list" parameterType="Map" resultMap="BlogResult">
-		<include refid="sql_select"></include>
+		<include refid="sql_select_short"></include>
 		<where>
 			<include refid="sql_where"></include>
 		</where>
 	</select>
 	
 	<select id="detail" parameterType="Long" resultMap="BlogResult">
-		<include refid="sql_select"></include>
+		<include refid="sql_select_detail"></include>
 		WHERE b.id = #{id}
 	</select>
 	
@@ -75,7 +95,7 @@
 	</select>
 	
 	<select id="listColumn" parameterType="Map" resultMap="BlogResult">
-		SELECT b.* FROM t_blog b 
+		SELECT b.id, b.title, b.thumb, b.summary, b.create_time FROM t_blog b 
 		RIGHT JOIN t_column_blog_relate r 
 		ON b.id = r.blog_id AND r.column_id = #{columnId} AND b.`status` = #{status}
 		ORDER BY r.rank, b.create_time;

@@ -209,3 +209,26 @@ PRIMARY KEY (`id`)
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8
 ;
+
+/*代理池*/
+DROP TABLE IF EXISTS `t_proxy_server`;
+CREATE TABLE `t_proxy_server` (
+`id` int(11) NOT NULL AUTO_INCREMENT ,
+`ip` varchar(32) NOT NULL ,
+`port` int(11) NOT NULL,
+`protocol` int(11) NOT NULL,
+`type` int(11) NOT NULL,
+`state` int(11) NOT NULL,
+`fail_times` int(11) DEFAULT 0 ,
+`success_times` int(11) DEFAULT 0 ,
+`score` double(10,3) DEFAULT 0 ,
+`respone_time` int(11) DEFAULT 0 ,
+`last_check_time` datetime,
+`create_time` datetime NOT NULL,
+`modify_time` datetime NOT NULL,
+PRIMARY KEY (`id`),
+UNIQUE KEY `index_ip` (`ip`) USING HASH
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8
+;

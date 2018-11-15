@@ -15,6 +15,9 @@ public class ProxyServer {
 	public static final int PROTOCOL_HTTP = 0;
 	public static final int PROTOCOL_HTTPS = 1;
 
+	public static final String SCHEME_HTTP = "http";
+	public static final String SCHEME_HTTPS = "https";
+
 	public static final int STATE_UNABLE = 0;
 	public static final int STATE_ENABLE = 1;
 

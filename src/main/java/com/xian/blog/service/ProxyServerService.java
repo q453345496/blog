@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +24,7 @@ import com.xian.blog.model.ProxyServer;
 @Service
 @Transactional
 public class ProxyServerService {
-
+	private static final Logger LOG = LoggerFactory.getLogger(ProxyServerService.class);
 	@Resource
 	private ProxyServerDao proxyServerDao;
 
@@ -76,14 +78,40 @@ public class ProxyServerService {
 		return true;
 	}
 
+	/**
+	 * 通过ip和protocol来唯一确定,暂时不考虑一台服务有多个端口的问题
+	 * 
+	 */
 	public void saveNotExistByIp(ProxyServer proxyServer) {
-		List<Object> list = proxyServerDao.selectObjs(//
+		List<ProxyServer> list = proxyServerDao.selectList(//
 				new EntityWrapper<ProxyServer>()//
 						.eq("ip", proxyServer.getIp())//
 						.eq("protocol", proxyServer.getProtocol())//
 		);
-		if (list.isEmpty()) {
+		if (list.isEmpty() && (proxyServer.getState().equals(ProxyServer.STATE_ENABLE))) {
+			proxyServer.setScore(5d);
+			proxyServer.setSuccessTimes(1);
 			proxyServerDao.insert(proxyServer);
+		} else {
+			if (!list.isEmpty()) {
+				if (list.size() > 1) {
+					LOG.warn(proxyServer.getProtocol() + "://" + proxyServer.getIp() + ",have more then one");
+				}
+				ProxyServer db = list.get(0);
+				proxyServer.setId(db.getId());
+				if (proxyServer.getState().equals(ProxyServer.STATE_ENABLE)) {
+					proxyServer.setSuccessTimes(db.getSuccessTimes() + 1);
+					proxyServer.setScore(db.getScore() + 1);
+				} else {
+					proxyServer.setFailTimes(db.getFailTimes() + 1);
+					proxyServer.setScore(db.getScore() - 1);
+				}
+				if (proxyServer.getScore() < 0) {
+					proxyServerDao.deleteById(db.getId());
+				} else {
+					proxyServerDao.updateById(proxyServer);
+				}
+			}
 		}
 	}
 }

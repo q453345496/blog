@@ -1,10 +1,13 @@
 package com.xian.blog.service;
 
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -98,24 +101,19 @@ public class AttachmentService {
 		if (HttpUtil.inHostList(sourceUrl)) {
 			throw new UploadException("in our server");
 		}
-		HttpURLConnection connection = null;
 		try {
-			connection = HttpUtil.getConnection(sourceUrl);
-			if (HttpURLConnection.HTTP_OK != connection.getResponseCode()) {
-				LOG.error("Error Response Code:" + connection.getResponseCode());
-				throw new UploadException("Error Response Code");
-			}
+			InputStream inputStream = HttpUtil.get(sourceUrl);
 			String suffix = FTPConstant.getSuffix(sourceUrl);
 			String title = FTPConstant.newTitle(suffix);
 			String localPath = FTPConstant.getSavepPath(bizId, bizType, type, title);
 			FtpAdapter ftpAdapter = FtpAdapter.getAndConnect();
 			try {
-				ftpAdapter.upload(connection.getInputStream(), localPath);
+				ftpAdapter.upload(inputStream, localPath);
 				Attachment attachment = new Attachment();
 				attachment.setType(type);
 				attachment.setName(title);
 				attachment.setPath(localPath);
-				attachment.setSize(connection.getContentLengthLong());
+				attachment.setSize(Long.valueOf(inputStream.available()));
 				attachment.setSourceURL(sourceUrl);
 				attachment.setBizId(bizId);
 				attachment.setBizType(bizType);
@@ -129,10 +127,6 @@ public class AttachmentService {
 			LOG.error(String.format("captureRemoteData error:[sourceUrl:%s,bizId:%s,bizType:%s,type:%s]", sourceUrl,
 					bizId, bizType, type), e);
 			throw new UploadException(e.getMessage());
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
 		}
 	}
 

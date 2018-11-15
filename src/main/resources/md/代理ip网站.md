@@ -1,24 +1,20 @@
 ```
 [
     {
-        'name': 'mogumiao.com',
-        'resource': ['http://www.mogumiao.com/proxy/free/listFreeIp',
-                     'http://www.mogumiao.com/proxy/api/freeIp?count=15'],
-        'parse_type': 'json',
+        'name': 'kuaidaili.com',
+        'resource': ['https://www.kuaidaili.com/free/inha/%s' % i for i in range(1, 6)] +
+                    ['https://www.kuaidaili.com/proxylist/%s' % i for i in range(1, 11)],
         'parse_rule': {
-            'detail_rule': ['msg'],
-            'ip_key': 'ip',
-            'port_key': 'port',
-        },
-    },
-    {
-        # now we can't get proxies from it,but it required by ip181
-        'name': 'xdaili.cn',
-        'resource': ['http://www.xdaili.cn:80/ipagent/freeip/getFreeIps?page=1&rows=10'],
-        'parse_rule': {
-            'detail_rule': ['RESULT'],
-            'ip_key': 'ip',
-            'port_key': 'port',
+            'pre_extract_method': 'xpath',
+            'pre_extract': '//tr',
+            'infos_pos': 4,
+            'infos_end': None,
+            'detail_rule': 'td::text',
+            'ip_pos': 0,
+            'port_pos': 1,
+            'extract_protocol': True,
+            'split_detail': False,
+            'protocols': None
         },
     },
     {
@@ -30,23 +26,6 @@
             'pre_extract_method': 'xpath',
             'pre_extract': '//tr',
             'infos_pos': 1,
-            'infos_end': None,
-            'detail_rule': 'td::text',
-            'ip_pos': 0,
-            'port_pos': 1,
-            'extract_protocol': True,
-            'split_detail': False,
-            'protocols': None
-        },
-    },
-    {
-        'name': 'kuaidaili.com',
-        'resource': ['https://www.kuaidaili.com/free/inha/%s' % i for i in range(1, 6)] +
-                    ['https://www.kuaidaili.com/proxylist/%s' % i for i in range(1, 11)],
-        'parse_rule': {
-            'pre_extract_method': 'xpath',
-            'pre_extract': '//tr',
-            'infos_pos': 4,
             'infos_end': None,
             'detail_rule': 'td::text',
             'ip_pos': 0,

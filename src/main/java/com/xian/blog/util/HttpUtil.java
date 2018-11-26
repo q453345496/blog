@@ -183,9 +183,10 @@ public class HttpUtil {
 				.setSocketTimeout(30 * 1000)//
 				.setConnectionRequestTimeout(30 * 1000);
 		if (proxyServer != null) {
-			builder.setProxy(new HttpHost(proxyServer.getIp(), proxyServer.getPort(),
-					proxyServer.getProtocol().equals(ProxyServer.PROTOCOL_HTTPS) //
-							? ProxyServer.SCHEME_HTTPS : ProxyServer.SCHEME_HTTP));
+			builder.setProxy(new HttpHost(proxyServer.getIp(), proxyServer.getPort()//
+			//					, proxyServer.getProtocol().equals(ProxyServer.PROTOCOL_HTTPS) ? ProxyServer.SCHEME_HTTPS
+			//							: ProxyServer.SCHEME_HTTP
+			));
 		}
 		return builder.build();//
 
